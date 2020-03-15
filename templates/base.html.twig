@@ -14,7 +14,7 @@
     </head>
     <body>
          <nav class="navbar navbar-expand navbar-dark bg-dark">
-                <a href="/" class="navbar-brand">Home</a>
+                <a href="{{ path('home') }}" class="navbar-brand">Home</a>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -35,7 +35,7 @@
                         </li>
                     </ul>
                     <div class="my-2 mylg-0">
-                    <a href="/login"><button class="btn btn-outline-success" type="submit"><i class="fas fa-user-lock fa-3x"></i></button></a>
+                    <a href="{{ path('login') }}"><button class="btn btn-outline-success" type="submit"><i class="fas fa-user-lock fa-3x"></i></button></a>
                     </div>
                 </div>
             </nav>

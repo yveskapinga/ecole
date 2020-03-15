@@ -9,7 +9,7 @@ class EcoleController extends AbstractController
 {
     
     /**
-     * @Route("/", name="ecole")
+     * @Route("/", name="home")
      */
     public function home()
     {
