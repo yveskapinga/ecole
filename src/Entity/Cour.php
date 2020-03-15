@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CoursRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CourRepository")
  */
-class Cours
+class Cour
 {
     /**
      * @ORM\Id()
@@ -24,7 +24,7 @@ class Cours
     /**
      * @ORM\Column(type="integer")
      */
-    private $dureeEnMinutes;
+    private $durreEnMinte;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -48,14 +48,14 @@ class Cours
         return $this;
     }
 
-    public function getDureeEnMinutes(): ?int
+    public function getDurreEnMinte(): ?int
     {
-        return $this->dureeEnMinutes;
+        return $this->durreEnMinte;
     }
 
-    public function setDureeEnMinutes(int $dureeEnMinutes): self
+    public function setDurreEnMinte(int $durreEnMinte): self
     {
-        $this->dureeEnMinutes = $dureeEnMinutes;
+        $this->durreEnMinte = $durreEnMinte;
 
         return $this;
     }
