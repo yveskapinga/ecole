@@ -1,0 +1,13 @@
+
+{% extends "base.html.twig" %}
+{% block title %}{{ parent () }} Home{% endblock %}
+{% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('/css/home.css') }}">{{ parent() }}
+{% endblock %}
+{% block body %}
+ <img src="/img/photo1.jpg" alt="backround pic">
+
+{% block javascripts %}  
+{% endblock %}
+{% endblock body %}
+

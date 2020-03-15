@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+{% block title %}{{ parent () }}Login{% endblock %}
+{% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('/css/login.css') }}">{{ parent() }}
+{% endblock %}
+{% block body %}
+	<div class="login-box" >
+	<div class="login-header">Login</div>
+	<div class="login-body">
+		<form class="form-group">
+			<label>E-mail</label>
+			<input type="text" class="form-control" name="email" placeholder="exemple@exemple">
+			<label>Password</label>
+			<input type="password" class="form-control" name="password">
+			<input type="submit" value="Envoyer" class="form-control btn btn-success ">
+		</form>
+	</div>
+</div>
+{% endblock body %}
+
+
+
