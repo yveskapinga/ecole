@@ -14,7 +14,7 @@ class AppFixtures extends Fixture
         for($i=1; $i<10; $i++){
             $cour = new Cour();
             $cour->setDate(new \DateTime());
-            $cour->setDurreEnMinte(60+$i);
+            $cour->setDurreEnMinte(60*$i);
             $cour->setDescription("<p>description$i</p>");
             $manager->persist($cour);
         }
