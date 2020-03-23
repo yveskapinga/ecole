@@ -1,0 +1,93 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{ parent () }}
+	Matiers
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+{% block body %}
+
+	<section id="team" class="padd-section text-center wow fadeInUp">
+
+    <div class="container">
+      <div class="section-title text-center">
+
+        <h2>membres du l'école</h2>
+        <p class="separator">l'equipe administrtifs de l'ecole roubaix</p>
+
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-6 col-md-4 col-lg-3">
+          <div class="team-block bottom">
+            <img src="img/team/sofiane.jpg" class="img-responsive" alt="img">
+            <div class="team-content">
+              <ul class="list-unstyled">
+                <li><a href="https://www.facebook.com/" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="https://twitter.com/home" class="twitter"><i class="fab fa-twitter"></i></i></a></li>
+                <li><a href="https://www.linkedin.com/feed/" class="linkedin"><i class="fab fa-linkedin-in"></i></a></li>
+              </ul>
+              <span>chercheur sur google &#128540;</span>
+              <h4>sofiane</h4>
+            </div>
+          </div>
+        </div>
+
+       <div class="col-md-6 col-md-4 col-lg-3">
+          <div class="team-block bottom">
+            <img src="img/team/2.jpg" class="img-responsive" alt="img">
+            <div class="team-content">
+              <ul class="list-unstyled">
+                <li><a href="https://www.facebook.com/" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="https://twitter.com/home" class="twitter"><i class="fab fa-twitter"></i></i></a></li>
+                <li><a href="https://www.linkedin.com/feed/" class="linkedin"><i class="fab fa-linkedin-in"></i></a></li>
+              </ul>
+              <span>enseigante</span>
+              <h4>lisa</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-md-4 col-lg-3">
+          <div class="team-block bottom">
+            <img src="img/team/3.jpg" class="img-responsive" alt="img">
+            <div class="team-content">
+              <ul class="list-unstyled">
+                <li><a href="https://www.facebook.com/" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="https://twitter.com/home" class="twitter"><i class="fab fa-twitter"></i></i></a></li>
+                <li><a href="https://www.linkedin.com/feed/" class="linkedin"><i class="fab fa-linkedin-in"></i></a></li>
+              </ul>
+             <span>manager</span>
+              <h4>Kamel</h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-md-4 col-lg-3">
+          <div class="team-block bottom">
+            <img src="img/team/4.jpg" class="img-responsive" alt="img">
+            <div class="team-content">
+              <ul class="list-unstyled">
+                <li><a href="https://www.facebook.com/" class="facebook"><i class="fab fa-facebook-f"></i></a></li>
+                <li><a href="https://twitter.com/home" class="twitter"><i class="fab fa-twitter"></i></i></a></li>
+                <li><a href="https://www.linkedin.com/feed/" class="linkedin"><i class="fab fa-linkedin-in"></i></a></li>
+              </ul>
+              <span >chercheuse</span>
+              <h4>melody</h4>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+		{% block javascripts %}
+			{{ parent() }}
+		{% endblock %}
+	{% endblock body %}

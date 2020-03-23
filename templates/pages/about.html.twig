@@ -4,10 +4,89 @@
     {{ parent() }}
 {% endblock %}
 {% block body %}
-<!--==========================
+  <!--==========================
     About Us Section
   ============================-->
   <section id="about-us" class="about-us padd-section wow fadeInUp">
+    <article>
+    <div class="container">
+      <div class="section-title text-center">
+        <h2>A propos de nous.</h2>
+        <p class="separator">Integer cursus bibendum augue ac cursus .</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-block">
+            <img src="img/svg/paint-palette.svg" alt="img" class="img-fluid">
+            <h4>creative design</h4>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-block">
+            <img src="img/svg/vector.svg" alt="img" class="img-fluid">
+            <h4>Retina Ready</h4>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-block">
+            <img src="img/svg/design-tool.svg" alt="img" class="img-fluid">
+            <h4>easy to use</h4>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-block">
+            <img src="img/svg/asteroid.svg" alt="img" class="img-fluid">
+            <h4>Free Updates</h4>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-block">
+            <img src="img/svg/asteroid.svg" alt="img" class="img-fluid">
+            <h4>Free Updates</h4>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-block">
+            <img src="img/svg/cloud-computing.svg" alt="img" class="img-fluid">
+            <h4>App store support</h4>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-block">
+            <img src="img/svg/pixel.svg" alt="img" class="img-fluid">
+            <h4>Perfect Pixel</h4>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-block">
+            <img src="img/svg/code.svg" alt="img" class="img-fluid">
+            <h4>clean codes</h4>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </article>
+  <article>
     <div class="container">
       <div class="row justify-content-center">
 
@@ -18,7 +97,7 @@
         <div class="col-md-7 col-lg-5">
           <div class="about-content">
 
-            <h2><span>eStartup</span>UI Design Mobile </h2>
+            <h2><span>ecole Roubaix</span>UI Design Mobile </h2>
             <p>
                 Ecole Roubaix est une école d’informatique créée en 2020 qui forme des experts du secteur,
                 la plupart en 5 ans après le Bac mais également dès 18 ans ou à travers des formations professionnelles 
@@ -39,7 +118,7 @@
               <li><i class="fa fa-angle-right"></i>NFA008</li>
               <li><i class="fa fa-angle-right"></i>NFA83</li>
               <li><i class="fa fa-angle-right"></i>NFA021</li>
-               <li><i class="fa fa-angle-right"></i>...</li>
+              <li><i class="fa fa-angle-right"></i>...</li>
             </ul>
 
           </div>
@@ -47,7 +126,9 @@
 
       </div>
     </div>
-  </section>
-{% block javascripts %}  
+  </article>
+  <section>
+{% block javascripts %} 
+  {{ parent() }} 
 {% endblock %}
 {% endblock body %}

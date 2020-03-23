@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{ parent () }}
+	Matiers
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+{% block body %}
+
+	<section id="matiere" class="padd-section text-center wow fadeInUp">
+
+		<div class="container">
+			<div class="section-title text-center">
+				<h2>MATIERS</h2>
+				<p class="separator">Matiers que nous proposant.</p>
+			</div>
+		</div>
+
+    <div>
+  <!--ici la liste des matieres--> salam alikoum
+    </div>
+
+		</section>
+		{% block javascripts %}
+			{{ parent() }}
+		{% endblock %}
+	{% endblock body %}

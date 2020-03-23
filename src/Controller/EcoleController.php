@@ -34,12 +34,21 @@ class EcoleController extends AbstractController
     }
 
     /**
-    * @Route("/cours", name="cours")
+    * @Route("/matiers", name="matiers")
     */
-    public function cours() 
+    public function matiers() 
     {
        $repo = $this->getDoctrine()->getRepository(Cour::class);
        $cour = $repo->find(12);
-        return $this->render('pages/cours.html.twig');
+        return $this->render('pages/matiers.html.twig');
+    }
+     /**
+    * @Route("/equipe", name="equipe")
+    */
+    public function equipe() 
+    {
+       $repo = $this->getDoctrine()->getRepository(Cour::class);
+       $cour = $repo->find(12);
+        return $this->render('pages/equipe.html.twig');
     }
 }
