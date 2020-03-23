@@ -14,7 +14,7 @@ class EcoleController extends AbstractController
     public function home()
     {
         $nom = 'kamel';
-        return $this->render('pages/home.html.twig');
+        return $this->render('pages/home.html.twig',['nom'=>$nom]);
     }
     
     /**
@@ -23,6 +23,14 @@ class EcoleController extends AbstractController
     public function login() 
     { 
         return $this->render('pages/login.html.twig');
+    }
+
+     /**
+    * @Route("/about", name="about")
+    */
+    public function about() 
+    { 
+        return $this->render('pages/about.html.twig');
     }
 
     /**

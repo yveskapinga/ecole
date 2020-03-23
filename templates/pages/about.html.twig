@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+{% block title %}{{ parent () }} Home{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+<!--==========================
+    About Us Section
+  ============================-->
+  <section id="about-us" class="about-us padd-section wow fadeInUp">
+    <div class="container">
+      <div class="row justify-content-center">
+
+        <div class="col-md-5 col-lg-3">
+          <img src="img/about-img.png" alt="About">
+        </div>
+
+        <div class="col-md-7 col-lg-5">
+          <div class="about-content">
+
+            <h2><span>eStartup</span>UI Design Mobile </h2>
+            <p>
+                Ecole Roubaix est une école d’informatique créée en 2020 qui forme des experts du secteur,
+                la plupart en 5 ans après le Bac mais également dès 18 ans ou à travers des formations professionnelles 
+                plus courtes,
+                ouvertes à tous les profils et adaptées à tous les parcours.
+                Elle permet de transformer une passion pour l’informatique en une expertise qui débouche sur des emplois
+                à fort potentiel comparable à celui de toutes les Grandes Écoles (100% des élèves du cursus post-bac sont 
+                embauchés à la fin de leurs études). Cette formation recherchée par les entreprises
+                repose sur un modèle novateur qui met l’accent sur trois qualités de plus en plus exigées :
+                l’adaptabilité, l’auto-progression et le sens du projet. Epitech délivre un titre d’Expert en Technologies
+                de l’Information de niveau 1,
+                enregistré par la Commission Roubaisienne de la Certification Professionnelle (CNCP) <span style="font-size:30px">&#128540;</span>.
+            </p>
+
+            <ul class="list-unstyled">
+              <li><i class="fa fa-angle-right"></i>NFA016</li>
+              <li><i class="fa fa-angle-right"></i>NFA031</li>
+              <li><i class="fa fa-angle-right"></i>NFA008</li>
+              <li><i class="fa fa-angle-right"></i>NFA83</li>
+              <li><i class="fa fa-angle-right"></i>NFA021</li>
+               <li><i class="fa fa-angle-right"></i>...</li>
+            </ul>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+{% block javascripts %}  
+{% endblock %}
+{% endblock body %}
