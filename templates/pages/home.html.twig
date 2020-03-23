@@ -5,8 +5,20 @@
             <link rel="stylesheet" href="{{ asset('/css/home.css') }}">{{ parent() }}
 {% endblock %}
 {% block body %}
- <img src="/img/photo1.jpg" alt="backround pic">
-
+<!--==========================
+    Home Section
+  ============================-->
+  <section id="hero" class="wow fadeIn">
+    <div class="hero-container">
+      <h1>Bienvenue a l'Ecole Roubaix</h1>
+      <img src="img/home-img.png" alt="Hero Imgs">
+      <div class="btns">
+        <a href="#"><i class="fab fa-apple"></i>App Store</a>
+        <a href="#"><i class="fab fa-google-play"></i> Google Play</a>
+        <a href="#"><i class="fab fa-windows"></i> windows</a>
+      </div>
+    </div>
+  </section><!-- #home -->
 {% block javascripts %}  
 {% endblock %}
 {% endblock body %}

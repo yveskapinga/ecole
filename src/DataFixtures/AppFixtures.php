@@ -11,7 +11,7 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        for($i=1; $i<10; $i++){
+        for($i=1; $i<15; $i++){
             $cour = new Cour();
             $cour->setDate(new \DateTime());
             $cour->setDurreEnMinte(60*$i);
