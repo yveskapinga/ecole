@@ -21,9 +21,12 @@ class Etudiant extends Personne{
      */
     private $absences;
 
+   
+
     public function __construct()
     {
         $this->absences = new ArrayCollection();
+        $this->adresses = new ArrayCollection();
     }
 
     /**
@@ -56,4 +59,6 @@ class Etudiant extends Personne{
 
         return $this;
     }
+
+   
 }
