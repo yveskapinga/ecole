@@ -26,6 +26,12 @@ class LoginInfos
      */
     private $login;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Personne", inversedBy="no")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $personne;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +57,18 @@ class LoginInfos
     public function setLogin(string $login): self
     {
         $this->login = $login;
+
+        return $this;
+    }
+
+    public function getPersonne(): ?Personne
+    {
+        return $this->personne;
+    }
+
+    public function setPersonne(?Personne $personne): self
+    {
+        $this->personne = $personne;
 
         return $this;
     }

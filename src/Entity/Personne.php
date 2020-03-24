@@ -43,9 +43,15 @@ abstract class Personne
      */
     private $adresses;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\LoginInfos", mappedBy="personne")
+     */
+    private $loginInos;
+
     public function __construct()
     {
         $this->adresses = new ArrayCollection();
+        $this->loginInos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,6 +132,37 @@ abstract class Personne
             // set the owning side to null (unless already changed)
             if ($adress->getPersonne() === $this) {
                 $adress->setPersonne(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|LoginInfos[]
+     */
+    public function getNo(): Collection
+    {
+        return $this->loginInos;
+    }
+
+    public function addNo(LoginInfos $loginInos): self
+    {
+        if (!$this->loginInos->contains($loginInos)) {
+            $this->loginInos[] = $loginInos;
+            $loginInos->setPersonne($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNo(LoginInfos $loginInos): self
+    {
+        if ($this->loginInos->contains($loginInos)) {
+            $this->loginInos->removeElement($loginInos);
+            // set the owning side to null (unless already changed)
+            if ($loginInos->getPersonne() === $this) {
+                $loginInos->setPersonne(null);
             }
         }
 

@@ -21,6 +21,12 @@ class Etudiant extends Personne{
      */
     private $absences;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Promotion", inversedBy="etudiant")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $promotion;
+
    
 
     public function __construct()
@@ -56,6 +62,18 @@ class Etudiant extends Personne{
                 $absence->setEtudiant(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPromotion(): ?Promotion
+    {
+        return $this->promotion;
+    }
+
+    public function setPromotion(?Promotion $promotion): self
+    {
+        $this->promotion = $promotion;
 
         return $this;
     }
