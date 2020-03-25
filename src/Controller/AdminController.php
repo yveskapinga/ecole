@@ -10,10 +10,21 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin", name="admin")
      */
-    public function index()
+    public function loginAdmin()
     {
-        return $this->render('admin/index.html.twig', [
+        return $this->render('admin/login.html.twig', [
+            'controller_name' => 'AdminController',
+        ]);
+    }
+
+     /**
+     * @Route("/adminMatiere", name="adminMatiere")
+     */
+    public function dminMatiere()
+    {
+        return $this->render('admin/adminMatiere.html.twig', [
             'controller_name' => 'AdminController',
         ]);
     }
 }
+

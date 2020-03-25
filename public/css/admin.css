@@ -1,0 +1,16 @@
+body{
+    position: relative;
+    background-color: rgb(183, 202, 201);
+    margin: auto;
+    font-family: Verdana;
+    min-height: 100vh;
+}
+
+footer {
+    position: absolute;
+    background-color: black;
+    width:100%;
+    left: 0px;
+    bottom: 0px;
+}
+
