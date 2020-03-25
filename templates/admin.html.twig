@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome a la page {% endblock %}</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
+        {% endblock %}
+    </head>
+    <body>
+        
+        <div class="container">
+        {% block body %}{% endblock %}
+        </div>
+        	
+            {% block javascripts %}
+            
+            {% endblock %}
+            <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    </body>
+</html>
