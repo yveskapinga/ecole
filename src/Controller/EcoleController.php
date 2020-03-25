@@ -5,7 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Cour;
+use App\Entity\Matiere;
 
 class EcoleController extends AbstractController
 {
@@ -40,9 +40,10 @@ class EcoleController extends AbstractController
     */
     public function matiers() 
     {
-       $repo = $this->getDoctrine()->getRepository(Cour::class);
-       $cour = $repo->find(12);
-        return $this->render('pages/matiers.html.twig');
+       $repo = $this->getDoctrine()->getRepository(Matiere::class);
+       $matieres = $repo->findAll();
+        return $this->render('pages/matiers.html.twig',['controller_name'=>'EcoleController','matieres'=>$matieres
+        ]);
     }
      /**
     * @Route("/equipe", name="equipe")

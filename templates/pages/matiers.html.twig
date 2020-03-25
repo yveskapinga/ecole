@@ -13,16 +13,24 @@
 		<div class="container">
 			<div class="section-title text-center">
 				<h2>MATIERS</h2>
-				<p class="separator">Matiers que nous proposant.</p>
+				<p class="separator">Les {{ matieres|length }} Matiers que nous proposant.</p>
+				
 			</div>
 		</div>
+		<div class ="row">
+			{% for matiere in matieres %}
+			<div class="card col-md-4" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">ID:{{matiere.getId()}} </h5>
+					<p class="card-text">NOM:{{matiere.getNom()}}</p>
+					<a href="#" class="btn btn-primary">voir les cours</a>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
 
-    <div>
-  <!--ici la liste des matieres--> salam alikoum
-    </div>
-
-		</section>
-		{% block javascripts %}
-			{{ parent() }}
-		{% endblock %}
-	{% endblock body %}
+	</section>
+	{% block javascripts %}
+		{{ parent() }}
+	{% endblock %}
+{% endblock body %}

@@ -26,17 +26,23 @@ class Promotion
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Etudiant", mappedBy="promotion")
      */
-    private $etudiant;
+    private $etudiants;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Cour", mappedBy="promotion")
      */
-    private $cour;
+    private $cours;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Enseigne", inversedBy="promotions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $enseigne;
 
     public function __construct()
     {
-        $this->etudiant = new ArrayCollection();
-        $this->cour = new ArrayCollection();
+        $this->etudiants = new ArrayCollection();
+        $this->cours = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -59,15 +65,15 @@ class Promotion
     /**
      * @return Collection|Etudiant[]
      */
-    public function getEtudiant(): Collection
+    public function getEtudiants(): Collection
     {
-        return $this->etudiant;
+        return $this->etudiants;
     }
 
     public function addEtudiant(Etudiant $etudiant): self
     {
-        if (!$this->etudiant->contains($etudiant)) {
-            $this->etudiant[] = $etudiant;
+        if (!$this->etudiants->contains($etudiant)) {
+            $this->etudiants[] = $etudiant;
             $etudiant->setPromotion($this);
         }
 
@@ -76,8 +82,8 @@ class Promotion
 
     public function removeEtudiant(Etudiant $etudiant): self
     {
-        if ($this->etudiant->contains($etudiant)) {
-            $this->etudiant->removeElement($etudiant);
+        if ($this->etudiants->contains($etudiant)) {
+            $this->etudiants->removeElement($etudiant);
             // set the owning side to null (unless already changed)
             if ($etudiant->getPromotion() === $this) {
                 $etudiant->setPromotion(null);
@@ -90,15 +96,15 @@ class Promotion
     /**
      * @return Collection|Cour[]
      */
-    public function getCour(): Collection
+    public function getCours(): Collection
     {
-        return $this->cour;
+        return $this->cours;
     }
 
     public function addCour(Cour $cour): self
     {
-        if (!$this->cour->contains($cour)) {
-            $this->cour[] = $cour;
+        if (!$this->cours->contains($cour)) {
+            $this->cours[] = $cour;
             $cour->setPromotion($this);
         }
 
@@ -107,13 +113,25 @@ class Promotion
 
     public function removeCour(Cour $cour): self
     {
-        if ($this->cour->contains($cour)) {
-            $this->cour->removeElement($cour);
+        if ($this->cours->contains($cour)) {
+            $this->cours->removeElement($cour);
             // set the owning side to null (unless already changed)
             if ($cour->getPromotion() === $this) {
                 $cour->setPromotion(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEnseigne(): ?Enseigne
+    {
+        return $this->enseigne;
+    }
+
+    public function setEnseigne(?Enseigne $enseigne): self
+    {
+        $this->enseigne = $enseigne;
 
         return $this;
     }

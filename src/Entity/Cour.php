@@ -32,11 +32,12 @@ class Cour
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Promotion", inversedBy="cour")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Promotion", inversedBy="cours")
      * @ORM\JoinColumn(nullable=false)
      */
     private $promotion;
 
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -89,4 +90,5 @@ class Cour
 
         return $this;
     }
+
 }

@@ -22,7 +22,7 @@ class Etudiant extends Personne{
     private $absences;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Promotion", inversedBy="etudiant")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Promotion", inversedBy="etudiants")
      * @ORM\JoinColumn(nullable=false)
      */
     private $promotion;
@@ -77,6 +77,8 @@ class Etudiant extends Personne{
 
         return $this;
     }
+
+   
 
    
 }

@@ -4,21 +4,24 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use App\Entity\Cour;
+use App\Entity\Matiere;
+use App\Entity\Enseigne;
 use DateTime;
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        for($i=1; $i<15; $i++){
-            $cour = new Cour();
-            $cour->setDate(new \DateTime());
-            $cour->setDurreEnMinte(60*$i);
-            $cour->setDescription("<p>description$i</p>");
-            $manager->persist($cour);
-        }
-
+        $enseigne = new Enseigne();
+        $enseigne->setNom('enseigne');
+        $enseigne->setLibelle('libelle_enseinge');
+        $manager->persist($enseigne);
+         for($i=1; $i<50; $i++){
+            $matiere = new Matiere();
+            $matiere->setNom('matiere'.$i);
+            $matiere->setEnseigne($enseigne);
+            $manager->persist($matiere);
+         }
         $manager->flush();
     }
 }
