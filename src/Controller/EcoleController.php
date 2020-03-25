@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Matiere;
+use App\Entity\Cour;
+use App\Repository\MatiereRepository;
 
 class EcoleController extends AbstractController
 {
@@ -35,16 +37,34 @@ class EcoleController extends AbstractController
         return $this->render('pages/about.html.twig');
     }
 
+    
     /**
     * @Route("/matiers", name="matiers")
     */
-    public function matiers() 
+    /*dans cette fonction je vais recupere le repository de Matiere via le service Container de symfony*/
+    public function matiers(MatiereRepository $repo) 
     {
-       $repo = $this->getDoctrine()->getRepository(Matiere::class);
+       /*
+        plus besoin de cette ligne
+        $repo = $this->getDoctrine()->getRepository(Matiere::class);
+       */
        $matieres = $repo->findAll();
         return $this->render('pages/matiers.html.twig',['controller_name'=>'EcoleController','matieres'=>$matieres
         ]);
     }
+
+    /**
+    * @Route("/matiers/{id}", name="cour")
+    */
+    public function cour($id) 
+    {
+       $repo1 = $this->getDoctrine()->getRepository(Cour::class);
+       $repo2 = $this->getDoctrine()->getRepository(Matiere::class);
+       $cours = $repo1->findByMatiere($id);
+       $matiers = $repo2->findOneById($id);
+        return $this->render('pages/cours.html.twig',['cours'=>$cours,'matiere'=>$matiers]);
+    }
+
      /**
     * @Route("/equipe", name="equipe")
     */
