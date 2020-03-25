@@ -37,6 +37,12 @@ class Cour
      */
     private $promotion;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Matiere", inversedBy="cours")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $matiere;
+
     
     public function getId(): ?int
     {
@@ -87,6 +93,18 @@ class Cour
     public function setPromotion(?Promotion $promotion): self
     {
         $this->promotion = $promotion;
+
+        return $this;
+    }
+
+    public function getMatiere(): ?Matiere
+    {
+        return $this->matiere;
+    }
+
+    public function setMatiere(?Matiere $matiere): self
+    {
+        $this->matiere = $matiere;
 
         return $this;
     }
