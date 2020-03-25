@@ -18,7 +18,7 @@ class EcoleController extends AbstractController
     public function home(Request $request)
     {
         
-        return $this->render('pages/home.html.twig',['nom'=>  'kamel']);
+        return $this->render('pages/home.html.twig',['nom'=>  '']);
     }
     
     /**
