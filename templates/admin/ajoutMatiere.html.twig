@@ -8,46 +8,46 @@
 {% endblock %}
 {% block body %}
 
-	<section id="matiere" class="padd-section text-center wow fadeInUp">
+	<section id="contact" class="padd-section wow fadeInUp">
 
-		<table class="table">
-			<thead class="thead-dark">
-				<tr>
-					<th scope="col">ID_Matiere</th>
-					<th scope="col">Nom</th>
-					<th scope="col">ID_Enseigne</th>
-					<th scope="col">Nom_Enseigne</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td>ID</td>
-					<td>Otto</td>
-					<td>@mdo</td>
-                    <td><a onclick="return confirm('êtes vous sûr de Modifier')" href="#">Modifier</a></td>
-                    <td><a onclick="return confirm('êtes vous sûr de suprimer')" href="#">Suprimer</a></td>
-				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td>Jacob</td>
-					<td>Thornton</td>
-					<td>@fat</td>
-                    <td><a onclick="return confirm('êtes vous sûr de Modifier')" href="#">Modifier</a></td>
-                    <td><a onclick="return confirm('êtes vous sûr de suprimer')" href="#">Suprimer</a></td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td>Larry</td>
-					<td>the Bird</td>
-					<td>@twitter</td>
-                    <td><a onclick="return confirm('êtes vous sûr de Modifier')" href="#">Modifier</a></td>
-                    <td><a onclick="return confirm('êtes vous sûr de suprimer')" href="#">Suprimer</a></td>
-				</tr>
-			</tbody>
-		</table>
+    <div class="container">
+      <div class="section-title text-center">
+        <h2 style="text-align:center"></h2>
+        <p class="separator"></p>
+      </div>
+    </div>
 
-	</section>
+    <div class="container">
+      <div class="row justify-content-center">
+
+        <div class="col-lg-3 col-md-4">
+
+          
+
+         <p>a fin de bien ajouter la matiere vous devez indiquer le numero de l'enseigne qui lui correspond</p>
+
+        </div>
+
+        <div class="col-lg-5 col-md-8">
+          <div class="form">
+            <div id="sendmessage"></div>
+            <div id="errormessage"></div>
+            <form action="" method="post" role="form" class="contactForm">
+              <div class="form-group">
+                <input type="text" class="form-control" name="nom" id="nom" placeholder="nom de la matiere" data-rule="email" data-msg="Please enter a valid email" />
+                <div class="validation"></div>
+              </div>
+			  <div class="form-group">
+                <input type="number" name="enseigne" class="form-control" id="enseigne" placeholder="id de l'enseigne" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                <div class="validation"></div>
+              </div>
+              <div class="text-center"><button type="submit">Ajouter</button></div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- #contact -->
 	{% block javascripts %}
 		{{ parent() }}
 	{% endblock %}
