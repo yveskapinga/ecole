@@ -134,12 +134,12 @@ jQuery(document).ready(function( $ ) {
 // custom code
 
 });
-// $(document).ready(function(){
-// 	var nomClient=$('#nom').text();
+//  $(document).ready(function(){
+//     	var nomClient=$('#nom').text();
 //     if(nomClient !=''){
-//     	$('#unlock').hide();
-//     }
-//     else{
-//     	$('#lock').hide();  	
-//     }
-// });
+//      	$('#unlock').hide();
+//      }
+//      else{
+//      	$('#lock').hide();  	
+//      }
+//  });
