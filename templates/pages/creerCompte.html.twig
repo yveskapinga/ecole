@@ -8,8 +8,8 @@
 
     <div class="container">
       <div class="section-title text-center">
-        <h2>Login</h2>
-        <p class="separator">vous pouvez vous authentifier ici</p>
+        <h2>Creation de Compte</h2>
+        <p class="separator">vous pouvez creer votre compte ici</p>
       </div>
     </div>
 
@@ -48,17 +48,38 @@
           <div class="form">
             <div id="sendmessage"></div>
             <div id="errormessage"></div>
-            <form action="" method="post" role="form" class="contactForm">
-              <div class="form-group">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Votre Email" data-rule="email" data-msg="Please enter a valid email" />
-                <div class="validation"></div>
-              </div>
-			        <div class="form-group">
-                <input type="password" name="password" class="form-control" id="password" placeholder="Mot de passe" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                <div class="validation"></div>
-              </div>
-              <div class="text-center"><button type="submit">Se connecter</button></div>
-            </form>
+            <!--form-->
+            {{ form_start(kamel) }}
+            <div class="form-group">
+                <label for="nom">nom</label>
+                {{ form_widget(kamel.nom)}}
+            </div>
+            <div class="form-group">
+                <label for="prenom">prenom</label>
+                {{ form_widget(kamel.prenom)}}
+            </div>
+            <div class="form-group">
+                <label for="email">email</label>
+                {{ form_widget(kamel.email)}}
+            </div>
+            <div class="form-group">
+                <label for="photo">photo</label>
+                {{ form_widget(kamel.photo)}}
+            </div>
+            <div class="form-group">
+                <label for="password">password</label>
+                {{ form_widget(kamel.password)}}
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">confirmer password</label>
+                <input type="password" name="confirmPassword"  id="password" placeholder="confirmer Mot de passe" class='form-control'/>
+            </div>
+            <div class="form-group">
+                <label for="dateDeNaissance">dateDeNaissance</label>
+                {{ form_widget(kamel.dateDeNaissance)}}
+            </div>
+            {{ form_end(kamel) }}
+            <!--form-->
           </div>
         </div>
       </div>

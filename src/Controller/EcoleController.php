@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Matiere;
+use App\Form\Type\EtudiantType;
 use App\Entity\Cour;
+use App\Entity\Matiere;
+use App\Entity\Etudiant;
 use App\Repository\MatiereRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class EcoleController extends AbstractController
 {
@@ -17,7 +19,6 @@ class EcoleController extends AbstractController
     */
     public function home(Request $request)
     {
-        
         return $this->render('pages/home.html.twig',['nom'=>  '']);
     }
     
@@ -75,8 +76,24 @@ class EcoleController extends AbstractController
     */
     public function equipe() 
     {
-       $repo = $this->getDoctrine()->getRepository(Cour::class);
-       $cour = $repo->find(12);
+       
         return $this->render('pages/equipe.html.twig');
+    }
+
+     /**
+    * @Route("/creerCompte", name="creerCompte")
+    */
+    public function creerCompte(Request $req) 
+    {
+        $etudiant = new Etudiant();
+        $etudiant->setDateDeNaissance(new \DateTime('NOW'));
+        $form = $this->createForm(EtudiantType::class,$etudiant);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        // $entityManager->persist($etudiant);
+        // $entityManager->flush();
+        return $this->render('pages/creerCompte.html.twig',[
+           'kamel'=>$form->createView()
+        ]);
     }
 }

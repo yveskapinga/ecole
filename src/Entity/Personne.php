@@ -109,12 +109,12 @@ abstract class Personne
     }
     public function getPassword(): ?string
     {
-        return $this->photo;
+        return $this->password;
     }
 
-    public function setPassword(?string $photo): self
+    public function setPassword(?string $password): self
     {
-        $this->photo = $photo;
+        $this->password = $password;
 
         return $this;
     }

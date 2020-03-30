@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 use App\Entity\Personne;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PersonneRepository")
@@ -12,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Etudiant extends Personne{
 
      /**
-     * @ORM\Column(type="date", nullable=false)
+     * @ORM\Column(type="date", nullable=true)
      */
     private $dateDeNaissance;
 
@@ -23,12 +24,19 @@ class Etudiant extends Personne{
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Promotion", inversedBy="etudiants")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $promotion;
 
-   
+    public function getDateDeNaissance()
+    {
+        return $this->dateDeNaissance;
+    }
+    public function setDateDeNaissance(\Datetime $dateDeNaissance = null)
+    {
+        $this->dateDeNaissance = $dateDeNaissance;
 
+    }
     public function __construct()
     {
         $this->absences = new ArrayCollection();
