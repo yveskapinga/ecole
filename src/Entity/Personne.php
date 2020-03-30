@@ -29,9 +29,14 @@ abstract class Personne
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $email;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $password;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -43,10 +48,6 @@ abstract class Personne
      */
     private $adresses;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\LoginInfos", mappedBy="personne")
-     */
-    private $loginInos;
 
     public function __construct()
     {
@@ -106,6 +107,17 @@ abstract class Personne
 
         return $this;
     }
+    public function getPassword(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPassword(?string $photo): self
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
 
     /**
      * @return Collection|Adresse[]
@@ -138,34 +150,5 @@ abstract class Personne
         return $this;
     }
 
-    /**
-     * @return Collection|LoginInfos[]
-     */
-    public function getNo(): Collection
-    {
-        return $this->loginInos;
-    }
-
-    public function addNo(LoginInfos $loginInos): self
-    {
-        if (!$this->loginInos->contains($loginInos)) {
-            $this->loginInos[] = $loginInos;
-            $loginInos->setPersonne($this);
-        }
-
-        return $this;
-    }
-
-    public function removeNo(LoginInfos $loginInos): self
-    {
-        if ($this->loginInos->contains($loginInos)) {
-            $this->loginInos->removeElement($loginInos);
-            // set the owning side to null (unless already changed)
-            if ($loginInos->getPersonne() === $this) {
-                $loginInos->setPersonne(null);
-            }
-        }
-
-        return $this;
-    }
+   
 }

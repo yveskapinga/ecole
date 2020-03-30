@@ -38,14 +38,21 @@
                 <div class="validation"></div>
               </div>
 			  <div class="form-group">
-                <input type="number" name="enseigne" class="form-control" id="enseigne" placeholder="id de l'enseigne" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                <div class="validation"></div>
+                <input type="number" name="enseigne" class="form-control" id="enseigne" placeholder="ID de l'enseigne" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                {% if  matiere == null %}
+                <div ><span style="color: red;">id enseigne non valide</span></div>
+                {% endif %}
               </div>
               <div class="text-center"><button type="submit">Ajouter</button></div>
             </form>
           </div>
         </div>
       </div>
+    </div>
+    <div class="container">
+      {% if matiere.nom != '' %}
+      <blockquote>Vous venez d'ajouter la matiere <i><b>{{ matiere.nom }}</b></i> a la base de donneé</blockquote>
+      {% endif %}
     </div>
   </section><!-- #contact -->
 	{% block javascripts %}

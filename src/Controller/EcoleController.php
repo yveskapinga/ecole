@@ -44,11 +44,11 @@ class EcoleController extends AbstractController
     /*dans cette fonction je vais recupere le repository de Matiere via le service Container de symfony*/
     public function matiers(MatiereRepository $repo) 
     {
-       /*
-        plus besoin de cette ligne
-        $repo = $this->getDoctrine()->getRepository(Matiere::class);
-       */
-       $matieres = $repo->findAll();
+        /*
+            plus besoin de cette ligne
+            $repo = $this->getDoctrine()->getRepository(Matiere::class);
+        */
+        $matieres = $repo->findAllOrderById();
         return $this->render('pages/matiers.html.twig',['controller_name'=>'EcoleController','matieres'=>$matieres
         ]);
     }
@@ -58,11 +58,16 @@ class EcoleController extends AbstractController
     */
     public function cour($id) 
     {
-       $repo1 = $this->getDoctrine()->getRepository(Cour::class);
-       $repo2 = $this->getDoctrine()->getRepository(Matiere::class);
-       $cours = $repo1->findByMatiere($id);
-       $matiers = $repo2->findOneById($id);
-        return $this->render('pages/cours.html.twig',['cours'=>$cours,'matiere'=>$matiers]);
+        // a revoir
+        try{
+            $repo1 = $this->getDoctrine()->getRepository(Cour::class);
+            $repo2 = $this->getDoctrine()->getRepository(Matiere::class);
+            $cours = $repo1->findByMatiere($id);
+            $matiers = $repo2->findOneById($id);
+            return $this->render('pages/cours.html.twig',['cours'=>$cours,'matiere'=>$matiers]);
+        }catch (DriverException $e){
+            return $this->redirectToRoute('matiere');
+        }
     }
 
      /**

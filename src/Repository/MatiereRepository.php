@@ -19,6 +19,16 @@ class MatiereRepository extends ServiceEntityRepository
         parent::__construct($registry, Matiere::class);
     }
 
+    // trouver toutes les matiere odrder by Id
+    public function findAllOrderById(): array
+    {
+    $qb = $this->createQueryBuilder('m')
+        ->orderBy('m.id','ASC');
+        
+    $query =$qb->getQuery();
+    return $query->execute();
+    }
+
     // /**
     //  * @return Matiere[] Returns an array of Matiere objects
     //  */
