@@ -86,14 +86,17 @@ class EcoleController extends AbstractController
     public function creerCompte(Request $req) 
     {
         $etudiant = new Etudiant();
-        $etudiant->setDateDeNaissance(new \DateTime('NOW'));
         $form = $this->createForm(EtudiantType::class,$etudiant);
-
-        $entityManager = $this->getDoctrine()->getManager();
-        // $entityManager->persist($etudiant);
-        // $entityManager->flush();
+        $form->handleRequest($req);
+        if($form->isSubmitted() && $form->isValid() &&
+         $req->request->get('confirmPassword')==$req->request->get('confirmPassword')){
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($etudiant);
+            $entityManager->flush();
+            return $this->redirectToRoute('home');
+        }
         return $this->render('pages/creerCompte.html.twig',[
-           'kamel'=>$form->createView()
+           'form'=>$form->createView()
         ]);
     }
 }

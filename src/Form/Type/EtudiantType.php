@@ -17,13 +17,12 @@ class EtudiantType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('nom',TextType::class,['attr'=>['placeholder'=>"nom",'class'=>'form-control']])
-        ->add('prenom',TextType::class,['attr'=>['placeholder'=>"prenom",'class'=>'form-control']])
-        ->add('email',EmailType::class,['attr'=>['placeholder'=>"exemple@exmple.fr",'class'=>'form-control']])
-        ->add('photo',TextType::class,['attr'=>['placeholder'=>"photo",'class'=>'form-control']])
-        ->add('password',PasswordType::class,['attr'=>['placeholder'=>"password",'class'=>'form-control']])
-        ->add('dateDeNaissance',DateType::class,['attr'=>['class'=>'date']])
-        ->add('save',SubmitType::class,['label'=>'creer un compte'],['attr'=>['class'=>'form-control']])
+        ->add('nom',TextType::class)
+        ->add('prenom',TextType::class)
+        ->add('email',EmailType::class)
+        ->add('photo',TextType::class)
+        ->add('password',PasswordType::class)
+        ->add('creer',SubmitType::class)
         ;
     }
 

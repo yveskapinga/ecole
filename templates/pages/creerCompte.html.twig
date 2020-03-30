@@ -49,36 +49,32 @@
             <div id="sendmessage"></div>
             <div id="errormessage"></div>
             <!--form-->
-            {{ form_start(kamel) }}
+            {{ form_start(form) }}
             <div class="form-group">
                 <label for="nom">nom</label>
-                {{ form_widget(kamel.nom)}}
+                {{ form_widget(form.nom)}}
             </div>
             <div class="form-group">
                 <label for="prenom">prenom</label>
-                {{ form_widget(kamel.prenom)}}
+                {{ form_widget(form.prenom)}}
             </div>
             <div class="form-group">
                 <label for="email">email</label>
-                {{ form_widget(kamel.email)}}
+                {{ form_widget(form.email)}}
             </div>
             <div class="form-group">
                 <label for="photo">photo</label>
-                {{ form_widget(kamel.photo)}}
+                {{ form_widget(form.photo)}}
             </div>
             <div class="form-group">
                 <label for="password">password</label>
-                {{ form_widget(kamel.password)}}
+                {{ form_widget(form.password)}}
             </div>
             <div class="form-group">
                 <label for="confirmPassword">confirmer password</label>
-                <input type="password" name="confirmPassword"  id="password" placeholder="confirmer Mot de passe" class='form-control'/>
+                <input type="password" name="confirmPassword"  id="password" class='form-control'/>
             </div>
-            <div class="form-group">
-                <label for="dateDeNaissance">dateDeNaissance</label>
-                {{ form_widget(kamel.dateDeNaissance)}}
-            </div>
-            {{ form_end(kamel) }}
+            {{ form_end(form) }}
             <!--form-->
           </div>
         </div>
