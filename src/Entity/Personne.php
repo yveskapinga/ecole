@@ -121,7 +121,7 @@ class Personne
     public function setPassword(?string $password): self
     {
         $this->password = $password;
-
+        
         return $this;
     }
 

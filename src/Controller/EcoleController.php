@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Cour;
 use App\Entity\Matiere;
 use App\Entity\Etudiant;
 use App\Form\Type\EtudiantType;
+use App\Repository\CourRepository;
 use App\Repository\MatiereRepository;
 use App\Repository\EtudiantRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,32 +50,26 @@ class EcoleController extends AbstractController
     /**
     * @Route("/matiers", name="matiers")
     */
-    /*dans cette fonction je vais recupere le repository de Matiere via le service Container de symfony*/
     public function matiers(MatiereRepository $repo) 
     {
-        /*
-            plus besoin de cette ligne
-            $repo = $this->getDoctrine()->getRepository(Matiere::class);
-        */
         $matieres = $repo->findAllOrderById();
-        return $this->render('pages/matiers.html.twig',['controller_name'=>'EcoleController','matieres'=>$matieres
+        return $this->render('pages/matiers.html.twig',[
+            'matieres'=>$matieres
         ]);
     }
 
     /**
     * @Route("/matiers/{id}", name="cour")
     */
-    public function cour($id) 
+    public function cour($id,CourRepository $repoCour,MatiereRepository $repoMatiere) 
     {
         // a revoir
         try{
-            $repo1 = $this->getDoctrine()->getRepository(Cour::class);
-            $repo2 = $this->getDoctrine()->getRepository(Matiere::class);
-            $cours = $repo1->findByMatiere($id);
-            $matiers = $repo2->findOneById($id);
-            return $this->render('pages/cours.html.twig',['cours'=>$cours,'matiere'=>$matiers]);
+            $cours = $repoCour->findByMatiere($id);
+            $matier = $repoMatiere->findOneById($id);
+            return $this->render('pages/cours.html.twig',['cours'=>$cours,'matiere'=>$matier]);
         }catch (DriverException $e){
-            return $this->redirectToRoute('matiere');
+            return $this->redirectToRoute('matiers');
         }
     }
 
@@ -84,7 +78,6 @@ class EcoleController extends AbstractController
     */
     public function equipe() 
     {
-       
         return $this->render('pages/equipe.html.twig');
     }
 
