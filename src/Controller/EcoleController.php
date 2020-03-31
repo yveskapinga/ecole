@@ -7,6 +7,7 @@ use App\Entity\Matiere;
 use App\Entity\Etudiant;
 use App\Form\Type\EtudiantType;
 use App\Repository\MatiereRepository;
+use App\Repository\EtudiantRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,10 +26,17 @@ class EcoleController extends AbstractController
     /**
     * @Route("/login", name="login")
     */
-    public function login(Request $req) 
+    public function login(Request $req,EtudiantRepository $repo) 
     { 
-        $kamel=$req->request->get('email');
-        return $this->render('pages/login.html.twig',['kamel'=>$kamel]);
+        $etudiants = $repo->findAll();
+        $email=$req->request->get('email');
+        $password=$req->request->get('password');
+        if(count($etudiants)>0)foreach($etudiants as $etu)
+        {
+            if($etu->getEmail()==$email && password_verify($password,$etu->getPassword()))
+                return $this->redirectToRoute('home');
+         }
+        return $this->render('pages/login.html.twig');
     }
 
      /**
@@ -38,7 +46,6 @@ class EcoleController extends AbstractController
     { 
         return $this->render('pages/about.html.twig');
     }
-
     
     /**
     * @Route("/matiers", name="matiers")
@@ -84,27 +91,25 @@ class EcoleController extends AbstractController
      /**
     * @Route("/creerCompte", name="creerCompte")
     */
-    public function creerCompte(Request $req) 
+    public function creerCompte(Request $req,EtudiantRepository $repo) 
     {
-        $repo = $this->getDoctrine()->getRepository(Etudiant::class);
         $etudiants = $repo->findAll();
-        dump($etudiants);
         $etudiant = new Etudiant();
         $form = $this->createForm(EtudiantType::class,$etudiant);
         $form->handleRequest($req);
-        // si l'email existe deja je le renvoi au form sans l'enrigisterer
-        // foreach($etudiants as $etudiant)
-        // {
-        //     if($etudiant.getEmail()==$req->request->get('email'))
-        //     {
-        //     return $this->render('pages/creerCompte.html.twig',[
-        //         'form'=>$form->createView()
-        //      ]);
-        //     }
-        // }
+
         if($form->isSubmitted() && $form->isValid() &&
-         $req->request->get('confirmPassword')==$req->request->get('confirmPassword')){
+         $req->request->get('confirmPassword')==$etudiant->getPassword())
+         {
+            if(count($etudiants)>0)foreach($etudiants as $etu)
+            {
+                if($etu->getEmail()==$etudiant->getEmail())
+                    return $this->redirectToRoute('creerCompte');
+             }
             $entityManager = $this->getDoctrine()->getManager();
+            //hashage de mot de passe 
+            $etudiant->setPassword(password_hash($etudiant->getPassword(), PASSWORD_DEFAULT));
+            //si tout va bien je enrigitre dans la table etudiant 
             $entityManager->persist($etudiant);
             $entityManager->flush();
             return $this->redirectToRoute('home');

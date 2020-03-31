@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PersonneRepository")
@@ -34,6 +35,11 @@ class Personne
     private $email;
 
     /**
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "Votre mot de passe doit être au moins {{ limit }} characters long",
+     *      allowEmptyString = false
+     * )
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $password;
