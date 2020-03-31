@@ -9,7 +9,7 @@
     <div class="container">
       <div class="section-title text-center">
         <h2>Login</h2>
-        <p class="separator">vous pouvez vous authentifier ici</p>
+        <p class="separator">vous pouvez vous authentifier ici{{kamel}}</p>
       </div>
     </div>
 
@@ -46,16 +46,12 @@
 
         <div class="col-lg-5 col-md-8">
           <div class="form">
-            <div id="sendmessage"></div>
-            <div id="errormessage"></div>
-            <form action="" method="post" role="form" class="contactForm">
+            <form method="post" role="form">
               <div class="form-group">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Votre Email" data-rule="email" data-msg="Please enter a valid email" />
-                <div class="validation"></div>
+                <input type="email" class="form-control" name="email" id="email" placeholder="Votre Email"/>
               </div>
 			        <div class="form-group">
-                <input type="password" name="password" class="form-control" id="password" placeholder="Mot de passe" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                <div class="validation"></div>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Mot de passe"/>
               </div>
               <div class="text-center"><button type="submit">Se connecter</button></div>
             </form>

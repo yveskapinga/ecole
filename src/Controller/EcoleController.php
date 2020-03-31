@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Form\Type\EtudiantType;
 use App\Entity\Cour;
 use App\Entity\Matiere;
 use App\Entity\Etudiant;
+use App\Form\Type\EtudiantType;
 use App\Repository\MatiereRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,9 +25,10 @@ class EcoleController extends AbstractController
     /**
     * @Route("/login", name="login")
     */
-    public function login() 
+    public function login(Request $req) 
     { 
-        return $this->render('pages/login.html.twig',[]);
+        $kamel=$req->request->get('email');
+        return $this->render('pages/login.html.twig',['kamel'=>$kamel]);
     }
 
      /**
@@ -85,9 +86,22 @@ class EcoleController extends AbstractController
     */
     public function creerCompte(Request $req) 
     {
+        $repo = $this->getDoctrine()->getRepository(Etudiant::class);
+        $etudiants = $repo->findAll();
+        dump($etudiants);
         $etudiant = new Etudiant();
         $form = $this->createForm(EtudiantType::class,$etudiant);
         $form->handleRequest($req);
+        // si l'email existe deja je le renvoi au form sans l'enrigisterer
+        // foreach($etudiants as $etudiant)
+        // {
+        //     if($etudiant.getEmail()==$req->request->get('email'))
+        //     {
+        //     return $this->render('pages/creerCompte.html.twig',[
+        //         'form'=>$form->createView()
+        //      ]);
+        //     }
+        // }
         if($form->isSubmitted() && $form->isValid() &&
          $req->request->get('confirmPassword')==$req->request->get('confirmPassword')){
             $entityManager = $this->getDoctrine()->getManager();

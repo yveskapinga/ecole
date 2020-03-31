@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints\Date;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\PersonneRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\EtudiantRepository")
  */
 class Etudiant extends Personne{
 
@@ -101,9 +101,5 @@ class Etudiant extends Personne{
         $this->inscrit = $inscrit;
 
         return $this;
-    }
-
-   
-
-   
+    }  
 }
