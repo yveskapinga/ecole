@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use App\Entity\Matiere;
@@ -14,13 +13,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class EcoleController extends AbstractController
 {
-    
+
     /**
     * @Route("/", name="home")
     */
-    public function home(Request $request)
-    {
-        return $this->render('pages/home.html.twig',['nom'=>  '']);
+    public function home(Request $req)
+    {    
+        return $this->render('pages/home.html.twig',['user'=>$this->get('session')->get('user')]);
     }
     
     /**
@@ -28,15 +27,28 @@ class EcoleController extends AbstractController
     */
     public function login(Request $req,EtudiantRepository $repo) 
     { 
+       
         $etudiants = $repo->findAll();
         $email=$req->request->get('email');
         $password=$req->request->get('password');
         if(count($etudiants)>0)foreach($etudiants as $etu)
         {
             if($etu->getEmail()==$email && password_verify($password,$etu->getPassword()))
+            {
+                $this->get('session')->set('user', $etu);
                 return $this->redirectToRoute('home');
+            }
          }
-        return $this->render('pages/login.html.twig');
+        return $this->render('pages/login.html.twig',['user'=>$this->get('session')->get('user')]);
+    }
+
+     /**
+    * @Route("/deconexion", name="deconexion")
+    */
+    public function deconexion(Request $req) 
+    { 
+        $this->get('session')->set('user', null);
+        return $this->redirectToRoute('home');
     }
 
      /**
@@ -44,7 +56,7 @@ class EcoleController extends AbstractController
     */
     public function about() 
     { 
-        return $this->render('pages/about.html.twig');
+        return $this->render('pages/about.html.twig',['user'=>$this->get('session')->get('user')]);
     }
     
     /**
@@ -54,7 +66,8 @@ class EcoleController extends AbstractController
     {
         $matieres = $repo->findAllOrderById();
         return $this->render('pages/matiers.html.twig',[
-            'matieres'=>$matieres
+            'matieres'=>$matieres,
+            'user'=>$this->get('session')->get('user')
         ]);
     }
 
@@ -67,7 +80,11 @@ class EcoleController extends AbstractController
         try{
             $cours = $repoCour->findByMatiere($id);
             $matier = $repoMatiere->findOneById($id);
-            return $this->render('pages/cours.html.twig',['cours'=>$cours,'matiere'=>$matier]);
+            return $this->render('pages/cours.html.twig',[
+                'cours'=>$cours,
+                'matiere'=>$matier,
+                'user'=>$this->get('session')->get('user')
+                ]);
         }catch (DriverException $e){
             return $this->redirectToRoute('matiers');
         }
@@ -78,7 +95,7 @@ class EcoleController extends AbstractController
     */
     public function equipe() 
     {
-        return $this->render('pages/equipe.html.twig');
+        return $this->render('pages/equipe.html.twig',['user'=>$this->get('session')->get('user')]);
     }
 
      /**
@@ -108,7 +125,8 @@ class EcoleController extends AbstractController
             return $this->redirectToRoute('home');
         }
         return $this->render('pages/creerCompte.html.twig',[
-           'form'=>$form->createView()
+           'form'=>$form->createView(),
+           'user'=>$this->get('session')->get('user')
         ]);
     }
 }

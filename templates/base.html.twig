@@ -41,13 +41,17 @@
 
                 <nav id="nav-menu-container">
                     <ul class="nav-menu">
-                    <li class="menu-active"><a href="{{ path('home') }}">Home</a></li>
+                    {% if user != null %}
+                    <li class="menu-active"><a href="{{ path('home') }}">{{user.nom}}</a></li>
                     <li><a href="{{ path('about') }}">A propos</a></li>
                     <li><a href="{{ path('matiers') }}">Matiers</a></li>
                     <li><a href="{{ path('equipe') }}">Equipe</a></li>
                     <li><a href="{{ path('login') }}" ><i class="fas fa-unlock fa-2x" id="unlock"></i></a></li>
-                    <li><a href="#" ><i class="fas fa-lock fa-2x" id="lock"></i></a></li>
+                    <li><a href="{{ path('deconexion') }}" ><i class="fas fa-lock fa-2x" id="lock"></i></a></li>
+                    {% else %}
+                    <li><a href="{{ path('login') }}" ><i class="fas fa-unlock fa-2x" id="unlock"></i></a></li>
                     <li><a href="{{ path('creerCompte') }}" ><i class="fas fa-plus fa-2x" id="lock"></i></a></li>
+                    {% endif %}
                     </ul>
                 </nav><!-- #nav-menu-container -->
                 </div>
