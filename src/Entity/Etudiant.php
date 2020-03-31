@@ -28,6 +28,11 @@ class Etudiant extends Personne{
      */
     private $promotion;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $inscrit=false;
+
     public function getDateDeNaissance()
     {
         return $this->dateDeNaissance;
@@ -82,6 +87,18 @@ class Etudiant extends Personne{
     public function setPromotion(?Promotion $promotion): self
     {
         $this->promotion = $promotion;
+
+        return $this;
+    }
+
+    public function getInscrit(): ?bool
+    {
+        return $this->inscrit;
+    }
+
+    public function setInscrit(bool $inscrit): self
+    {
+        $this->inscrit = $inscrit;
 
         return $this;
     }
