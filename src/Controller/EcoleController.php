@@ -122,7 +122,8 @@ class EcoleController extends AbstractController
             //si tout va bien je enrigitre dans la table etudiant 
             $entityManager->persist($etudiant);
             $entityManager->flush();
-            return $this->redirectToRoute('home');
+            $this->get('session')->set('user', $etudiant);
+            
         }
         return $this->render('pages/creerCompte.html.twig',[
            'form'=>$form->createView(),
