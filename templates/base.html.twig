@@ -1,147 +1,197 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome a la page {% endblock %}</title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <meta content="" name="keywords">
-        <meta content="" name="description">
-        {% block stylesheets %}
-            <!-- Favicons -->
-            <link href="img/logo.jpg" rel="icon">
-            <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome a la page
+			{% endblock %}
+		</title>
+		<meta content="width=device-width, initial-scale=1.0" name="viewport">
+		<meta content="" name="keywords">
+		<meta content="" name="description">
+		{% block stylesheets %}
+			<!-- Favicons -->
+			<link href="img/logo.jpg" rel="icon">
+			<link
+			href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
-            <!-- Google Fonts -->
-            <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Roboto:100,300,400,500,700|Philosopher:400,400i,700,700i" rel="stylesheet">
+			<!-- Google Fonts -->
+			<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Roboto:100,300,400,500,700|Philosopher:400,400i,700,700i" rel="stylesheet">
 
-            <!-- Bootstrap css -->
-            <!-- <link rel="stylesheet" href="css/bootstrap.css"> -->
-            <link href="{{ asset('/lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+			<!-- Bootstrap css -->
+			<!-- <link rel="stylesheet" href="css/bootstrap.css"> -->
+			<link
+			href="{{ asset('/lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"> <!-- Libraries CSS Files -->
+			<link href="{{ asset('/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+			<link href="{{ asset('/lib/owlcarousel/assets/owl.theme.default.min.css') }}" rel="stylesheet">
+			<link href="{{ asset('/lib/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+			<link href="{{ asset('/lib/animate/animate.min.css ') }}" rel="stylesheet">
+			<link
+			href="{{ asset('/lib/modal-video/css/modal-video.min.css') }}" rel="stylesheet">
 
-            <!-- Libraries CSS Files -->
-            <link href="{{ asset('/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-            <link href="{{ asset('/lib/owlcarousel/assets/owl.theme.default.min.css') }}" rel="stylesheet">
-            <link href="{{ asset('/lib/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
-            <link href="{{ asset('/lib/animate/animate.min.css ') }}" rel="stylesheet">
-            <link href="{{ asset('/lib/modal-video/css/modal-video.min.css') }}" rel="stylesheet">
+			<!-- Main Stylesheet File -->
+			<link href="{{ asset('/css/style.css') }}" rel="stylesheet">
 
-            <!-- Main Stylesheet File -->
-            <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
-
-        {% endblock %}
-    </head>
-    <body>
-         <header id="header" class="header header-hide ">
-            <div class="container">
-
+		{% endblock %}
+	</head>
+	<body>
+		<header id="header" class="header header-hide ">
+			<div class="container-fluid">
                 <div id="logo" class="pull-left">
-                    <h1><a href="{{ path('home') }}" class="scrollto"><span>é</span>cole <span>R</span>oubaix</a></h1>
+                        <h1>
+                            <a class="navbar-brand scrollto" href="{{ path('home') }}"><span>é</span>cole<span>R</span>oubaix</a>
+                        </h1>
                 </div>
-
-                <nav id="nav-menu-container">
-                    <ul class="nav-menu">
-                    {% if user != null %}
-                    <li class="menu-active"><a href="{{ path('home') }}">Bienvenue {{user.nom}}</a></li>
-                    <li><a href="{{ path('about') }}">A propos</a></li>
-                    <li><a href="{{ path('matieres') }}">Matieres</a></li>
-                    <li><a href="{{ path('equipe') }}">Equipe</a></li>
-                    <li><a href="{{ path('deconexion') }}" ><i class="fas fa-lock fa-2x" id="lock"></i></a></li>
-                    {% else %}
-                    <li><a href="{{ path('login') }}" ><i class="fas fa-unlock fa-2x" id="unlock"></i></a></li>
-                    <li><a href="{{ path('creerCompte') }}" ><i class="fas fa-plus fa-2x" id="lock"></i></a></li>
-                    {% endif %}
-                    </ul>
-                </nav><!-- #nav-menu-container -->
-            </div>
-        </header><!-- #header -->
-        <div class="container">
-        {% block body %}{% endblock %}
-        </div>
-        	<footer class="footer">
-                <div class="container">
-                <div class="row">
-
-                    <div class="col-md-12 col-lg-4">
-                    <div class="footer-logo">
-
-                        <a class="navbar-brand" href="#">ecole roubaix</a>
-                        <p>121 rue d'Alger, 59100 Roubaix</p>
-
+				<nav class="navbar navbar-expand-lg navbar-light bg-light ">
+                    <div>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
                     </div>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="nav navbar-nav ml-auto">
+						{% if user != null %}
+							<li class="menu-active">
+								<a  class="nav-link" href="{{ path('home') }}">{{user.nom}}</a>
+							</li>
+							<li>
+								<a  class="nav-link" href="{{ path('about') }}">A propos</a>
+							</li>
+							<li>
+								<a  class="nav-link" href="{{ path('matieres') }}">Matieres</a>
+							</li>
+							<li>
+								<a  class="nav-link" href="{{ path('equipe') }}">Equipe</a>
+							</li>
+							<li>
+								<a  class="nav-link" href="{{ path('deconexion') }}">
+									<i class="fas fa-lock fa-2x" id="lock"></i>
+								</a>
+							</li>
+						{% else %}
+							<li>
+								<a  class="nav-link" href="{{ path('login') }}">
+									<i class="fas fa-unlock fa-2x" id="unlock"></i>
+								</a>
+							</li>
+							<li>
+								<a  class="nav-link" href="{{ path('creerCompte') }}">
+									<i class="fas fa-plus fa-2x" id="lock"></i>
+								</a>
+							</li>
+						{% endif %}
+					</ul>
                     </div>
+				</nav>
+				<!-- #nav-menu-container -->
+			</div>
+		</header>
+		<!-- #header -->
+		{% block body %}{% endblock %}
+		<footer class="footer">
+			<div class="container">
+				<div class="row">
 
-                    <div class="col-sm-6 col-md-3 col-lg-2">
-                    <div class="list-menu">
+					<div class="col-md-12 col-lg-4">
+						<div class="footer-logo">
 
-                        <h4>A propos de nous</h4>
+							<a class="navbar-brand" href="#">ecole roubaix</a>
+							<p>121 rue d'Alger, 59100 Roubaix</p>
 
-                        <ul class="list-unstyled">
-                        <li><a href="#">a propos de nous</a></li>
-                        <li><a href="#">Caractéristiques</a></li>
-                        <li><a href="#">Politique interieur</a></li>
-                        </ul>
+						</div>
+					</div>
 
-                    </div>
-                    </div>
+					<div class="col-sm-6 col-md-3 col-lg-2">
+						<div class="list-menu">
 
-                 <div class="col-sm-6 col-md-3 col-lg-2">
-                    <div class="list-menu">
+							<h4>A propos de nous</h4>
 
-                        <h4>A propos de nous</h4>
+							<ul class="list-unstyled">
+								<li>
+									<a href="#">a propos de nous</a>
+								</li>
+								<li>
+									<a href="#">Caractéristiques</a>
+								</li>
+								<li>
+									<a href="#">Politique interieur</a>
+								</li>
+							</ul>
 
-                        <ul class="list-unstyled">
-                        <li><a href="#">a propos de nous</a></li>
-                        <li><a href="#">Caractéristiques</a></li>
-                        <li><a href="#">Politique interieur</a></li>
-                        </ul>
+						</div>
+					</div>
 
-                    </div>
-                    </div>
+					<div class="col-sm-6 col-md-3 col-lg-2">
+						<div class="list-menu">
 
-                    <div class="col-sm-6 col-md-3 col-lg-2">
-                    <div class="list-menu">
+							<h4>A propos de nous</h4>
 
-                        <h4>A propos de nous</h4>
+							<ul class="list-unstyled">
+								<li>
+									<a href="#">a propos de nous</a>
+								</li>
+								<li>
+									<a href="#">Caractéristiques</a>
+								</li>
+								<li>
+									<a href="#">Politique interieur</a>
+								</li>
+							</ul>
 
-                        <ul class="list-unstyled">
-                        <li><a href="#">a propos de nous</a></li>
-                        <li><a href="#">Caractéristiques</a></li>
-                        <li><a href="#">Politique interieur</a></li>
-                        </ul>
+						</div>
+					</div>
 
-                    </div>
-                    </div>
-                </div>
-                </div>
-                
-                <div class="copyrights">
-                <div class="container">
-                    <p>&copy; Copyrights ecole roubaix. All rights reserved.</p>
-                    <div class="credits">
-                    fait par <a href="https://sitayebsofiane.github.io/cv_html_css/" target="_blanck">Sofiane</a>
-                    </div>
-                </div>
-                </div>
+					<div class="col-sm-6 col-md-3 col-lg-2">
+						<div class="list-menu">
 
-            </footer>
+							<h4>A propos de nous</h4>
 
-            {% block javascripts %}
-            <!-- JavaScript Libraries -->
-            <script src="{{ asset('lib/jquery/jquery.min.js') }}"></script>
-            <script src="{{ asset('lib/jquery/jquery-migrate.min.js') }}"></script>
-            <script src="{{ asset('lib/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-            <script src="{{ asset('lib/superfish/hoverIntent.js') }}"></script>
-            <script src="{{ asset('lib/superfish/superfish.min.js') }}"></script>
-            <script src="{{ asset('lib/easing/easing.min.js') }}"></script>
-            <script src="{{ asset('lib/modal-video/js/modal-video.js') }}"></script>
-            <script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
-            <script src="{{ asset('lib/wow/wow.min.js') }}"></script>
-            <!-- Contact Form JavaScript File -->
-            <script src="{{ asset('contactform/contactform.js') }}"></script>
+							<ul class="list-unstyled">
+								<li>
+									<a href="#">a propos de nous</a>
+								</li>
+								<li>
+									<a href="#">Caractéristiques</a>
+								</li>
+								<li>
+									<a href="#">Politique interieur</a>
+								</li>
+							</ul>
 
-            <!-- Template Main Javascript File -->
-            <script src="{{ asset('js/main.js') }}"></script>
-            {% endblock %}
-            <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-    </body>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="copyrights">
+				<div class="container">
+					<p>&copy; Copyrights ecole roubaix. All rights reserved.</p>
+					<div class="credits">
+						fait par
+						<a href="https://sitayebsofiane.github.io/cv_html_css/" target="_blanck">Sofiane</a>
+					</div>
+				</div>
+			</div>
+
+		</footer>
+
+		{% block javascripts %}
+			<!-- JavaScript Libraries -->
+			<script src="{{ asset('lib/jquery/jquery.min.js') }}"></script>
+			<script src="{{ asset('lib/jquery/jquery-migrate.min.js') }}"></script>
+			<script src="{{ asset('lib/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+			<script src="{{ asset('lib/superfish/hoverIntent.js') }}"></script>
+			<script src="{{ asset('lib/superfish/superfish.min.js') }}"></script>
+			<script src="{{ asset('lib/easing/easing.min.js') }}"></script>
+			<script src="{{ asset('lib/modal-video/js/modal-video.js') }}"></script>
+			<script src="{{ asset('lib/owlcarousel/owl.carousel.min.js') }}"></script>
+			<script src="{{ asset('lib/wow/wow.min.js') }}"></script>
+			<!-- Contact Form JavaScript File -->
+			<script src="{{ asset('contactform/contactform.js') }}"></script>
+
+			<!-- Template Main Javascript File -->
+			<script src="{{ asset('js/main.js') }}"></script>
+		{% endblock %}
+		<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+	</body>
 </html>
