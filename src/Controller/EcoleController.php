@@ -48,7 +48,7 @@ class EcoleController extends AbstractController
     public function deconexion(Request $req) 
     { 
         $this->get('session')->set('user', null);
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('login');
     }
 
      /**
@@ -56,23 +56,31 @@ class EcoleController extends AbstractController
     */
     public function about() 
     { 
-        return $this->render('pages/about.html.twig',['user'=>$this->get('session')->get('user')]);
+        if($this->get('session')->get('user') != null)
+        {
+            return $this->render('pages/about.html.twig',['user'=>$this->get('session')->get('user')]);
+        }
+        return $this->redirectToRoute('login');
     }
     
     /**
-    * @Route("/matiers", name="matiers")
+    * @Route("/matieres", name="matieres")
     */
-    public function matiers(MatiereRepository $repo) 
+    public function matieres(MatiereRepository $repo) 
     {
+        if($this->get('session')->get('user') != null)
+        {
         $matieres = $repo->findAllOrderById();
-        return $this->render('pages/matiers.html.twig',[
+        return $this->render('pages/matieres.html.twig',[
             'matieres'=>$matieres,
             'user'=>$this->get('session')->get('user')
         ]);
+        }
+        return $this->redirectToRoute('login');
     }
 
     /**
-    * @Route("/matiers/{id}", name="cour")
+    * @Route("/matieres/{id}", name="cour")
     */
     public function cour($id,CourRepository $repoCour,MatiereRepository $repoMatiere) 
     {
@@ -86,7 +94,7 @@ class EcoleController extends AbstractController
                 'user'=>$this->get('session')->get('user')
                 ]);
         }catch (DriverException $e){
-            return $this->redirectToRoute('matiers');
+            return $this->redirectToRoute('matieres');
         }
     }
 
@@ -95,7 +103,11 @@ class EcoleController extends AbstractController
     */
     public function equipe() 
     {
+        if($this->get('session')->get('user') != null)
+        {
         return $this->render('pages/equipe.html.twig',['user'=>$this->get('session')->get('user')]);
+        }
+        return $this->redirectToRoute('login');
     }
 
      /**

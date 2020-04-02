@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome a la page {% endblock %}</title>
@@ -7,7 +7,6 @@
         <meta content="" name="keywords">
         <meta content="" name="description">
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
             <!-- Favicons -->
             <link href="img/logo.jpg" rel="icon">
             <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -33,7 +32,7 @@
     </head>
     <body>
          <header id="header" class="header header-hide ">
-                <div class="container">
+            <div class="container">
 
                 <div id="logo" class="pull-left">
                     <h1><a href="{{ path('home') }}" class="scrollto"><span>é</span>cole <span>R</span>oubaix</a></h1>
@@ -44,7 +43,7 @@
                     {% if user != null %}
                     <li class="menu-active"><a href="{{ path('home') }}">Bienvenue {{user.nom}}</a></li>
                     <li><a href="{{ path('about') }}">A propos</a></li>
-                    <li><a href="{{ path('matiers') }}">Matiers</a></li>
+                    <li><a href="{{ path('matieres') }}">Matieres</a></li>
                     <li><a href="{{ path('equipe') }}">Equipe</a></li>
                     <li><a href="{{ path('deconexion') }}" ><i class="fas fa-lock fa-2x" id="lock"></i></a></li>
                     {% else %}
@@ -53,7 +52,7 @@
                     {% endif %}
                     </ul>
                 </nav><!-- #nav-menu-container -->
-                </div>
+            </div>
         </header><!-- #header -->
         <div class="container">
         {% block body %}{% endblock %}
