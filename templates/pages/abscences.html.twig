@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+{% block title %}{{ parent () }} Home{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block body %}
+  <!--==========================
+    About Us Section
+  ============================-->
+  <section id="about-us" class="about-us padd-section wow fadeInUp">
+    <article>
+    <div class="container">
+      <div class="section-title text-center">
+        <h2>les abscences concernant {{ user.nom }}:</h2>
+        <p class="separator">vous pouvez consulter vos abscences sur cette page</p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+      {% for i in 0..19 %}
+      <!--abscence-->
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-block">
+            <img src="img/svg/abscence.svg" alt="img" class="img-fluid">
+            <h4>Date</h4>
+            <h5>cour</h5>
+            <p>motif</p>
+          </div>
+        </div>
+      <!--abscence-->
+      {% endfor %}
+      </div>
+    </div>
+  </article>
+  <section>
+{% block javascripts %} 
+  {{ parent() }} 
+{% endblock %}
+{% endblock body %}

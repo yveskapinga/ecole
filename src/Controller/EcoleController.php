@@ -42,7 +42,7 @@ class EcoleController extends AbstractController
         return $this->render('pages/login.html.twig',['user'=>$this->get('session')->get('user')]);
     }
 
-     /**
+    /**
     * @Route("/deconexion", name="deconexion")
     */
     public function deconexion(Request $req) 
@@ -51,16 +51,12 @@ class EcoleController extends AbstractController
         return $this->redirectToRoute('login');
     }
 
-     /**
+    /**
     * @Route("/about", name="about")
     */
     public function about() 
-    { 
-        if($this->get('session')->get('user') != null)
-        {
-            return $this->render('pages/about.html.twig',['user'=>$this->get('session')->get('user')]);
-        }
-        return $this->redirectToRoute('login');
+    {  
+        return $this->render('pages/about.html.twig',['user'=>$this->get('session')->get('user')]);  
     }
     
     /**
@@ -98,7 +94,7 @@ class EcoleController extends AbstractController
         }
     }
 
-     /**
+    /**
     * @Route("/equipe", name="equipe")
     */
     public function equipe() 
@@ -110,7 +106,7 @@ class EcoleController extends AbstractController
         return $this->redirectToRoute('login');
     }
 
-     /**
+    /**
     * @Route("/creerCompte", name="creerCompte")
     */
     public function creerCompte(Request $req,EtudiantRepository $repo) 
@@ -141,5 +137,50 @@ class EcoleController extends AbstractController
            'form'=>$form->createView(),
            'user'=>$this->get('session')->get('user')
         ]);
+    }
+
+    /**
+    * @Route("/etudiant", name="etudiant")
+    */
+    public function modifierEtudiant(Request $req,EtudiantRepository $repo) 
+    {
+        $etudiants = $repo->findAll();
+        $etudiant = new Etudiant();
+        $form = $this->createForm(EtudiantType::class,$etudiant);
+        $form->handleRequest($req);
+
+        if($form->isSubmitted() && $form->isValid() &&
+         $req->request->get('confirmPassword')==$etudiant->getPassword())
+         {
+            if(count($etudiants)>0)foreach($etudiants as $etu)
+            {
+                if($etu->getEmail()==$etudiant->getEmail())
+                    return $this->redirectToRoute('creerCompte');
+             }
+            $entityManager = $this->getDoctrine()->getManager();
+            //hashage de mot de passe 
+            $etudiant->setPassword(password_hash($etudiant->getPassword(), PASSWORD_DEFAULT));
+            //si tout va bien je enrigitre dans la table etudiant 
+            $entityManager->persist($etudiant);
+            $entityManager->flush();
+            $this->get('session')->set('user', $etudiant);
+            
+        }
+        return $this->render('pages/etudiant.html.twig',[
+           'form'=>$form->createView(),
+           'user'=>$this->get('session')->get('user')
+        ]);
+    }
+    
+    /**
+    * @Route("/abscences", name="abscences")
+    */
+    public function abscenses() 
+    {  
+        if($this->get('session')->get('user') != null)
+        {
+            return $this->render('pages/abscences.html.twig',['user'=>$this->get('session')->get('user')]);
+        }
+        return $this->redirectToRoute('login'); 
     }
 }
