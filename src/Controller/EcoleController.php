@@ -5,6 +5,7 @@ use App\Entity\Matiere;
 use App\Entity\Etudiant;
 use App\Form\Type\EtudiantType;
 use App\Repository\CourRepository;
+use App\Repository\AbsenceRepository;
 use App\Repository\MatiereRepository;
 use App\Repository\EtudiantRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -145,10 +146,12 @@ class EcoleController extends AbstractController
     /**
     * @Route("/abscences", name="abscences")
     */
-    public function abscenses() 
+    public function abscenses(AbsenceRepository $repoAbscence,CourRepository $repoCour) 
     {  
         if($this->get('session')->get('user') != null)
         {
+            $abscences = $repoAbscence->findByEtudiant($this->get('session')->get('user'));
+        
             return $this->render('pages/abscences.html.twig',['user'=>$this->get('session')->get('user')]);
         }
         return $this->redirectToRoute('login'); 
