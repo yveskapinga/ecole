@@ -107,22 +107,23 @@ class EcoleController extends AbstractController
     }
 
     /**
-    * @Route("/creerCompte", name="creerCompte")
+    * @Route("/creerEtudiant", name="creerEtudiant")
+    * @Route("/modifierEtudiant/{id}", name="modifierEtudiant")
     */
-    public function creerCompte(Request $req,EtudiantRepository $repo) 
+    public function etudiant($id=0,Request $req,EtudiantRepository $repo) 
     {
         $etudiants = $repo->findAll();
-        $etudiant = new Etudiant();
+        $etudiant = $id==0 ? new Etudiant() : $repo->find($id);
         $form = $this->createForm(EtudiantType::class,$etudiant);
         $form->handleRequest($req);
 
         if($form->isSubmitted() && $form->isValid() &&
          $req->request->get('confirmPassword')==$etudiant->getPassword())
          {
-            if(count($etudiants)>0)foreach($etudiants as $etu)
+            if(count($etudiants)>0 && $id==0)foreach($etudiants as $etu)
             {
                 if($etu->getEmail()==$etudiant->getEmail())
-                    return $this->redirectToRoute('creerCompte');
+                    return $this->redirectToRoute('creerEtudiant');
              }
             $entityManager = $this->getDoctrine()->getManager();
             //hashage de mot de passe 
@@ -131,44 +132,13 @@ class EcoleController extends AbstractController
             $entityManager->persist($etudiant);
             $entityManager->flush();
             $this->get('session')->set('user', $etudiant);
-            
-        }
-        return $this->render('pages/creerCompte.html.twig',[
-           'form'=>$form->createView(),
-           'user'=>$this->get('session')->get('user')
-        ]);
-    }
-
-    /**
-    * @Route("/etudiant/{id}", name="etudiant")
-    */
-    public function modifierEtudiant($id,Request $req,EtudiantRepository $repo) 
-    {
-        $etudiants = $repo->findAll();
-        $etudiant = $repo->findOneById($id);
-        $form = $this->createForm(EtudiantType::class,$etudiant);
-        $form->handleRequest($req);
-
-        if($form->isSubmitted() && $form->isValid() &&
-         $req->request->get('confirmPassword')==$etudiant->getPassword())
-         {
-            if(count($etudiants)>0)foreach($etudiants as $etu)
-            {
-                if($etu->getEmail()==$etudiant->getEmail())
-                    return $this->redirectToRoute('creerCompte');
-             }
-            $entityManager = $this->getDoctrine()->getManager();
-            //hashage de mot de passe 
-            $etudiant->setPassword(password_hash($etudiant->getPassword(), PASSWORD_DEFAULT));
-            //si tout va bien je enrigitre dans la table etudiant 
-            $entityManager->persist($etudiant);
-            $entityManager->flush();
-            $this->get('session')->set('user', $etudiant);
+            if($id != 0) return $this->redirectToRoute('home');
             
         }
         return $this->render('pages/etudiant.html.twig',[
            'form'=>$form->createView(),
-           'user'=>$this->get('session')->get('user')
+           'user'=>$this->get('session')->get('user'),
+           'id'=>$id
         ]);
     }
     

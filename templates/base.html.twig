@@ -52,7 +52,7 @@
 					<ul class="nav navbar-nav ml-auto">
 						{% if user != null %}
 							<li class="menu-active">
-								<a  class="nav-link" href="{{ path('etudiant',{'id':user.id}) }}">modifier {{user.nom}}</a>
+								<a  class="nav-link" href="{{ path('modifierEtudiant',{'id':user.id}) }}">modifier {{user.nom}}</a>
 							</li>
 								<li class="menu-active">
 								<a  class="nav-link" href="{{ path('abscences') }}">absences</a>
@@ -81,7 +81,7 @@
 								</a>
 							</li>
 							<li>
-								<a  class="nav-link" href="{{ path('creerCompte') }}">
+								<a  class="nav-link" href="{{ path('creerEtudiant') }}">
 									<i class="fas fa-plus fa-2x" id="lock"></i>
 								</a>
 							</li>

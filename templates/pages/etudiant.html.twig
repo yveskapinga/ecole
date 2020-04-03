@@ -5,10 +5,11 @@
 {% endblock %}
 {% block body %}
 	 <section id="contact" class="padd-section wow fadeInUp">
+     {% if user == null or id != 0 %}
     <div class="container">
       <div class="section-title text-center">
-        <h2>Modification de Compte</h2>
-        <p class="separator">vous pouvez modifier votre compte ici</p>
+        <h2>Creation de Compte</h2>
+        <p class="separator">vous pouvez creer votre compte ici</p>
       </div>
     </div>
 
@@ -79,6 +80,13 @@
         </div>
       </div>
     </div>
+    {% else %}
+     <div class="container">
+      <div class="section-title text-center">
+        <h2>Ecole Roubaix vous souhaite la bienvenue <b>{{user.nom}}</b></h2>
+      </div>
+    </div>
+    {% endif %}
   </section><!-- #contact -->
 {% block javascripts %} 
   {{ parent() }} 
