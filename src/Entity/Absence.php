@@ -27,6 +27,12 @@ class Absence
      */
     private $motif;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Cour", inversedBy="cours")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $cour;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +58,18 @@ class Absence
     public function setMotif(?string $motif): self
     {
         $this->motif = $motif;
+
+        return $this;
+    }
+
+    public function getCour(): ?Cour
+    {
+        return $this->cour;
+    }
+
+    public function setCour(?Cour $cour): self
+    {
+        $this->cour = $cour;
 
         return $this;
     }

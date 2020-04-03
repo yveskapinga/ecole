@@ -52,7 +52,7 @@
 					<ul class="nav navbar-nav ml-auto">
 						{% if user != null %}
 							<li class="menu-active">
-								<a  class="nav-link" href="{{ path('etudiant') }}">modifier {{user.nom}}</a>
+								<a  class="nav-link" href="{{ path('etudiant',{'id':user.id}) }}">modifier {{user.nom}}</a>
 							</li>
 								<li class="menu-active">
 								<a  class="nav-link" href="{{ path('abscences') }}">absences</a>

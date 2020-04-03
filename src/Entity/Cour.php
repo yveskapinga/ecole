@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,6 +44,16 @@ class Cour
      * @ORM\JoinColumn(nullable=false)
      */
     private $matiere;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Absence", mappedBy="cour")
+     */
+    private $cours;
+
+    public function __construct()
+    {
+        $this->cours = new ArrayCollection();
+    }
 
     
     public function getId(): ?int
@@ -105,6 +117,37 @@ class Cour
     public function setMatiere(?Matiere $matiere): self
     {
         $this->matiere = $matiere;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Absence[]
+     */
+    public function getCours(): Collection
+    {
+        return $this->cours;
+    }
+
+    public function addCour(Absence $cour): self
+    {
+        if (!$this->cours->contains($cour)) {
+            $this->cours[] = $cour;
+            $cour->setCour($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCour(Absence $cour): self
+    {
+        if ($this->cours->contains($cour)) {
+            $this->cours->removeElement($cour);
+            // set the owning side to null (unless already changed)
+            if ($cour->getCour() === $this) {
+                $cour->setCour(null);
+            }
+        }
 
         return $this;
     }

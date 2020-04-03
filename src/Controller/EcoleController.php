@@ -140,12 +140,12 @@ class EcoleController extends AbstractController
     }
 
     /**
-    * @Route("/etudiant", name="etudiant")
+    * @Route("/etudiant/{id}", name="etudiant")
     */
-    public function modifierEtudiant(Request $req,EtudiantRepository $repo) 
+    public function modifierEtudiant($id,Request $req,EtudiantRepository $repo) 
     {
         $etudiants = $repo->findAll();
-        $etudiant = new Etudiant();
+        $etudiant = $repo->findOneById($id);
         $form = $this->createForm(EtudiantType::class,$etudiant);
         $form->handleRequest($req);
 
