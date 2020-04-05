@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EtudiantRepository")
@@ -16,6 +17,16 @@ class Etudiant extends Personne{
      * @ORM\Column(type="date", nullable=true)
      */
     private $dateDeNaissance;
+
+    /**
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "Votre mot de passe doit être au moins {{ limit }} characters long",
+     *      allowEmptyString = false
+     * )
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $password;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Absence", mappedBy="etudiant")
@@ -42,10 +53,23 @@ class Etudiant extends Personne{
         $this->dateDeNaissance = $dateDeNaissance;
 
     }
+    
     public function __construct()
     {
         $this->absences = new ArrayCollection();
         $this->adresses = new ArrayCollection();
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(?string $password): self
+    {
+        $this->password = $password;
+        
+        return $this;
     }
 
     /**

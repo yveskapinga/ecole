@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PersonneRepository")
  */
-class Personne
+class Personne 
 {
     /**
      * @ORM\Id()
@@ -32,17 +32,7 @@ class Personne
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $email;
-
-    /**
-     * @Assert\Length(
-     *      min = 2,
-     *      minMessage = "Votre mot de passe doit être au moins {{ limit }} characters long",
-     *      allowEmptyString = false
-     * )
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $password;
+    private $email; 
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -90,18 +80,6 @@ class Personne
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
     public function getPhoto(): ?string
     {
         return $this->photo;
@@ -111,17 +89,6 @@ class Personne
     {
         $this->photo = $photo;
 
-        return $this;
-    }
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(?string $password): self
-    {
-        $this->password = $password;
-        
         return $this;
     }
 

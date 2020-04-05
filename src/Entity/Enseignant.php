@@ -4,6 +4,7 @@ namespace App\Entity;
 use App\Entity\Personne;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,6 +12,17 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Enseignant extends Personne
 {
+    
+    /**
+     * @Assert\Length(
+     *      min = 2,
+     *      minMessage = "Votre mot de passe doit être au moins {{ limit }} characters long",
+     *      allowEmptyString = false
+     * )
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $password;
+
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Enseigne", mappedBy="enseignant")
      */
@@ -20,6 +32,18 @@ class Enseignant extends Personne
     {
         parent::__construct();
         $this->enseignant = new ArrayCollection();
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(?string $password): self
+    {
+        $this->password = $password;
+        
+        return $this;
     }
 
     /**
