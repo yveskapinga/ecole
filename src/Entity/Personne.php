@@ -79,6 +79,17 @@ class Personne
 
         return $this;
     }
+    public function getEmail(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
 
     public function getPhoto(): ?string
     {
