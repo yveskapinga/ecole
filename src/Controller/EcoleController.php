@@ -115,15 +115,15 @@ class EcoleController extends AbstractController
     public function etudiant($id=0,Request $req,EtudiantRepository $repo) 
     {
         $etudiants = $repo->findAll();
-        $etudiant = $id==0 ? new Etudiant() : $repo->find($id);
+        $etudiant = $this->get('session')->get('user') == null ? new Etudiant() : $repo->find($this->get('session')->get('user')->getId());
         $form = $this->createForm(EtudiantType::class,$etudiant);
         $form->handleRequest($req);
-
         if($form->isSubmitted() && $form->isValid() &&
          $req->request->get('confirmPassword')==$etudiant->getPassword())
          {
-            if(count($etudiants)>0 && $id==0)foreach($etudiants as $etu)
+            if(count($etudiants)>0 && $this->get('session')->get('user') == null)foreach($etudiants as $etu)
             {
+                //je verifier si l'email n'existe pas dans la base de donnee si user est null(nouvelle inscription)
                 if($etu->getEmail()==$etudiant->getEmail())
                     return $this->redirectToRoute('creerEtudiant');
              }
@@ -133,14 +133,18 @@ class EcoleController extends AbstractController
             //si tout va bien je enrigitre dans la table etudiant 
             $entityManager->persist($etudiant);
             $entityManager->flush();
-            $this->get('session')->set('user', $etudiant);
-            if($id != 0) return $this->redirectToRoute('home');
+            if($this->get('session')->get('user')!= null) 
+                $this->get('session')->set('user', $etudiant);
+          
             
         }
+       
         return $this->render('pages/etudiant.html.twig',[
            'form'=>$form->createView(),
            'user'=>$this->get('session')->get('user'),
-           'id'=>$id
+           'id'=>boolval($id),
+           'isSubmit'=>$form->isSubmitted()
+          
         ]);
     }
     
