@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Cour;
 use App\Entity\Matiere;
 use App\Entity\Etudiant;
 use App\Form\Type\EtudiantType;
@@ -151,8 +152,10 @@ class EcoleController extends AbstractController
         if($this->get('session')->get('user') != null)
         {
             $abscences = $repoAbscence->findByEtudiant($this->get('session')->get('user'));
-        
-            return $this->render('pages/abscences.html.twig',['user'=>$this->get('session')->get('user')]);
+            return $this->render('pages/abscences.html.twig',[
+                'user'=>$this->get('session')->get('user'),
+                'abscences'=>$abscences
+                ]);
         }
         return $this->redirectToRoute('login'); 
     }

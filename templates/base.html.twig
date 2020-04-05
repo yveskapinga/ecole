@@ -51,20 +51,21 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="nav navbar-nav ml-auto">
 						{% if user != null %}
-							<li class="menu-active">
-								<a  class="nav-link" href="{{ path('modifierEtudiant',{'id':user.id}) }}">modifier {{user.nom}}</a>
+							<li>
+								<a  class="nav-link" href="{{ path('matieres') }}">Matieres</a>
 							</li>
-								<li class="menu-active">
+							
+							<li class="menu-active">
 								<a  class="nav-link" href="{{ path('abscences') }}">absences</a>
 							</li>
 							<li>
 								<a  class="nav-link" href="{{ path('about') }}">A propos</a>
 							</li>
 							<li>
-								<a  class="nav-link" href="{{ path('matieres') }}">Matieres</a>
-							</li>
-							<li>
 								<a  class="nav-link" href="{{ path('equipe') }}">Equipe</a>
+							</li>
+							<li class="menu-active">
+								<a  class="nav-link" href="{{ path('modifierEtudiant',{'id':user.id}) }}">modifier<i>({{user.nom}})</i></a>
 							</li>
 							<li>
 								<a  class="nav-link" href="{{ path('deconexion') }}">

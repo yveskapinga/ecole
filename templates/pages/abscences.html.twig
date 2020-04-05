@@ -11,20 +11,22 @@
     <article>
     <div class="container">
       <div class="section-title text-center">
-        <h2>les abscences concernant {{ user.nom }}:</h2>
-        <p class="separator">vous pouvez consulter vos abscences sur cette page</p>
+        <h2>les abscences concernant <i>{{ user.nom }}</i>:</h2>
+        <p class="separator">{% if abscences|length != 0 %}vous pouvez consulter vos abscences sur cette page {% else %}
+          vous n'avez pas d'abscences <i><b>{{ user.nom }}</b></i>
+        {% endif %}</p>
       </div>
     </div>
     <div class="container">
       <div class="row">
-      {% for i in 0..19 %}
+      {% for abscence in abscences %}
       <!--abscence-->
         <div class="col-md-6 col-lg-3">
           <div class="feature-block">
             <img src="img/svg/abscence.svg" alt="img" class="img-fluid">
-            <h4>Date</h4>
-            <h5>cour</h5>
-            <p>motif</p>
+            <h5>{{abscence.cour.date| date('d/m/Y') }} à {{ abscence.cour.date| date('H:i')}}</h5>
+            <h4>de la matiere: {{abscence.cour.matiere.nom}}</h4>
+            <p>{{abscence.motif}}</p>
           </div>
         </div>
       <!--abscence-->
