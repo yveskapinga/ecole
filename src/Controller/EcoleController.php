@@ -109,10 +109,9 @@ class EcoleController extends AbstractController
     }
 
     /**
-    * @Route("/creerEtudiant", name="creerEtudiant")
-    * @Route("/modifierEtudiant/{id}", name="modifierEtudiant")
+    * @Route("/etudiant/{modif}", name="etudiant")
     */
-    public function etudiant($id=0,Request $req,EtudiantRepository $repo) 
+    public function etudiant($modif=0,Request $req,EtudiantRepository $repo) 
     {
         $etudiants = $repo->findAll();
         $etudiant = $this->get('session')->get('user') == null ? new Etudiant() : $repo->find($this->get('session')->get('user')->getId());
@@ -133,8 +132,7 @@ class EcoleController extends AbstractController
             //si tout va bien je enrigitre dans la table etudiant 
             $entityManager->persist($etudiant);
             $entityManager->flush();
-            if($this->get('session')->get('user')!= null) 
-                $this->get('session')->set('user', $etudiant);
+            $this->get('session')->set('user', $etudiant);
           
             
         }
@@ -142,7 +140,7 @@ class EcoleController extends AbstractController
         return $this->render('pages/etudiant.html.twig',[
            'form'=>$form->createView(),
            'user'=>$this->get('session')->get('user'),
-           'id'=>boolval($id),
+           'id'=>boolval($modif),
            'isSubmit'=>$form->isSubmitted()
           
         ]);

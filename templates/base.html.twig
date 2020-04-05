@@ -65,7 +65,7 @@
 								<a  class="nav-link" href="{{ path('equipe') }}">Equipe</a>
 							</li>
 							<li class="menu-active">
-								<a  class="nav-link" href="{{ path('modifierEtudiant',{'id':user.id}) }}">modifier<i>({{user.nom}})</i></a>
+								<a  class="nav-link" href="{{ path('etudiant',{'modif':user.id}) }}">modifier<i>({{user.nom}})</i></a>
 							</li>
 							<li>
 								<a  class="nav-link" href="{{ path('deconexion') }}">
@@ -82,7 +82,7 @@
 								</a>
 							</li>
 							<li>
-								<a  class="nav-link" href="{{ path('creerEtudiant') }}">
+								<a  class="nav-link" href="{{ path('etudiant') }}">
 									<i class="fas fa-plus fa-2x" id="lock"></i>
 								</a>
 							</li>
