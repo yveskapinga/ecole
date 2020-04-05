@@ -124,7 +124,7 @@ class EcoleController extends AbstractController
             {
                 //je verifier si l'email n'existe pas dans la base de donnee si user est null(nouvelle inscription)
                 if($etu->getEmail()==$etudiant->getEmail())
-                    return $this->redirectToRoute('creerEtudiant');
+                    return $this->redirectToRoute('etudiant');
              }
             $entityManager = $this->getDoctrine()->getManager();
             //hashage de mot de passe 
@@ -141,7 +141,6 @@ class EcoleController extends AbstractController
            'form'=>$form->createView(),
            'user'=>$this->get('session')->get('user'),
            'isSubmit'=>$form->isSubmitted()
-          
         ]);
     }
     
