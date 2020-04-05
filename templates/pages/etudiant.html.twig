@@ -1,9 +1,10 @@
 {% extends "base.html.twig" %}
-{% block title %}{{ parent () }}Login{% endblock %}
+{% block title %}{{ parent () }}etudiant{% endblock %}
 {% block stylesheets %}
         {{ parent() }}
 {% endblock %}
 {% block body %}
+ {% include "nav/nav_etudiant.html.twig" %}
 	 <section id="contact" class="padd-section wow fadeInUp">
      {% if not isSubmit %}
     <div class="container">

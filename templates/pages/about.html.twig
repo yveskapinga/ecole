@@ -1,12 +1,10 @@
 {% extends "base.html.twig" %}
-{% block title %}{{ parent () }} Home{% endblock %}
+{% block title %}{{ parent () }} about{% endblock %}
 {% block stylesheets %}
     {{ parent() }}
 {% endblock %}
 {% block body %}
-  <!--==========================
-    About Us Section
-  ============================-->
+  {% include "nav/nav_etudiant.html.twig" %}
   <section id="about-us" class="about-us padd-section wow fadeInUp">
     <article>
     <div class="container">

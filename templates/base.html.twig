@@ -35,65 +35,6 @@
 		{% endblock %}
 	</head>
 	<body>
-		<header id="header" class="header header-hide ">
-			<div class="container-fluid">
-                <div id="logo" class="pull-left">
-                        <h1>
-                            <a class="navbar-brand scrollto" href="{{ path('home') }}"><span>é</span>cole<span>R</span>oubaix</a>
-                        </h1>
-                </div>
-				<nav class="navbar navbar-expand-lg navbar-light bg-light ">
-                    <div>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                    </div>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="nav navbar-nav ml-auto">
-						{% if user != null %}
-							<li>
-								<a  class="nav-link" href="{{ path('matieres') }}">Matieres</a>
-							</li>
-							
-							<li class="menu-active">
-								<a  class="nav-link" href="{{ path('abscences') }}">absences</a>
-							</li>
-							<li>
-								<a  class="nav-link" href="{{ path('about') }}">A propos</a>
-							</li>
-							<li>
-								<a  class="nav-link" href="{{ path('equipe') }}">Equipe</a>
-							</li>
-							<li class="menu-active">
-								<a  class="nav-link" href="{{ path('etudiant') }}">modifier<i>({{user.nom}})</i></a>
-							</li>
-							<li>
-								<a  class="nav-link" href="{{ path('deconexion') }}">
-									<i class="fas fa-lock fa-2x" id="lock"></i>
-								</a>
-							</li>
-						{% else %}
-							<li>
-								<a  class="nav-link" href="{{ path('about') }}">A propos</a>
-							</li>
-							<li>
-								<a  class="nav-link" href="{{ path('login') }}">
-									<i class="fas fa-unlock fa-2x" id="unlock"></i>
-								</a>
-							</li>
-							<li>
-								<a  class="nav-link" href="{{ path('etudiant') }}">
-									<i class="fas fa-plus fa-2x" id="lock"></i>
-								</a>
-							</li>
-						{% endif %}
-					</ul>
-                    </div>
-				</nav>
-				<!-- #nav-menu-container -->
-			</div>
-		</header>
-		<!-- #header -->
 		{% block body %}{% endblock %}
 		<footer class="footer">
 			<div class="container">
@@ -102,7 +43,7 @@
 					<div class="col-md-12 col-lg-4">
 						<div class="footer-logo">
 
-							<a class="navbar-brand" href="#">ecole roubaix</a>
+							<a class="navbar-brand" href="#">ecotechRoubaix</a>
 							<p>121 rue d'Alger, 59100 Roubaix</p>
 
 						</div>

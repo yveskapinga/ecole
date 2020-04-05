@@ -1,4 +1,4 @@
-{% extends "admin.html.twig" %}
+{% extends "base.html.twig" %}
 {% block title %}
 	{{ parent () }}
 	Matiers
@@ -7,7 +7,7 @@
 	{{ parent() }}
 {% endblock %}
 {% block body %}
-
+	 {% include "nav/nav_admin.html.twig" %}
 	<section id="matiere" class="padd-section text-center wow fadeInUp">
 
 		<table class="table">

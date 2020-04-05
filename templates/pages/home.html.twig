@@ -5,12 +5,10 @@
     {{ parent() }}
 {% endblock %}
 {% block body %}
-<!--==========================
-    Home Section
-  ============================-->
+ {% include "nav/nav_etudiant.html.twig" %}
   <section id="hero" class="wow fadeIn">
     <div class="hero-container">
-      <h1>Bienvenue a l'Ecole Roubaix</h1>
+      <h1>Bienvenue à l'Ecole Roubaix</h1>
       <img src="img/hero-img.png" alt="Hero Imgs">
       <div class="btns">
         <a href="#"><i class="fab fa-apple"></i>App Store</a>

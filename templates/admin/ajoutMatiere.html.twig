@@ -1,4 +1,4 @@
-{% extends "admin.html.twig" %}
+{% extends "base.html.twig" %}
 {% block title %}
 	{{ parent () }}
 	Matiers
@@ -7,7 +7,7 @@
 	{{ parent() }}
 {% endblock %}
 {% block body %}
-
+  {% include "nav/nav_admin.html.twig" %}
 	<section id="contact" class="padd-section wow fadeInUp">
 
     <div class="container">
@@ -32,10 +32,10 @@
           <div class="form">
             <div id="sendmessage"></div>
             <div id="errormessage"></div>
-            <form action="" method="post" role="form" class="contactForm">
+            <form action="" method="post" role="form" >
               <div class="form-group">
-                <input type="text" class="form-control" name="nom" id="nom" placeholder="nom de la matiere" data-rule="email" data-msg="Please enter a valid email" />
-                <div class="validation"></div>
+                <input type="text" class="form-control" name="nom" id="nom" placeholder="nom de la matiere" />
+               
               </div>
 			  <div class="form-group">
                 <input type="number" name="enseigne" class="form-control" id="enseigne" placeholder="ID de l'enseigne" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />

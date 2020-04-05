@@ -1,0 +1,31 @@
+<head> 
+ <div id="logo" class="pull-left">
+                        <h1>
+                            <a class="navbar-brand scrollto" href="{{ path('home') }}">Interface Client</a>
+                        </h1>
+                </div>
+			<nav class="navbar navbar-expand-lg navbar-light bg-light ">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul  class="nav navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="#">Gestion Etaudiants</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link"  href="{{ path('adminMatiere') }}">Gestion matieres</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link " href="#">Gestion Enseigants</a>
+					</li>
+					<li>
+						<a class="nav-link" href="#"><i class="fas fa-unlock fa-2x" id="unlock"></i></a>
+					</li>
+					<li>
+						<a class="nav-link" href="#"><i class="fas fa-lock fa-2x" id="lock"></i></a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+</head>
