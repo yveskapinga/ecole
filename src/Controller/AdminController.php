@@ -16,7 +16,7 @@ class AdminController extends AbstractController
     public function loginAdmin()
     {
         return $this->render('admin/login.html.twig', [
-           
+            'admin'=>$this->get('session')->get('admin')
         ]);
     }
 
@@ -25,15 +25,21 @@ class AdminController extends AbstractController
      */
     public function adminMatiere()
     {
+        if($this->get('session')->get('admin') != null)
+        {
         return $this->render('admin/adminMatiere.html.twig', [
-            
+            'admin'=>$this->get('session')->get('admin')
         ]);
+        }
+        return $this->redirectToRoute('admin');
     }
      /**
      * @Route("/ajoutMatiere", name="ajoutMatiere")
      */
     public function ajoutMatiere(Request $req)
     {   
+        if($this->get('session')->get('admin') != null)
+        {
         $enseigne = new Enseigne();
         $matiere = new Matiere();
         $entityManager = $this->getDoctrine()->getManager();
@@ -42,7 +48,8 @@ class AdminController extends AbstractController
             $repo2 = $entityManager->getRepository(Matiere::class);
             $enseignes=$repo1->findall();
             foreach($enseignes as $el)
-                if($req->request->get('enseigne') == $el->getId()){
+                if($req->request->get('enseigne') == $el->getId())
+                {
                     $matiere->setNom($req->request->get('nom'));
                     $matiere->setEnseigne($el);
                     $entityManager->persist($matiere);
@@ -50,10 +57,12 @@ class AdminController extends AbstractController
                 break;
                 }
             
-        }
+            }
         return $this->render('admin/ajoutMatiere.html.twig', [
-        'matiere'=>$matiere
+        'matiere'=>$matiere,
+        'admin'=>$this->get('session')->get('admin')
         ]);
+        }
+    return $this->redirectToRoute('admin');
     }
 }
-
