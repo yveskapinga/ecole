@@ -17,11 +17,12 @@ class AdminFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $admin = new Admin();
-        $admin-> setEmail('bruno@bruno');
+        $admin-> setEmail('admin@admin');
+        $admin-> setRoles(array('ROLE_ADMIN'));
 
          $admin->setPassword($this->passwordEncoder->encodePassword(
              $admin,
-            'bruno'
+            'admin'
          ));
 
          $manager->persist($admin);

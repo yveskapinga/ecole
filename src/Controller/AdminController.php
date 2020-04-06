@@ -13,15 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminController extends AbstractController
 {
-    /**
-     * @Route("/admin", name="admin")
-     */
-    public function loginAdmin()
-    {
-        return $this->render('admin/login.html.twig', [
-        ]);
-    }
-
      /**
      * @Route("/adminMatiere", name="adminMatiere")
      */
@@ -43,7 +34,7 @@ class AdminController extends AbstractController
         ]);
     }
      /**
-     * @Route("/adminEnseignant", name="adminEnseignant")
+     * @Route("superAdmin/adminEnseignant", name="adminEnseignant")
      */
     public function adminEnseignant(EnseignantRepository $repo)
     {
@@ -54,7 +45,7 @@ class AdminController extends AbstractController
     }
 
      /**
-     * @Route("/ajoutMatiere", name="ajoutMatiere")
+     * @Route("superAdmin/ajoutMatiere", name="ajoutMatiere")
      */
     public function ajoutMatiere(Request $req)
     {   
