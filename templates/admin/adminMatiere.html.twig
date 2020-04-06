@@ -9,7 +9,9 @@
 {% block body %}
 	 {% include "nav/nav_admin.html.twig" %}
 	<section id="matiere" class="padd-section text-center wow fadeInUp">
-
+		<div>
+			<a href="{{ path('ajoutMatiere') }}"><button class="btn btn-warning">ajouter des matieres</button></a>
+		</div>
 		<table class="table">
 			<thead class="thead-dark">
 				<tr>
@@ -20,30 +22,16 @@
 				</tr>
 			</thead>
 			<tbody>
+				{% for matiere in matieres %}
 				<tr>
-					<th scope="row">1</th>
-					<td>ID</td>
-					<td>Otto</td>
-					<td>@mdo</td>
+					<th scope="row">{{matiere.id}}</th>
+					<td>{{matiere.nom}}</td>
+					<td>{{matiere.enseigne.id}}</td>
+					<td>{{matiere.enseigne.nom}}</td>
                     <td><a onclick="return confirm('êtes vous sûr de Modifier')" href="#">Modifier</a></td>
                     <td><a onclick="return confirm('êtes vous sûr de suprimer')" href="#">Suprimer</a></td>
 				</tr>
-				<tr>
-					<th scope="row">2</th>
-					<td>Jacob</td>
-					<td>Thornton</td>
-					<td>@fat</td>
-                    <td><a onclick="return confirm('êtes vous sûr de Modifier')" href="#">Modifier</a></td>
-                    <td><a onclick="return confirm('êtes vous sûr de suprimer')" href="#">Suprimer</a></td>
-				</tr>
-				<tr>
-					<th scope="row">3</th>
-					<td>Larry</td>
-					<td>the Bird</td>
-					<td>@twitter</td>
-                    <td><a onclick="return confirm('êtes vous sûr de Modifier')" href="#">Modifier</a></td>
-                    <td><a onclick="return confirm('êtes vous sûr de suprimer')" href="#">Suprimer</a></td>
-				</tr>
+				{% endfor %}
 			</tbody>
 		</table>
 

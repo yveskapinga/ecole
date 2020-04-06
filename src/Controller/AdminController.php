@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Matiere;
 use App\Entity\Enseigne;
+use App\Repository\MatiereRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,30 +17,24 @@ class AdminController extends AbstractController
     public function loginAdmin()
     {
         return $this->render('admin/login.html.twig', [
-            'admin'=>$this->get('session')->get('admin')
         ]);
     }
 
      /**
      * @Route("/adminMatiere", name="adminMatiere")
      */
-    public function adminMatiere()
+    public function adminMatiere(MatiereRepository $repo)
     {
-        if($this->get('session')->get('admin') != null)
-        {
+        $matieres = $repo->findAll();
         return $this->render('admin/adminMatiere.html.twig', [
-            'admin'=>$this->get('session')->get('admin')
+            'matieres'=>$matieres
         ]);
-        }
-        return $this->redirectToRoute('admin');
     }
      /**
-     * @Route("/ajoutMatiere", name="ajoutMatiere")
+     * @Route("adminer/ajoutMatiere", name="ajoutMatiere")
      */
     public function ajoutMatiere(Request $req)
     {   
-        if($this->get('session')->get('admin') != null)
-        {
         $enseigne = new Enseigne();
         $matiere = new Matiere();
         $entityManager = $this->getDoctrine()->getManager();
@@ -58,11 +53,8 @@ class AdminController extends AbstractController
                 }
             
             }
-        return $this->render('admin/ajoutMatiere.html.twig', [
+        return $this->render('admin/adminer/ajoutMatiere.html.twig', [
         'matiere'=>$matiere,
-        'admin'=>$this->get('session')->get('admin')
         ]);
-        }
-    return $this->redirectToRoute('admin');
     }
 }

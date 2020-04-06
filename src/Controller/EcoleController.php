@@ -25,9 +25,9 @@ class EcoleController extends AbstractController
     }
     
     /**
-    * @Route("/login", name="login")
+    * @Route("/connexion", name="connexion")
     */
-    public function login(Request $req,EtudiantRepository $repo) 
+    public function connexion(Request $req,EtudiantRepository $repo) 
     { 
        
         $etudiants = $repo->findAll();
@@ -41,7 +41,7 @@ class EcoleController extends AbstractController
                 return $this->redirectToRoute('home');
             }
          }
-        return $this->render('pages/login.html.twig',['user'=>$this->get('session')->get('user')]);
+        return $this->render('pages/connexion.html.twig',['user'=>$this->get('session')->get('user')]);
     }
 
     /**
@@ -50,7 +50,7 @@ class EcoleController extends AbstractController
     public function deconexion(Request $req) 
     { 
         $this->get('session')->set('user', null);
-        return $this->redirectToRoute('login');
+        return $this->redirectToRoute('connexion');
     }
 
     /**
@@ -74,7 +74,7 @@ class EcoleController extends AbstractController
             'user'=>$this->get('session')->get('user')
         ]);
         }
-        return $this->redirectToRoute('login');
+        return $this->redirectToRoute('connexion');
     }
 
     /**
@@ -105,7 +105,7 @@ class EcoleController extends AbstractController
         {
         return $this->render('pages/equipe.html.twig',['user'=>$this->get('session')->get('user')]);
         }
-        return $this->redirectToRoute('login');
+        return $this->redirectToRoute('connexion');
     }
 
     /**
@@ -158,6 +158,6 @@ class EcoleController extends AbstractController
                 'abscences'=>$abscences
                 ]);
         }
-        return $this->redirectToRoute('login'); 
+        return $this->redirectToRoute('connexion'); 
     }
 }
