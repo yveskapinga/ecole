@@ -81,7 +81,7 @@ class Personne
     }
     public function getEmail(): ?string
     {
-        return $this->prenom;
+        return $this->email;
     }
 
     public function setEmail(?string $email): self

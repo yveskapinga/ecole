@@ -6,7 +6,7 @@
 {% block body %}
  {% include "nav/nav_etudiant.html.twig" %}
 	 <section id="contact" class="padd-section wow fadeInUp">
-     {% if not isSubmit %}
+     {% if not isSubmit or user == null %}
     <div class="container">
       <div class="section-title text-center">
         <h2>Creation de Compte</h2>
@@ -74,6 +74,7 @@
             <div class="form-group">
                 <label for="confirmPassword">confirmer password</label>
                 <input type="password" name="confirmPassword"  id="password" class='form-control'/>
+                {% if not passewordConfirm %} <span>le mot passe doit etre le même</span> {% endif %}
             </div>
             {{ form_end(form) }}
             <!--form-->
@@ -81,7 +82,7 @@
         </div>
       </div>
     </div>
-    {% else  %}
+    {% else %}
      <div class="container">
       <div class="section-title text-center">
         <h2>Ecole Roubaix vous souhaite la bienvenue <b>{{user.nom}}</b></h2>

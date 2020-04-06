@@ -117,8 +117,8 @@ class EcoleController extends AbstractController
         $etudiant = $this->get('session')->get('user') == null ? new Etudiant() : $repo->find($this->get('session')->get('user')->getId());
         $form = $this->createForm(EtudiantType::class,$etudiant);
         $form->handleRequest($req);
-        if($form->isSubmitted() && $form->isValid() &&
-         $req->request->get('confirmPassword')==$etudiant->getPassword())
+        $passewordConfirm = $req->request->get('confirmPassword')==$etudiant->getPassword();
+        if($form->isSubmitted() && $form->isValid() && $passewordConfirm)
          {
             if(count($etudiants)>0 && $this->get('session')->get('user') == null)foreach($etudiants as $etu)
             {
@@ -140,7 +140,8 @@ class EcoleController extends AbstractController
         return $this->render('pages/etudiant.html.twig',[
            'form'=>$form->createView(),
            'user'=>$this->get('session')->get('user'),
-           'isSubmit'=>$form->isSubmitted()
+           'isSubmit'=>$form->isSubmitted(),
+           'passewordConfirm'=> $passewordConfirm
         ]);
     }
     
