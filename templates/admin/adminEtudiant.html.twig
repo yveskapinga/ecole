@@ -1,0 +1,50 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{ parent () }}
+	Matiers
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+{% block body %}
+	 {% include "nav/nav_admin.html.twig" %}
+	<section id="matiere" class="padd-section text-center wow fadeInUp">
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">ID_Etudiant</th>
+					<th scope="col">Nom</th>
+					<th scope="col">prenom</th>
+					<th scope="col">email</th>
+					<th scope="col">url_photo</th>
+					<th scope="col">date de naissance</th>
+					<th scope="col">promotion</th>
+					<th scope="col">inscrit</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for etudiant in etudiants %}
+				<tr>
+					<th scope="row">{{etudiant.id}}</th>
+					<td>{{etudiant.nom}}</td>
+					<td>{{etudiant.prenom}}</td>
+					<td>{{etudiant.email}}</td>
+					<td>{{etudiant.photo}}</td>
+					<td>{{etudiant.dateDeNaissance | date('d/m/Y') }}</td>
+					<td>{{etudiant.promotion.libelle}}</td>
+					<td>{% if etudiant.inscrit %}inscrit{% else %}non inscrit{% endif %}</td>
+                    <td><a onclick="return confirm('êtes vous sûr de Modifier')" href="#">Modifier</a></td>
+                    <td><a onclick="return confirm('êtes vous sûr de suprimer')" href="#">Suprimer</a></td>
+					{% if etudiant.inscrit %}
+					<td><a onclick="return confirm('êtes sur d'ajouter une abscence')" href="#">Ajouter une absence</a></td>
+					{% endif %}
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	</section>
+	{% block javascripts %}
+		{{ parent() }}
+	{% endblock %}
+{% endblock body %}

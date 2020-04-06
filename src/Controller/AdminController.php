@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Matiere;
 use App\Entity\Enseigne;
 use App\Repository\MatiereRepository;
+use App\Repository\EtudiantRepository;
+use App\Repository\EnseignantRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,7 +33,28 @@ class AdminController extends AbstractController
         ]);
     }
      /**
-     * @Route("adminer/ajoutMatiere", name="ajoutMatiere")
+     * @Route("/adminEtudiant", name="adminEtudiant")
+     */
+    public function adminEtudiant(EtudiantRepository $repo)
+    {
+        $etudiants = $repo->findAll();
+        return $this->render('admin/adminEtudiant.html.twig', [
+            'etudiants'=>$etudiants
+        ]);
+    }
+     /**
+     * @Route("/adminEnseignant", name="adminEnseignant")
+     */
+    public function adminEnseignant(EnseignantRepository $repo)
+    {
+        $enseignants = $repo->findAll();
+        return $this->render('admin/superAdmin/adminEnseignant.html.twig', [
+            'enseignants'=>$enseignants
+        ]);
+    }
+
+     /**
+     * @Route("/ajoutMatiere", name="ajoutMatiere")
      */
     public function ajoutMatiere(Request $req)
     {   
@@ -53,7 +76,7 @@ class AdminController extends AbstractController
                 }
             
             }
-        return $this->render('admin/adminer/ajoutMatiere.html.twig', [
+        return $this->render('admin/superAdmin/ajoutMatiere.html.twig', [
         'matiere'=>$matiere,
         ]);
     }

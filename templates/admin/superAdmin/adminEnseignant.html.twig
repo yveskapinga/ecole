@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{ parent () }}
+	Matiers
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+{% block body %}
+	 {% include "nav/nav_admin.html.twig" %}
+	<section id="matiere" class="padd-section text-center wow fadeInUp">
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">ID_Enseignant</th>
+					<th scope="col">Nom</th>
+					<th scope="col">prenom</th>
+					<th scope="col">email</th>
+					<th scope="col">url_photo</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for enseignant in enseignants %}
+				<tr>
+					<th scope="row">{{etudiant.id}}</th>
+					<td>{{enseignant.nom}}</td>
+					<td>{{enseignant.prenom}}</td>
+					<td>{{enseignant.email}}</td>
+					<td>{{enseignant.photo}}</td>
+                    <td><a onclick="return confirm('êtes vous sûr de Modifier')" href="#">Modifier</a></td>
+                    <td><a onclick="return confirm('êtes vous sûr de suprimer')" href="#">Suprimer</a></td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	</section>
+	{% block javascripts %}
+		{{ parent() }}
+	{% endblock %}
+{% endblock body %}
