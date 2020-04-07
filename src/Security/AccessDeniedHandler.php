@@ -11,7 +11,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
 {
     public function handle(Request $request, AccessDeniedException $accessDeniedException)
     {
-        $content = "<h1>vous n'êtes pas autorise pour cette page</h1>";
+        $content = "<h1>vous n'êtes pas autorise pour cette action veuillez contacter L'administrateur</h1>";
         return new Response($content, 403);
     }
 }

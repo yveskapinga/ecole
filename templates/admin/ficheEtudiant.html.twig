@@ -7,9 +7,55 @@
 	{{ parent() }}
 {% endblock %}
 {% block body %}
-	 {% include "nav/nav_admin.html.twig" %}
-     
-{% block javascripts %}
+	{% include "nav/nav_admin.html.twig" %}
+
+	<section id="matiere" class="padd-section text-center wow fadeInUp container">
+		<div class="row">
+			<div class="card col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4" style="width: 18rem;">
+				<img class="card-img-top" src="https://zupimages.net/up/20/09/lwew.jpg" alt="photo">
+				<div class="card-body">
+					<h3 class="card-title">{{etudiant.id}} </h3>
+				</div>
+				<ul class="list-group list-group-flush">
+                    <label>nom:</label>
+					<input class="list-group-item" value="{{etudiant.nom}}">
+                    <label>prenom:</label>
+					<input class="list-group-item" value="{{etudiant.prenom}}">
+                    <label>email:</label>
+					<input class="list-group-item" value="{{etudiant.email}}">
+                    <label>date de naissance:</label>
+					<input class="list-group-item" value="{{etudiant.dateDeNaissance | date('d/m/Y') }}">
+                    <label>promotion:</label>
+                    <input class="list-group-item" value="{{etudiant.promotion.libelle}}">
+                    <label>inscription:</label>
+					<li class="list-group-item">
+						<a href="#">{% if etudiant.inscrit %}inscrit{% else %}non inscrit
+						{% endif %}</a>
+					</li>
+				</ul>
+				<div class="card-body">
+					<a  onclick="return confirm('êtes vous sûr de suprimer')" href="#" class="card-link">suprimer</a>
+					<a  onclick="return confirm('êtes vous sûr de modifier')" href="#" class="card-link">Modifier</a>
+				</div>
+			</div>
+
+            <!--abscences-->
+			<div class="card col-md-4 col-lg-4 " style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">abscences</h5>
+				</div>
+				<ul class="list-group list-group-flush">
+                    	<li class="list-group-item">{{etudiant.id}}</li>
+                </ul>
+				<div class="card-body">
+					<a href="#" class="card-link">Card link</a>
+					<a href="#" class="card-link">Another link</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{% block javascripts %}
 		{{ parent() }}
 	{% endblock %}
 {% endblock body %}

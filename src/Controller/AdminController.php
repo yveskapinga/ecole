@@ -43,9 +43,9 @@ class AdminController extends AbstractController
      */
     public function ficheEtudiant(EtudiantRepository $repo)
     {
-        $etudiants = $repo->findAll();
+        $etudiant = $repo->find(2);
         return $this->render('admin/ficheEtudiant.html.twig', [
-            'etudiants'=>$etudiants
+            'etudiant'=>$etudiant
         ]);
     }
 
