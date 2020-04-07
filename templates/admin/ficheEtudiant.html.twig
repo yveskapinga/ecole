@@ -16,6 +16,7 @@
 				<div class="card-body">
 					<h3 class="card-title">{{etudiant.id}} </h3>
 				</div>
+				<form method="post">
 				<ul class="list-group list-group-flush">
                     <label>nom:</label>
 					<input class="list-group-item" value="{{etudiant.nom}}">
@@ -35,8 +36,11 @@
 				</ul>
 				<div class="card-body">
 					<a  onclick="return confirm('êtes vous sûr de suprimer')" href="#" class="card-link">suprimer</a>
-					<a  onclick="return confirm('êtes vous sûr de modifier')" href="#" class="card-link">Modifier</a>
+					<a  onclick="return confirm('êtes vous sûr de modifier')" href="#" class="card-link">
+					 <input type="submit" value="Modifier">
+					</a>
 				</div>
+				</form>
 			</div>
 
             <!--abscences-->
