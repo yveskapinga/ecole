@@ -1,0 +1,49 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{ parent () }}etudiant
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+{% block body %}
+	{% include "nav/nav_admin.html.twig" %}
+	<div class="container">
+		<div class="col-lg-12 col-md-12">
+			<div class="form">
+				<div id="sendmessage"></div>
+				<div id="errormessage"></div>
+				<!--form-->
+				{{ form_start(form) }}
+				<div class="form-group">
+					<label for="nom">nom</label>
+					{{ form_widget(form.nom)}}
+				</div>
+				<div class="form-group">
+					<label for="prenom">prenom</label>
+					{{ form_widget(form.prenom)}}
+				</div>
+				<div class="form-group">
+					<label for="email">email</label>
+					{{ form_widget(form.email)}}
+				</div>
+				 <div class="form-group">
+				                <label for="photo">photo</label>
+				                {{ form_widget(form.photo)}}
+				            </div> 
+				<div class="form-group">
+					<label for="password">password</label>
+					{{ form_widget(form.password)}}
+				</div>
+				<div class="form-group">
+					<label for="confirmPassword">confirmer password</label>
+					<input type="password" name="confirmPassword" id="password" class='form-control'/>
+				</div>
+				{{ form_end(form) }}
+				<!--form-->
+			</div>
+		</div>
+    </div>
+		{% block javascripts %}
+			{{ parent() }}
+		{% endblock %}
+	{% endblock body %}

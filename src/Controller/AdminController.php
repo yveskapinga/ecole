@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Matiere;
 use App\Entity\Enseigne;
+use App\Entity\Enseignant;
+use App\Form\EnseignantType;
 use App\Repository\MatiereRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\EnseignantRepository;
@@ -44,13 +46,25 @@ class AdminController extends AbstractController
         ]);
     }
      /**
-     * @Route("superAdmin/ajoutEnseignant", name="ajoutEnseignant")
+     * @Route("ajoutEnseignant", name="ajoutEnseignant")
      */
-    public function ajoutEnseignant(EnseignantRepository $repo)
+    public function ajoutEnseignant(Request $req,EnseignantRepository $repo)
     {
-        $enseignants = $repo->findAll();
-        return $this->render('admin/superAdmin/ajoutEnseignant.html.twig', [
-            'enseignants'=>$enseignants
+        //on instancie l'entitie Enseignant
+        $enseignant = new Enseignant();
+        $enseignant->setRoles(array('ROLE_USER'));
+        // je cree l'objet formulaire
+        $form = $this->createForm(EnseignantType::class,$enseignant);
+        //je recupere les donnée saisie
+        $form->handleRequest($req);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            //ici le formulaire a été envoyer et les donnée sont valide
+            dump($enseignant);
+
+        }
+        return $this->render('admin/ajoutEnseignant.html.twig', [
+            'form'=>$form->createView()
         ]);
     }
      /**

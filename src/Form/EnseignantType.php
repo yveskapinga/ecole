@@ -6,20 +6,25 @@ use App\Entity\Enseignant;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class EnseignantType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('prenom')
-            ->add('email')
-            ->add('roles')
-            ->add('password')
-            ->add('adresse')
-            ->add('photo')
-            ->add('enseignant')
+            ->add('nom',TextType::class)
+            ->add('prenom',TextType::class)
+            ->add('email',EmailType::class)
+            //->add('roles')
+            ->add('password',PasswordType::class)
+            ->add('adresse',TextType::class)
+            ->add('photo',TextType::class)
+            ->add('creer',SubmitType::class)
+            //->add('enseignant')
         ;
     }
 
