@@ -43,7 +43,16 @@ class AdminController extends AbstractController
             'enseignants'=>$enseignants
         ]);
     }
-
+     /**
+     * @Route("superAdmin/ajoutEnseignant", name="ajoutEnseignant")
+     */
+    public function ajoutEnseignant(EnseignantRepository $repo)
+    {
+        $enseignants = $repo->findAll();
+        return $this->render('admin/superAdmin/ajoutEnseignant.html.twig', [
+            'enseignants'=>$enseignants
+        ]);
+    }
      /**
      * @Route("superAdmin/ajoutMatiere", name="ajoutMatiere")
      */
