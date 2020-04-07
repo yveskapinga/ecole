@@ -10,19 +10,14 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EnseignantRepository")
  */
-class Enseignant extends Personne
+class Enseignant extends Admin
 {
-    
+
     /**
-     * @Assert\Length(
-     *      min = 2,
-     *      minMessage = "Votre mot de passe doit être au moins {{ limit }} characters long",
-     *      allowEmptyString = false
-     * )
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $password;
-
+    private $photo;
+    
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Enseigne", mappedBy="enseignant")
      */
@@ -34,15 +29,15 @@ class Enseignant extends Personne
         $this->enseignant = new ArrayCollection();
     }
 
-    public function getPassword(): ?string
+    public function getPhoto(): ?string
     {
-        return $this->password;
+        return $this->photo;
     }
 
-    public function setPassword(?string $password): self
+    public function setPhoto(?string $photo): self
     {
-        $this->password = $password;
-        
+        $this->photo = $photo;
+
         return $this;
     }
 

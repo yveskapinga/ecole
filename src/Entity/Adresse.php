@@ -32,16 +32,10 @@ class Adresse
     private $ville;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $relation;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Personne", inversedBy="adresses")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Etudiant", inversedBy="adresses")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $personne;
-
+    private $Etudiant;
    
     public function getId(): ?int
     {
@@ -84,29 +78,16 @@ class Adresse
         return $this;
     }
 
-    public function getRelation(): ?string
+    public function getEtudiant(): ?Etudiant
     {
-        return $this->relation;
+        return $this->Etudiant;
     }
 
-    public function setRelation(string $relation): self
+    public function setEtudiant(?Etudiant $Etudiant): self
     {
-        $this->relation = $relation;
+        $this->Etudiant = $Etudiant;
 
         return $this;
     }
-
-    public function getPersonne(): ?Personne
-    {
-        return $this->personne;
-    }
-
-    public function setPersonne(?Personne $personne): self
-    {
-        $this->personne = $personne;
-
-        return $this;
-    }
-
    
 }
