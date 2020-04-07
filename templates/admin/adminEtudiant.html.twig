@@ -32,10 +32,7 @@
 					<td>{{etudiant.promotion.libelle}}</td>
 					<td>{% if etudiant.inscrit %}inscrit{% else %}non inscrit{% endif %}</td>
                     <td><a onclick="return confirm('êtes vous sûr de Modifier')" href="#">Modifier</a></td>
-                    <td><a href="#">Voir plus</a></td>
-					{% if etudiant.inscrit %}
-					<td><a onclick="return confirm('êtes sur d'ajouter une abscence')" href="#">Ajouter une absence</a></td>
-					{% endif %}
+                    <td><a href="{{ path('adminFicheEtudiant') }}">Voir plus</a></td>
 				</tr>
 				{% endfor %}
 			</tbody>

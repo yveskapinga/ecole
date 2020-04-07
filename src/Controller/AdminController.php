@@ -37,6 +37,18 @@ class AdminController extends AbstractController
             'etudiants'=>$etudiants
         ]);
     }
+    
+     /**
+     * @Route("/adminFicheEtudiant", name="adminFicheEtudiant")
+     */
+    public function ficheEtudiant(EtudiantRepository $repo)
+    {
+        $etudiants = $repo->findAll();
+        return $this->render('admin/ficheEtudiant.html.twig', [
+            'etudiants'=>$etudiants
+        ]);
+    }
+
      /**
      * @Route("superAdmin/adminEnseignant", name="adminEnseignant")
      */
