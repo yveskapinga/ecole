@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Enseignant;
+use App\Entity\Admin;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,7 +22,7 @@ class EnseignantType extends AbstractType
             //->add('roles')
             ->add('password',PasswordType::class)
             ->add('adresse',TextType::class)
-            ->add('photo',TextType::class)
+            //->add('photo',TextType::class)
             ->add('creer',SubmitType::class)
             //->add('enseignant')
         ;
@@ -31,7 +31,7 @@ class EnseignantType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Enseignant::class,
+            'data_class' => Admin::class,
         ]);
     }
 }

@@ -29,19 +29,19 @@ class Enseigne
     private $libelle;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Enseignant", inversedBy="enseignant")
-     */
-    private $enseignant;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Promotion", mappedBy="enseigne")
      */
     private $promotions;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Admin", mappedBy="enseigne")
+     */
+    private $admins;
+
     public function __construct()
     {
-        $this->enseignant = new ArrayCollection();
         $this->promotions = new ArrayCollection();
+        $this->admins = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -73,32 +73,7 @@ class Enseigne
         return $this;
     }
 
-    /**
-     * @return Collection|Enseignant[]
-     */
-    public function getEnseignant(): Collection
-    {
-        return $this->enseignant;
-    }
-
-    public function addEnseignant(Enseignant $enseignant): self
-    {
-        if (!$this->enseignant->contains($enseignant)) {
-            $this->enseignant[] = $enseignant;
-        }
-
-        return $this;
-    }
-
-    public function removeEnseignant(Enseignant $enseignant): self
-    {
-        if ($this->enseignant->contains($enseignant)) {
-            $this->enseignant->removeElement($enseignant);
-        }
-
-        return $this;
-    }
-
+   
     /**
      * @return Collection|Promotion[]
      */
@@ -125,6 +100,34 @@ class Enseigne
             if ($promotion->getEnseigne() === $this) {
                 $promotion->setEnseigne(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Admin[]
+     */
+    public function getAdmins(): Collection
+    {
+        return $this->admins;
+    }
+
+    public function addAdmin(Admin $admin): self
+    {
+        if (!$this->admins->contains($admin)) {
+            $this->admins[] = $admin;
+            $admin->addEnseigne($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdmin(Admin $admin): self
+    {
+        if ($this->admins->contains($admin)) {
+            $this->admins->removeElement($admin);
+            $admin->removeEnseigne($this);
         }
 
         return $this;

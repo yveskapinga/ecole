@@ -77,9 +77,20 @@ class Admin implements UserInterface
      */
     private $adresse;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $photo;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Enseigne", inversedBy="admins")
+     */
+    private $enseigne;
+
     public function __construct()
     {
         $this->adresses = new ArrayCollection();
+        $this->enseigne = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -168,6 +179,44 @@ class Admin implements UserInterface
     public function setAdresse(string $adresse): self
     {
         $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto(?string $photo): self
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Enseigne[]
+     */
+    public function getEnseigne(): Collection
+    {
+        return $this->enseigne;
+    }
+
+    public function addEnseigne(Enseigne $enseigne): self
+    {
+        if (!$this->enseigne->contains($enseigne)) {
+            $this->enseigne[] = $enseigne;
+        }
+
+        return $this;
+    }
+
+    public function removeEnseigne(Enseigne $enseigne): self
+    {
+        if ($this->enseigne->contains($enseigne)) {
+            $this->enseigne->removeElement($enseigne);
+        }
 
         return $this;
     }

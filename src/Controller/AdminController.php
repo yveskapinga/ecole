@@ -2,16 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Admin;
 use App\Entity\Matiere;
 use App\Entity\Enseigne;
 use App\Entity\Enseignant;
 use App\Form\EnseignantType;
+use App\Repository\AdminRepository;
 use App\Repository\MatiereRepository;
 use App\Repository\EtudiantRepository;
-use App\Repository\EnseignantRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface ;
 
 class AdminController extends AbstractController
 {
@@ -38,7 +40,7 @@ class AdminController extends AbstractController
      /**
      * @Route("superAdmin/adminEnseignant", name="adminEnseignant")
      */
-    public function adminEnseignant(EnseignantRepository $repo)
+    public function adminEnseignant(AdminRepository $repo)
     {
         $enseignants = $repo->findAll();
         return $this->render('admin/superAdmin/adminEnseignant.html.twig', [
@@ -48,10 +50,10 @@ class AdminController extends AbstractController
      /**
      * @Route("ajoutEnseignant", name="ajoutEnseignant")
      */
-    public function ajoutEnseignant(Request $req,EnseignantRepository $repo)
+    public function ajoutEnseignant(UserPasswordEncoderInterface $passwordEncoder,Request $req,AdminRepository $repo)
     {
         //on instancie l'entitie Enseignant
-        $enseignant = new Enseignant();
+        $enseignant = new Admin();
         $enseignant->setRoles(array('ROLE_USER'));
         // je cree l'objet formulaire
         $form = $this->createForm(EnseignantType::class,$enseignant);
@@ -60,7 +62,13 @@ class AdminController extends AbstractController
         if($form->isSubmitted() && $form->isValid())
         {
             //ici le formulaire a été envoyer et les donnée sont valide
-            dump($enseignant);
+            $enseignant->setPassword($passwordEncoder->encodePassword(
+                $enseignant,
+                $enseignant->getPassword()
+            ));
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($enseignant);
+            $entityManager->flush();
 
         }
         return $this->render('admin/ajoutEnseignant.html.twig', [
