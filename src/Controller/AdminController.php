@@ -54,7 +54,6 @@ class AdminController extends AbstractController
     {
         //on instancie l'entitie Enseignant
         $enseignant = new Admin();
-        $enseignant->setRoles(array('ROLE_USER'));
         // je cree l'objet formulaire
         $form = $this->createForm(EnseignantType::class,$enseignant);
         //je recupere les donnée saisie

@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class EnseignantType extends AbstractType
 {
@@ -19,12 +20,11 @@ class EnseignantType extends AbstractType
             ->add('nom',TextType::class)
             ->add('prenom',TextType::class)
             ->add('email',EmailType::class)
-            //->add('roles')
+            //->add('roles',CollectionType::class)
             ->add('password',PasswordType::class)
             ->add('adresse',TextType::class)
-            //->add('photo',TextType::class)
+            ->add('photo',TextType::class)
             ->add('creer',SubmitType::class)
-            //->add('enseignant')
         ;
     }
 

@@ -26,6 +26,7 @@ security:
                     - App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
+            access_denied_handler: App\Security\AccessDeniedHandler
                 # where to redirect after logout
                 # target: app_any_route
 
@@ -42,8 +43,9 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/admin$,roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/superAdmin, roles: ROLE_ADMIN }
-        - { path: ^/admin, roles: ROLE_USER }
+        - { path: ^/superAdmin, roles: ROLE_SUPER_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }
         
     role_hierarchy:
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
         ROLE_ADMIN: ROLE_USER
