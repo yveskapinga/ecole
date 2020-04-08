@@ -9,6 +9,7 @@ use App\Entity\Enseignant;
 use App\Form\EnseignantType;
 use App\Repository\AdminRepository;
 use App\Repository\MatiereRepository;
+use App\Repository\EnseigneRepository;
 use App\Repository\EtudiantRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,19 +18,10 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface ;
 
 class AdminController extends AbstractController
 {
-     /**
-     * @Route("/adminMatiere", name="adminMatiere")
-     */
-    public function adminMatiere(MatiereRepository $repo)
-    {
-        $matieres = $repo->findAll();
-        return $this->render('admin/adminMatiere.html.twig', [
-            'matieres'=>$matieres
-        ]);
-    }
-     /**
-     * @Route("/adminEtudiant", name="adminEtudiant")
-     */
+    
+    /**
+    * @Route("/adminEtudiant", name="adminEtudiant")
+    */
     public function adminEtudiant(EtudiantRepository $repo)
     {
         $etudiants = $repo->findAll();
@@ -37,13 +29,46 @@ class AdminController extends AbstractController
             'etudiants'=>$etudiants
         ]);
     }
-    
+    /**
+    * @Route("/superAdmin/inscriptionEtudiant/{id}", name="inscriptionEtudiant")
+    */
+    public function inscriptionEtudiant(int $id,EtudiantRepository $repo)
+    {     
+        // je selection l'etudiant par son id et je change sont statut inscription a true ou false et je le save dans la base
+            $etudiant = $repo->find($id);
+            $etudiant->setInscrit(!$etudiant->getInscrit());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($etudiant);
+            $entityManager->flush();
+            return $this->redirectToRoute('FicheEtudiant' ,['id' =>$etudiant->getId()]);
+
+
+    }
+
      /**
-     * @Route("/adminFicheEtudiant", name="adminFicheEtudiant")
-     */
-    public function ficheEtudiant(EtudiantRepository $repo)
+    * @Route("/superAdmin/supressionEtudiant/{id}", name="supressionEtudiant")
+    */
+    public function supressionEtudiant(int $id,EtudiantRepository $repo)
+    {     
+        // je selection l'etudiant par son id et je le suprime definitivement de la base
+            $etudiant = $repo->find($id); 
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($etudiant);
+            $entityManager->flush();
+            return $this->redirectToRoute('adminEtudiant');
+
+
+    }
+    /**
+    * @Route("/adminEtudiant{id}", name="FicheEtudiant")
+    */
+    public function ficheEtudiant(int $id,Request $req,EtudiantRepository $repo)
     {
-        $etudiant = $repo->find(2);
+        // je selection l'etudiant par son id
+        $etudiant = $repo->find($id);
+        /*
+          ici je vais traiter les donner envoyer sur l'etudiant par l'admin
+         */
         return $this->render('admin/ficheEtudiant.html.twig', [
             'etudiant'=>$etudiant
         ]);
@@ -89,18 +114,17 @@ class AdminController extends AbstractController
      /**
      * @Route("superAdmin/ajoutMatiere", name="ajoutMatiere")
      */
-    public function ajoutMatiere(Request $req)
+    public function ajoutMatiere(Request $req,MatiereRepository $repoMatiere,EnseigneRepository $repoEnseigne)
     {   
         $enseigne = new Enseigne();
-        $matiere = new Matiere();
+        $matiere = null;
         $entityManager = $this->getDoctrine()->getManager();
         if($req->request->count() > 0){
-            $repo1 = $entityManager->getRepository(Enseigne::class);
-            $repo2 = $entityManager->getRepository(Matiere::class);
-            $enseignes=$repo1->findall();
+            $enseignes=$repoEnseigne->findAll();
             foreach($enseignes as $el)
                 if($req->request->get('enseigne') == $el->getId())
                 {
+                    $matiere = new Matiere;
                     $matiere->setNom($req->request->get('nom'));
                     $matiere->setEnseigne($el);
                     $entityManager->persist($matiere);
@@ -111,6 +135,16 @@ class AdminController extends AbstractController
             }
         return $this->render('admin/superAdmin/ajoutMatiere.html.twig', [
         'matiere'=>$matiere,
+        ]);
+    }
+    /**
+    * @Route("/adminMatiere", name="adminMatiere")
+    */
+    public function adminMatiere(MatiereRepository $repo)
+    {
+        $matieres = $repo->findAll();
+        return $this->render('admin/adminMatiere.html.twig', [
+            'matieres'=>$matieres
         ]);
     }
 }

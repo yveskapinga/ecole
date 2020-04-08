@@ -20,7 +20,7 @@ class EtudiantType extends AbstractType
         ->add('nom',TextType::class)
         ->add('prenom',TextType::class)
         ->add('email',EmailType::class)
-        //->add('photo',TextType::class)
+        ->add('photo',TextType::class)
         ->add('password',PasswordType::class)
         ->add('creer',SubmitType::class)
         ;

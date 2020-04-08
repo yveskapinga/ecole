@@ -8,34 +8,35 @@
 {% endblock %}
 {% block body %}
 	{% include "nav/nav_admin.html.twig" %}
-
-	<section id="matiere" class="padd-section text-center wow fadeInUp container">
+	{% if not etudiant is null %}
+	<section  class="padd-section text-center wow fadeInUp container">
 		<div class="row">
-			<div class="card col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4" style="width: 18rem;">
-				<img class="card-img-top" src="https://zupimages.net/up/20/09/lwew.jpg" alt="photo">
+			<div class="card col-md-4 col-lg-4 col-md-offset-3" style="width: 18rem;">
+				<img class="card-img-top" src="{{etudiant.photo}}" alt="photo">
 				<div class="card-body">
 					<h3 class="card-title">{{etudiant.id}} </h3>
 				</div>
-				<form method="post">
+				<form action="" method="post">
 				<ul class="list-group list-group-flush">
                     <label>nom:</label>
-					<input class="list-group-item" value="{{etudiant.nom}}">
+					<input  type="text" class="list-group-item" value="{{etudiant.nom}}">
                     <label>prenom:</label>
-					<input class="list-group-item" value="{{etudiant.prenom}}">
+					<input  type="text" class="list-group-item" value="{{etudiant.prenom}}">
                     <label>email:</label>
-					<input class="list-group-item" value="{{etudiant.email}}">
+					<input  type="email" class="list-group-item" value="{{etudiant.email}}">
                     <label>date de naissance:</label>
-					<input class="list-group-item" value="{{etudiant.dateDeNaissance | date('d/m/Y') }}">
+					<input type="date" class="list-group-item" value="{{etudiant.dateDeNaissance | date('d/m/Y') }}">
                     <label>promotion:</label>
-                    <input class="list-group-item" value="{{etudiant.promotion.libelle}}">
+                    <input  type="text" class="list-group-item"{% if etudiant.promotion != null %} value="{{etudiant.promotion.libelle}}"{% endif %}>
                     <label>inscription:</label>
 					<li class="list-group-item">
-						<a href="#">{% if etudiant.inscrit %}inscrit{% else %}non inscrit
+						<a href="{{ path('inscriptionEtudiant',{'id':etudiant.id}) }}">{% if etudiant.inscrit %}inscrit{% else %}non inscrit
 						{% endif %}</a>
 					</li>
 				</ul>
 				<div class="card-body">
-					<a  onclick="return confirm('êtes vous sûr de suprimer')" href="#" class="card-link">suprimer</a>
+					<a  onclick="return confirm('êtes vous sûr de suprimer')" 
+					href="{{ path('supressionEtudiant',{'id':etudiant.id})}}" class="card-link">suprimer</a>
 					<a  onclick="return confirm('êtes vous sûr de modifier')" href="#" class="card-link">
 					 <input type="submit" value="Modifier">
 					</a>
@@ -44,21 +45,26 @@
 			</div>
 
             <!--abscences-->
-			<div class="card col-md-4 col-lg-4 " style="width: 18rem;">
+			<div class="col-md-4 col-lg-4 " style="width: 18rem;">
 				<div class="card-body">
 					<h5 class="card-title">abscences</h5>
 				</div>
 				<ul class="list-group list-group-flush">
-                    	<li class="list-group-item">{{etudiant.id}}</li>
+                    	<li class="list-group-item">{{etudiant.nom}}</li>
                 </ul>
 				<div class="card-body">
-					<a href="#" class="card-link">Card link</a>
-					<a href="#" class="card-link">Another link</a>
+					<form method="post">
+					<label>motif:</label>
+					<input type="text" class="list-group-item" value="{{etudiant.nom}}">
+                    <label>id_cour:</label>
+					<input type="number" class="list-group-item" value="{{etudiant.prenom}}">
+					<input type="submit" value="ajouter abscence">
+					</form>
 				</div>
 			</div>
 		</div>
 	</section>
-
+	{% endif %}
 	{% block javascripts %}
 		{{ parent() }}
 	{% endblock %}

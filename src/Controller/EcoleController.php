@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Entity\Cour;
 use App\Entity\Matiere;
 use App\Entity\Etudiant;
+use App\Entity\Promotion;
 use App\Form\EtudiantType;
 use App\Repository\CourRepository;
 use App\Repository\AbsenceRepository;

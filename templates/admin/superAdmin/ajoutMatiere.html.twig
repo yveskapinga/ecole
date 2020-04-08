@@ -39,7 +39,7 @@
               </div>
 			  <div class="form-group">
                 <input type="number" name="enseigne" class="form-control" id="enseigne" placeholder="ID de l'enseigne" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                {% if  matiere == null %}
+                {% if  matiere is null %}
                 <div ><span style="color: red;">id enseigne non valide</span></div>
                 {% endif %}
               </div>
@@ -50,7 +50,7 @@
       </div>
     </div>
     <div class="container">
-      {% if matiere.nom != '' %}
+      {% if  matiere is not null %}
       <blockquote>Vous venez d'ajouter la matiere <i><b>{{ matiere.nom }}</b></i> a la base de donneé</blockquote>
       {% endif %}
     </div>
