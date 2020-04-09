@@ -10,6 +10,7 @@ use App\Repository\CourRepository;
 use App\Repository\AbsenceRepository;
 use App\Repository\MatiereRepository;
 use App\Repository\EtudiantRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -65,11 +66,16 @@ class EcoleController extends AbstractController
     /**
     * @Route("/matieres", name="matieres")
     */
-    public function matieres(MatiereRepository $repo) 
+    public function matieres(Request $req,PaginatorInterface $paginator,MatiereRepository $repo) 
     {
         if($this->get('session')->get('user') != null)
         {
-        $matieres = $repo->findAllOrderById();
+        $donnees = $repo->findAllOrderById();
+        $matieres = $paginator->paginate(
+            $donnees,//on passe les donner
+            $req->query->getInt('page',1),// numero de la page en cours 1 par default
+            6 // le nombre d'element par page
+        );
         return $this->render('pages/matieres.html.twig',[
             'matieres'=>$matieres,
             'user'=>$this->get('session')->get('user')
