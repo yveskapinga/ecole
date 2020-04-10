@@ -13,7 +13,7 @@
 		<div class="container">
 			<div class="section-title text-center">
 				<h2>MATIERS</h2>
-				<p class="separator">Les {{ matieres|length }} Matiers que nous proposant.</p>
+				<p class="separator count">Les {{ matieres.getTotalItemCount }} Matiers que nous proposant.</p>
 				
 			</div>
 		</div>
@@ -28,7 +28,9 @@
 			</div>
 			{% endfor %}
 		</div>
+		<div class="navigation">
 		{{ knp_pagination_render(matieres) }}
+		</div>
 	</section>
 	{% block javascripts %}
 		{{ parent() }}
