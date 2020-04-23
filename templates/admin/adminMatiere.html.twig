@@ -7,10 +7,12 @@
 	{{ parent() }}
 {% endblock %}
 {% block body %}
-	 {% include "nav/nav_admin.html.twig" %}
+	{% include "nav/nav_admin.html.twig" %}
 	<section id="matiere" class="padd-section text-center wow fadeInUp">
 		<div>
-			<a href="{{ path('ajoutMatiere') }}"><button class="btn btn-warning">ajouter des matieres</button></a>
+			<a href="{{ path('ajoutMatiere') }}">
+				<button class="btn btn-warning">ajouter des matieres</button>
+			</a>
 		</div>
 		<table class="table">
 			<thead class="thead-dark">
@@ -23,18 +25,24 @@
 			</thead>
 			<tbody>
 				{% for matiere in matieres %}
-				<tr>
-					<th scope="row">{{matiere.id}}</th>
-					<td>{{matiere.nom}}</td>
-					<td>{{matiere.enseigne.id}}</td>
-					<td>{{matiere.enseigne.nom}}</td>
-                    <td><a href="#">Modifier</a></td>
-                    <td><a onclick="return confirm('êtes vous sûr de suprimer')" href="#">Suprimer</a></td>
-				</tr>
+					<tr>
+						<th scope="row">{{matiere.id}}</th>
+						<td>{{matiere.nom}}</td>
+						<td>{{matiere.enseigne.id}}</td>
+						<td>{{matiere.enseigne.nom}}</td>
+						<td>
+							<a href="#">Modifier</a>
+						</td>
+						<td>
+							<a onclick="return confirm('êtes vous sûr de suprimer')" href="#">Suprimer</a>
+						</td>
+					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
-
+		<div class="navigation">
+			{{ knp_pagination_render(matieres) }}
+		</div>
 	</section>
 	{% block javascripts %}
 		{{ parent() }}

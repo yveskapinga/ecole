@@ -11,6 +11,7 @@ use App\Repository\AdminRepository;
 use App\Repository\MatiereRepository;
 use App\Repository\EnseigneRepository;
 use App\Repository\EtudiantRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -140,9 +141,14 @@ class AdminController extends AbstractController
     /**
     * @Route("/adminMatiere", name="adminMatiere")
     */
-    public function adminMatiere(MatiereRepository $repo)
+    public function adminMatiere(Request $req,PaginatorInterface $paginator,MatiereRepository $repo)
     {
-        $matieres = $repo->findAll();
+        $donnees = $repo->findAll();
+        $matieres = $paginator->paginate(
+            $donnees,//on passe les donner
+            $req->query->getInt('page',1),// numero de la page en cours ,par default 1
+            6 // le nombre d'element par page
+        );
         return $this->render('admin/adminMatiere.html.twig', [
             'matieres'=>$matieres
         ]);
