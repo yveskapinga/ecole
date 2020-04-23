@@ -111,7 +111,7 @@ class EcoleController extends AbstractController
     {
         if($this->get('session')->get('user') != null)
         {
-        return $this->render('pages/equipe.html.twig',['user'=>$this->get('session')->get('user')]);
+            return $this->render('pages/equipe.html.twig',['user'=>$this->get('session')->get('user')]);
         }
         return $this->redirectToRoute('connexion');
     }
