@@ -17,16 +17,18 @@
 				
 			</div>
 		</div>
+		<div class="container">
 		<div class ="row">
 			{% for matiere in matieres %}
 			<div class="card col-md-4" style="width: 18rem;">
 				<div class="card-body">
 					<h5 class="card-title">ID:{{ matiere.getId() }} </h5>
-					<p class="card-text">Nom:{{matiere.getNom() }}</p>
+					<p class="card-text">Nom:{{ matiere.getNom() }}</p>
 					<a href="{{ path('cour',{'id':matiere.id}) }}" class="btn btn-primary">voir les cours</a>
 				</div>
 			</div>
 			{% endfor %}
+			</div>
 		</div>
 		<div class="navigation">
 		{{ knp_pagination_render(matieres) }}

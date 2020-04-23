@@ -11,6 +11,7 @@ use App\Repository\AbsenceRepository;
 use App\Repository\MatiereRepository;
 use App\Repository\EtudiantRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Doctrine\DBAL\Exception\DriverException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -73,7 +74,7 @@ class EcoleController extends AbstractController
         $donnees = $repo->findAllOrderById();
         $matieres = $paginator->paginate(
             $donnees,//on passe les donner
-            $req->query->getInt('page',1),// numero de la page en cours 1 par default
+            $req->query->getInt('page',1),// numero de la page en cours ,par default 1
             6 // le nombre d'element par page
         );
         return $this->render('pages/matieres.html.twig',[
