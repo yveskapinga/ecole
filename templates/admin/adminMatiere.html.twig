@@ -34,7 +34,7 @@
 							<a href="#">Modifier</a>
 						</td>
 						<td>
-							<a onclick="return confirm('êtes vous sûr de suprimer')" href="#">Suprimer</a>
+							<a onclick="return confirm('êtes vous sûr de suprimer')" href="{{ path('suprimerMatiere',{'id':matiere.id})}}">Suprimer</a>
 						</td>
 					</tr>
 				{% endfor %}

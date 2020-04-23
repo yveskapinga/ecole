@@ -7,54 +7,62 @@
 	{{ parent() }}
 {% endblock %}
 {% block body %}
-  {% include "nav/nav_admin.html.twig" %}
+	{% include "nav/nav_admin.html.twig" %}
 	<section id="contact" class="padd-section wow fadeInUp">
 
-    <div class="container">
-      <div class="section-title text-center">
-        <h2 style="text-align:center"></h2>
-        <p class="separator"></p>
-      </div>
-    </div>
+		<div class="container">
+			<div class="section-title text-center">
+				<h2 style="text-align:center"></h2>
+				<p class="separator"></p>
+			</div>
+		</div>
 
-    <div class="container">
-      <div class="row justify-content-center">
+		<div class="container">
+			<div class="row justify-content-center">
 
-        <div class="col-lg-3 col-md-4">
+				<div class="col-lg-3 col-md-4">
 
-          
 
-         <p>a fin de bien ajouter la matiere vous devez indiquer le numero de l'enseigne qui lui correspond</p>
+					<p>a fin de bien ajouter la matiere vous devez indiquer le numero de l'enseigne qui lui correspond</p>
 
-        </div>
+				</div>
 
-        <div class="col-lg-5 col-md-8">
-          <div class="form">
-            <div id="sendmessage"></div>
-            <div id="errormessage"></div>
-            <form action="" method="post" role="form" >
-              <div class="form-group">
-                <input type="text" class="form-control" name="nom" id="nom" placeholder="nom de la matiere" />
-               
-              </div>
-			  <div class="form-group">
-                <input type="number" name="enseigne" class="form-control" id="enseigne" placeholder="ID de l'enseigne" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                {% if  matiere is null %}
-                <div ><span style="color: red;">id enseigne non valide</span></div>
-                {% endif %}
-              </div>
-              <div class="text-center"><button type="submit">Ajouter</button></div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      {% if  matiere is not null %}
-      <blockquote>Vous venez d'ajouter la matiere <i><b>{{ matiere.nom }}</b></i> a la base de donneé</blockquote>
-      {% endif %}
-    </div>
-  </section><!-- #contact -->
+				<div class="col-lg-5 col-md-8">
+					<div class="form">
+						<div id="sendmessage"></div>
+						<div id="errormessage"></div>
+						<form action="" method="post" role="form">
+							<div class="form-group">
+								<input type="text" class="form-control" name="nom" id="nom" placeholder="nom de la matiere"/>
+
+							</div>
+							<div class="form-group">
+								<input type="number" name="enseigne" class="form-control" id="enseigne" placeholder="ID de l'enseigne" data-rule="minlen:4" data-msg="Please enter at least 4 chars"/>
+								{% if  matiere is null and not enseigne is null %}
+									<div>
+										<span style="color: red;">id enseigne non valide</span>
+									</div>
+								{% endif %}
+							</div>
+							<div class="text-center">
+								<button type="submit">Ajouter</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			{% if  matiere is not null %}
+				<blockquote>Vous venez d'ajouter la matiere
+					<i>
+						<b>{{ matiere.nom }}</b>
+					</i>
+					a la base de donneé</blockquote>
+			{% endif %}
+		</div>
+	</section>
+	<!-- #contact -->
 	{% block javascripts %}
 		{{ parent() }}
 	{% endblock %}
