@@ -21,10 +21,10 @@ class EnseignantType extends AbstractType
             ->add('prenom',TextType::class)
             ->add('email',EmailType::class)
             //->add('roles',CollectionType::class)
-            ->add('password',PasswordType::class)
+            //->add('password',PasswordType::class)
             ->add('adresse',TextType::class)
             ->add('photo',TextType::class)
-            ->add('creer',SubmitType::class)
+            ->add('envoyer',SubmitType::class)
         ;
     }
 

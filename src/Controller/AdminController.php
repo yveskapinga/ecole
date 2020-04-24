@@ -59,7 +59,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/adminEtudiant{id}", name="FicheEtudiant")
      */
-    public function ficheEtudiant(int $id, Request $req, EtudiantRepository $repo)
+    public function ficheEtudiant(int $id, EtudiantRepository $repo)
     {
         // je selection l'etudiant par son id
         $etudiant = $repo->find($id);
@@ -84,7 +84,7 @@ class AdminController extends AbstractController
     /**
      * @Route("ajoutEnseignant", name="ajoutEnseignant")
      */
-    public function ajoutEnseignant(UserPasswordEncoderInterface $passwordEncoder, Request $req, AdminRepository $repo)
+    public function ajoutEnseignant(UserPasswordEncoderInterface $passwordEncoder, Request $req)
     {
         //on instancie l'entitie Enseignant
         $enseignant = new Admin();
@@ -94,6 +94,7 @@ class AdminController extends AbstractController
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid()) {
             //ici le formulaire a été envoyer et les donnée sont valide
+            $enseignant->setPassword($req->request->get('password'));
             $enseignant->setPassword($passwordEncoder->encodePassword(
                 $enseignant,
                 $enseignant->getPassword()
@@ -103,6 +104,28 @@ class AdminController extends AbstractController
             $entityManager->flush();
         }
         return $this->render('admin/ajoutEnseignant.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+     /**
+     * @Route("superAdmin/modifierEnseignant{id}", name="modifierEnseignant")
+     */
+    public function modifierEnseignant($id,UserPasswordEncoderInterface $passwordEncoder, Request $req, AdminRepository $repoAdmin)
+    {
+        //on instancie l'entitie Enseignant
+        $enseignant = $repoAdmin->find($id);
+        // je cree l'objet formulaire
+        $form = $this->createForm(EnseignantType::class, $enseignant);
+        //je recupere les donnée saisie
+        $form->handleRequest($req);
+        if ($form->isSubmitted() && $form->isValid()) {
+            //ici le formulaire a été envoyer et les donnée sont valide
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($enseignant);
+            $entityManager->flush();
+            return $this->redirectToRoute('adminEnseignant');
+        }
+        return $this->render('admin/superAdmin/modifierEnseignant.html.twig', [
             'form' => $form->createView()
         ]);
     }
