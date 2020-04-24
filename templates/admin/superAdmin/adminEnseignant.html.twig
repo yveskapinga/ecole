@@ -9,11 +9,6 @@
 {% block body %}
 	 {% include "nav/nav_admin.html.twig" %}
 	<section id="matiere" class="padd-section text-center wow fadeInUp">
-		<div>
-			<a href="{{ path('ajoutEnseignant') }}">
-				<button class="btn btn-warning">creer un enseignant</button>
-			</a>
-		</div>
 		<table class="table">
 			<thead class="thead-dark">
 				<tr>
@@ -27,13 +22,15 @@
 			<tbody>
 				{% for enseignant in enseignants %}
 				<tr>
+					{% if enseignant.roles[0] != 'ROLE_SUPER_ADMIN' %}
 					<th scope="row">{{enseignant.id}}</th>
 					<td>{{enseignant.nom}}</td>
 					<td>{{enseignant.prenom}}</td>
 					<td>{{enseignant.email}}</td>
 					<td>{{enseignant.photo}}</td>
                     <td><a onclick="return confirm('êtes vous sûr de Modifier')" href="#">Modifier</a></td>
-                    <td><a onclick="return confirm('êtes vous sûr de suprimer')" href="#">Suprimer</a></td>
+					<td><a onclick="return confirm('êtes vous sûr de suprimer')" href="#">Suprimer</a></td>
+					{% endif %}
 				</tr>
 				{% endfor %}
 			</tbody>
