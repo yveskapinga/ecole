@@ -82,7 +82,7 @@ class AdminController extends AbstractController
         ]);
     }
     /**
-     * @Route("ajoutEnseignant", name="ajoutEnseignant")
+     * @Route("superAdmin/ajoutEnseignant", name="ajoutEnseignant")
      */
     public function ajoutEnseignant(UserPasswordEncoderInterface $passwordEncoder, Request $req, AdminRepository $repo)
     {
@@ -102,7 +102,7 @@ class AdminController extends AbstractController
             $entityManager->persist($enseignant);
             $entityManager->flush();
         }
-        return $this->render('admin/ajoutEnseignant.html.twig', [
+        return $this->render('admin/superAdmin/ajoutEnseignant.html.twig', [
             'form' => $form->createView()
         ]);
     }
