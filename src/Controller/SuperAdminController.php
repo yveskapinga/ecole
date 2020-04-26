@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Matiere;
+use App\Entity\Enseigne;
+use App\Form\EnseigneType;
 use App\Form\EnseignantType;
 use App\Repository\AdminRepository;
 use App\Repository\MatiereRepository;
@@ -128,7 +130,7 @@ class SuperAdminController extends AbstractController
     /**
     * @Route("/suprimerMatiere/{id}", name="suprimerMatiere")
     */
-    public function suprimerMatiere($id, Request $req, MatiereRepository $repo)
+    public function suprimerMatiere($id, MatiereRepository $repo)
     {
         $matiere = $repo->findOneById($id);
         $entityManager = $this->getDoctrine()->getManager();
@@ -137,6 +139,38 @@ class SuperAdminController extends AbstractController
 
         return $this->redirectToRoute('adminMatiere');
     }
-    /*************fin administartion matiere*************/
-    
+    /*************fin administartion matiere*****************/
+
+    /******************administration enseigne***************/
+    /**
+    * @Route("/adminEnseigne", name="adminEnseigne")
+    */
+    public function adminEnseigne(EnseigneRepository $repoEnseigne)
+    {
+        $enseignes = $repoEnseigne->findAll();
+        return $this->render('admin/superAdmin/adminEnseigne.html.twig',[
+            'enseignes'=> $enseignes
+        ]);
+    }
+
+    /**
+    * @Route("/enseigne", name="enseigne")
+    */
+    public function enseigne(Request $req)
+    {
+        $enseigne = new Enseigne();
+        $form = $this->createForm(EnseigneType::class, $enseigne);
+        $form->handleRequest($req);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($enseigne);
+            $entityManager->flush();
+            return $this->redirectToRoute('adminEnseigne');
+        }
+        return $this->render('admin/superAdmin/enseigne.html.twig',[
+            'form' => $form->createView()
+        ]);
+    }
+    /******************fin administration enseigne***************/
 }

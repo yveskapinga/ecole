@@ -59,7 +59,8 @@ class AdminController extends AbstractController
         $form = $this->createForm(EnseignantType::class, $enseignant);
         //je recupere les donnée saisie
         $form->handleRequest($req);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
             //ici le formulaire a été envoyer et les donnée sont valide
             $enseignant->setPassword($req->request->get('password'));
             $enseignant->setPassword($passwordEncoder->encodePassword(

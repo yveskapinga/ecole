@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{ parent () }}enseigne
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+{% block body %}
+	{% include "nav/nav_admin.html.twig" %}
+	<div class="container">
+		<div
+			class="form">
+			<!--form-->
+			{{ form_start(form) }}
+			<div class="form-group">
+				<label for="prenom">NOM</label>
+				{{ form_widget(form.nom)}}
+			</div>
+			<div class="form-group">
+				<label for="email">LIBELLE</label>
+				{{ form_widget(form.libelle)}}
+			</div>
+			{{ form_end(form) }}
+			<!--form-->
+		</div>
+	</div>
+	{% block javascripts %}
+		{{ parent() }}
+	{% endblock %}
+{% endblock body %}

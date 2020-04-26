@@ -1,0 +1,41 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{ parent () }}
+	Matiers
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+{% block body %}
+	{% include "nav/nav_admin.html.twig" %}
+	
+	<section id="matiere" class="padd-section text-center wow fadeInUp">
+	<div>
+		<a href="{{ path('enseigne') }}">
+			<button class="btn btn-warning">ajouter des enseignes</button>
+		</a>
+	</div>
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">ID_Enseigne</th>
+					<th scope="col">Nom</th>
+					<th scope="col">libelle</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for enseigne in enseignes %}
+					<tr>
+						<td>{{enseigne.id}}</td>
+						<td>{{enseigne.nom}}</td>
+						<td>{{enseigne.libelle}}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	</section>
+	{% block javascripts %}
+		{{ parent() }}
+	{% endblock %}
+{% endblock body %}
