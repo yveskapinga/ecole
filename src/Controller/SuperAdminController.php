@@ -61,7 +61,7 @@ class SuperAdminController extends AbstractController
     /**
     * @Route("/modifierEnseignant{id}", name="modifierEnseignant")
     */
-    public function modifierEnseignant($id,UserPasswordEncoderInterface $passwordEncoder, Request $req, AdminRepository $repoAdmin)
+    public function modifierEnseignant($id,Request $req, AdminRepository $repoAdmin)
     {
         //on instancie l'entitie Enseignant
         $enseignant = $repoAdmin->find($id);
@@ -71,12 +71,14 @@ class SuperAdminController extends AbstractController
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid()) {
             //ici le formulaire a été envoyer et les donnée sont valide
+            $enseignant->setRoles(array($req->request->get('role')));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($enseignant);
             $entityManager->flush();
             return $this->redirectToRoute('adminEnseignant');
         }
         return $this->render('admin/superAdmin/modifierEnseignant.html.twig', [
+            'role'=>$enseignant->getRoles()[0],
             'form' => $form->createView()
         ]);
     }

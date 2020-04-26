@@ -19,9 +19,11 @@
 					<li class="nav-item">
 						<a class="nav-link"  href="{{ path('adminMatiere') }}">Gestion matieres</a>
 					</li>
+					{% if is_granted('ROLE_SUPER_ADMIN') %}
 					<li class="nav-item">
 						<a class="nav-link " href="{{ path('adminEnseignant') }}">Gestion Enseigants</a>
 					</li>
+					{% endif %}
 					<li>
 						<a class="nav-link" href="{{ path('app_logout') }}"><i class="fas fa-lock fa-2x" id="lock"></i></a>
 					</li>

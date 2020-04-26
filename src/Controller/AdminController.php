@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 /***controller administaration****/
 class AdminController extends AbstractController
 {
-    /*************administartion etudiant*************/
+    /***************************************************administartion etudiant************************************************/
     /**
      * @Route("/adminEtudiant", name="adminEtudiant")
      */
@@ -32,8 +32,8 @@ class AdminController extends AbstractController
     }
    
     /**
-     * @Route("/adminEtudiant{id}", name="FicheEtudiant")
-     */
+    * @Route("/adminEtudiant{id}", name="FicheEtudiant")
+    */
     public function ficheEtudiant(int $id, EtudiantRepository $repo)
     {
         // je selection l'etudiant par son id
@@ -45,9 +45,9 @@ class AdminController extends AbstractController
             'etudiant' => $etudiant
         ]);
     }
-    /*************fin administartion etudiant*************/
+    /*********************************************************fin administartion etudiant*****************************************/
 
-    /*************administartion enseignant*************/
+    /**********************************************************administartion enseignant***************************************************/
     /**
      * @Route("ajoutEnseignant", name="ajoutEnseignant")
      */
@@ -69,6 +69,7 @@ class AdminController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($enseignant);
             $entityManager->flush();
+            return $this->render('admin/confirmation.html.twig');
         }
         return $this->render('admin/ajoutEnseignant.html.twig', [
             'form' => $form->createView()
@@ -76,6 +77,7 @@ class AdminController extends AbstractController
     }
     /*************fin administartion enseignant*************/
    
+    /********************************************administartion matiere*******************************************/
     /**
     * @Route("/adminMatiere", name="adminMatiere")
     */
@@ -91,6 +93,6 @@ class AdminController extends AbstractController
             'matieres' => $matieres
         ]);
     }
-
+    /*************fin administartion matiere*************/
    
 }
