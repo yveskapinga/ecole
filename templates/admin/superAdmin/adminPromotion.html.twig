@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{ parent () }}
+	Matiers
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+{% block body %}
+	{% include "nav/nav_admin.html.twig" %}
+
+	<section id="matiere" class="padd-section text-center wow fadeInUp">
+		<div>
+			<a href="{{ path('promotion') }}">
+				<button class="btn btn-warning">ajouter des promotions</button>
+			</a>
+		</div>
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">ID_Enseigne</th>
+					<th scope="col">libelle</th>
+					<th scope="col">ID ENSEIGNE</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for promotion in promotions %}
+					<tr>
+						<td>{{promotion.id}}</td>
+						<td>{{promotion.libelle}}</td>
+						<td>{{promotion.enseigne.id}}</td>
+						<td>
+							<a href="{{ path('modifierPromotion',{'id':promotion.id}) }}">Modifier</a>
+						</td>
+						<td>
+							<a onclick="return confirm('êtes vous sûr de suprimer')" href="{{ path('suprimerPromotion',{'id':promotion.id}) }}">Suprimer</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+	</section>
+	{% block javascripts %}
+		{{ parent() }}
+	{% endblock %}
+{% endblock body %}

@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Matiere;
 use App\Entity\Enseigne;
+use App\Entity\Promotion;
 use App\Form\EnseigneType;
+use App\Form\PromotionType;
 use App\Form\EnseignantType;
 use App\Repository\AdminRepository;
 use App\Repository\MatiereRepository;
 use App\Repository\EnseigneRepository;
 use App\Repository\EtudiantRepository;
+use App\Repository\PromotionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -173,4 +176,52 @@ class SuperAdminController extends AbstractController
         ]);
     }
     /******************fin administration enseigne***************/
+
+    /******************administration promotion******************/
+    /**
+    * @Route("/adminPromotion", name="adminPromotion")
+    */
+    public function adminPromotion(PromotionRepository $repoPromotion)
+    {
+        $promotions = $repoPromotion->findAll();
+        return $this->render('admin/superAdmin/adminPromotion.html.twig',[
+            'promotions'=> $promotions
+        ]);
+    }
+
+    /**
+    * @Route("/modifierPromotion/{id}", name="modifierPromotion")
+    * @Route("/promotion", name="promotion")
+    */
+    public function promotion($id=0,Request $req ,EnseigneRepository $repoEnseigne,PromotionRepository $repoPromotion)
+    {
+        $promotion = $id==0?new Promotion():$repoPromotion->find($id);
+        $form = $this->createForm(PromotionType::class, $promotion);
+        $form->handleRequest($req);
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $enseigne=$repoEnseigne->find($req->request->get('enseigne'));
+            $promotion->setEnseigne($enseigne);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($promotion);
+            $entityManager->flush();
+            return $this->redirectToRoute('adminPromotion');
+        }
+        return $this->render('admin/superAdmin/promotion.html.twig',[
+            'form' => $form->createView()
+        ]);
+    }
+    /**
+    * @Route("/suprimerPromotion/{id}", name="suprimerPromotion")
+    */
+    public function suprimerPromotion($id, PromotionRepository $repo)
+    {
+        $promotion = $repo->findOneById($id);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($promotion);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('adminPromotion');
+    }
+    /******************fin administration promotion***************/
 }
