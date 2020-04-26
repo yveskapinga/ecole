@@ -45,11 +45,9 @@ class AdminController extends AbstractController
             'etudiant' => $etudiant
         ]);
     }
-
     /*************fin administartion etudiant*************/
 
     /*************administartion enseignant*************/
-   
     /**
      * @Route("ajoutEnseignant", name="ajoutEnseignant")
      */
@@ -76,10 +74,11 @@ class AdminController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-    
+    /*************fin administartion enseignant*************/
+   
     /**
-     * @Route("/adminMatiere", name="adminMatiere")
-     */
+    * @Route("/adminMatiere", name="adminMatiere")
+    */
     public function adminMatiere(Request $req, PaginatorInterface $paginator, MatiereRepository $repo)
     {
         $donnees = $repo->findAll();

@@ -58,9 +58,9 @@ class SuperAdminController extends AbstractController
             'enseignants' => $enseignants
         ]);
     }
-     /**
-     * @Route("/modifierEnseignant{id}", name="modifierEnseignant")
-     */
+    /**
+    * @Route("/modifierEnseignant{id}", name="modifierEnseignant")
+    */
     public function modifierEnseignant($id,UserPasswordEncoderInterface $passwordEncoder, Request $req, AdminRepository $repoAdmin)
     {
         //on instancie l'entitie Enseignant
@@ -84,8 +84,8 @@ class SuperAdminController extends AbstractController
 
     /*************administartion matiere*************/
     /**
-     * @Route("/ajoutMatiere", name="ajoutMatiere")
-     */
+    * @Route("/ajoutMatiere", name="ajoutMatiere")
+    */
     public function ajoutMatiere(Request $req, EnseigneRepository $repoEnseigne)
     {
 
@@ -109,9 +109,9 @@ class SuperAdminController extends AbstractController
         ]);
     }
 
-     /**
-     * @Route("/suprimerMatiere/{id}", name="suprimerMatiere")
-     */
+    /**
+    * @Route("/suprimerMatiere/{id}", name="suprimerMatiere")
+    */
     public function suprimerMatiere($id, Request $req, MatiereRepository $repo)
     {
         $matiere = $repo->findOneById($id);
