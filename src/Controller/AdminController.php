@@ -16,10 +16,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
+/***controller administaration****/
 class AdminController extends AbstractController
 {
-
+    /*************administartion etudiant*************/
     /**
      * @Route("/adminEtudiant", name="adminEtudiant")
      */
@@ -71,6 +71,9 @@ class AdminController extends AbstractController
         ]);
     }
 
+    /*************fin administartion etudiant*************/
+
+    /*************administartion enseignant*************/
     /**
      * @Route("superAdmin/adminEnseignant", name="adminEnseignant")
      */
@@ -129,6 +132,9 @@ class AdminController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+    /*************fin administartion enseignant*************/
+
+    /*************administartion matiere*************/
     /**
      * @Route("superAdmin/ajoutMatiere", name="ajoutMatiere")
      */
@@ -182,4 +188,5 @@ class AdminController extends AbstractController
 
         return $this->redirectToRoute('adminMatiere');
     }
+    /*************fin administartion matiere*************/
 }
