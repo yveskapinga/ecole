@@ -29,7 +29,7 @@
 					<td>{{enseignant.email}}</td>
 					<td>{{enseignant.photo}}</td>
                     <td><a href="{{ path('modifierEnseignant',{'id':enseignant.id}) }}">Modifier</a></td>
-					<td><a onclick="return confirm('êtes vous sûr de suprimer')" href="#">Suprimer</a></td>
+					<td><a onclick="return confirm('êtes vous sûr de suprimer')" href="{{ path('suprimerEnseignant',{'id':enseignant.id}) }}">Suprimer</a></td>
 					{% endif %}
 				</tr>
 				{% endfor %}

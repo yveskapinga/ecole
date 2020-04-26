@@ -82,6 +82,20 @@ class SuperAdminController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+     /**
+    * @Route("/suprimerEnseignant{id}", name="suprimerEnseignant")
+    */
+    public function suprimerEnseignant($id,Request $req, AdminRepository $repoAdmin)
+    {
+        //on instancie l'entitie Enseignant
+        $enseignant = $repoAdmin->find($id);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($enseignant);
+        $entityManager->flush();
+      
+        return $this->redirectToRoute('adminEnseignant');
+    }
     /*************fin administartion enseignant*************/
 
     /*************administartion matiere*************/
