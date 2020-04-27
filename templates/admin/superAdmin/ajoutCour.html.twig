@@ -7,7 +7,29 @@
 {% endblock %}
 {% block body %}
 	{% include "nav/nav_admin.html.twig" %}
-		{{form(form)}}
+	<div
+		class="container">
+		<!--form-->
+		{{ form_start(form) }}
+		<div class="form-group">
+			<label for="nom">date</label>
+			{{ form_widget(form.date)}}
+		</div>
+		<div class="form-group">
+			<label for="prenom">durreEnMinte</label>
+			{{ form_widget(form.durreEnMinte)}}
+		</div>
+		<div class="form-group">
+			<label for="email">description</label>
+			{{ form_widget(form.description)}}
+		</div>
+		<div class="form-group">
+			<label for="promotion">promotion</label>
+			<input type="number" name="promotion" id="promotion" class='form-control'/>
+		</div>
+		{{ form_end(form) }}
+		<!--form-->
+	</div>
 	{% block javascripts %}
 		{{ parent() }}
 	{% endblock %}

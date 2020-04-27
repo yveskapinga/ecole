@@ -76,7 +76,7 @@ class AdminController extends AbstractController
      */
     public function ajoutEnseignant(UserPasswordEncoderInterface $passwordEncoder, Request $req)
     {
-        //on instancie l'entitie Enseignant
+        $message='';
         $enseignant = new Admin();
         // je cree l'objet formulaire
         $form = $this->createForm(EnseignantType::class, $enseignant);
@@ -92,7 +92,8 @@ class AdminController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($enseignant);
             $entityManager->flush();
-            return $this->render('admin/confirmation.html.twig');
+            $message='nouveau enseignant';
+            return $this->render('admin/confirmation.html.twig',compact('message'));
         }
         return $this->render('admin/ajoutEnseignant.html.twig', [
             'form' => $form->createView()
@@ -119,23 +120,28 @@ class AdminController extends AbstractController
     /**
     * @Route("/adminAjoutCours/{id}",name="ajoutCours")
     */
-    public function ajoutCours($id,Request $req)
+    public function ajoutCours($id,Request $req,MatiereRepository $repoMatiere,PromotionRepository $repoPromotion)
     {
+        $message='';
         $cour = new Cour();
+        $matiere= $repoMatiere->find($id);
         // je cree l'objet formulaire
         $form = $this->createForm(CourType::class, $cour);
         //je recupere les donnée saisie
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid()) {
             //ici le formulaire a été envoyer et les donnée sont valide
-          
+            $promotion= $repoPromotion->find($req->request->get('promotion'));
+            $cour->setPromotion($promotion);
+            $cour->setMatiere($matiere);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($cour);
             $entityManager->flush();
-            return $this->render('admin/confirmation.html.twig');
+            $message='nouveau cour';
+            return $this->render('admin/confirmation.html.twig', compact("message"));
         }
         return $this->render('admin/superAdmin/ajoutCour.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
     /*************fin administartion matiere*************/
