@@ -85,7 +85,7 @@ class SuperAdminController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-    
+
      /**
     * @Route("/suprimerEnseignant{id}", name="suprimerEnseignant")
     */
@@ -103,31 +103,33 @@ class SuperAdminController extends AbstractController
 
     /*************administartion matiere*************/
     /**
+    * @Route("/ajoutMatiere/{id}",name="modifierMatiere")
     * @Route("/ajoutMatiere", name="ajoutMatiere")
     */
-    public function ajoutMatiere(Request $req, EnseigneRepository $repoEnseigne)
+    public function ajoutMatiere($id=0,Request $req, EnseigneRepository $repoEnseigne,MatiereRepository $repoMatiere)
     {
-
-        $matiere = null;
+        $messageErreur='';
+        $matiere = $id==0?new Matiere:$repoMatiere->find($id);
         $entityManager = $this->getDoctrine()->getManager();
-        if ($req->request->get('enseigne')) {
+        if ($req->isMethod('post')) {
             $enseignes = $repoEnseigne->findAll();
             foreach ($enseignes as $el)
                 if ($req->request->get('enseigne') == $el->getId()) {
-                    $matiere = new Matiere;
+                    //ici je verifie si l'enseigne saisie existe a fin de lui ajouter une matiere
                     $matiere->setNom($req->request->get('nom'));
                     $matiere->setEnseigne($el);
                     $entityManager->persist($matiere);
                     $entityManager->flush();
                     break;
+                }else{
+                    $messageErreur="id non valide";
                 }
         }
         return $this->render('admin/superAdmin/ajoutMatiere.html.twig', [
             'matiere' => $matiere,
-            'enseigne' => $req->request->get('enseigne'),
+            'messageErreur' => $messageErreur,
         ]);
     }
-
     /**
     * @Route("/suprimerMatiere/{id}", name="suprimerMatiere")
     */

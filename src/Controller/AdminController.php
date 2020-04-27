@@ -2,18 +2,20 @@
 
 namespace App\Controller;
 
+use DateTime;
+use App\Entity\Cour;
 use App\Entity\Admin;
+use App\Form\CourType;
 use App\Entity\Matiere;
 use App\Entity\Enseigne;
-use App\Entity\Enseignant;
 use App\Entity\Promotion;
+use App\Entity\Enseignant;
 use App\Form\EnseignantType;
 use App\Repository\AdminRepository;
 use App\Repository\MatiereRepository;
 use App\Repository\EnseigneRepository;
 use App\Repository\EtudiantRepository;
 use App\Repository\PromotionRepository;
-use DateTime;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -59,7 +61,7 @@ class AdminController extends AbstractController
         ]);
     }
     /**
-    * @Route("/ajoutAbscence",name="ajoutAbscence")
+    * @Route("/adminAjoutAbscence",name="ajoutAbscence")
     */
     public function ajoutAbscence()
     {
@@ -115,11 +117,26 @@ class AdminController extends AbstractController
         ]);
     }
     /**
-    * @Route("/ajoutCour",name="ajoutCour")
+    * @Route("/adminAjoutCours/{id}",name="ajoutCours")
     */
-    public function ajoutCour()
+    public function ajoutCours($id,Request $req)
     {
-        //todo
+        $cour = new Cour();
+        // je cree l'objet formulaire
+        $form = $this->createForm(CourType::class, $cour);
+        //je recupere les donnée saisie
+        $form->handleRequest($req);
+        if ($form->isSubmitted() && $form->isValid()) {
+            //ici le formulaire a été envoyer et les donnée sont valide
+          
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($cour);
+            $entityManager->flush();
+            return $this->render('admin/confirmation.html.twig');
+        }
+        return $this->render('admin/superAdmin/ajoutCour.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
     /*************fin administartion matiere*************/
 }

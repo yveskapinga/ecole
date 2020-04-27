@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{ parent () }}etudiant
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+{% block body %}
+	{% include "nav/nav_admin.html.twig" %}
+		{{form(form)}}
+	{% block javascripts %}
+		{{ parent() }}
+	{% endblock %}
+{% endblock body %}

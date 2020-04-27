@@ -33,7 +33,7 @@
 						<td>{{matiere.enseigne.id}}</td>
 						<td>{{matiere.enseigne.nom}}</td>
 						<td>
-							<a href="#">Modifier</a>
+							<a href="{{ path('modifierMatiere',{'id':matiere.id}) }}">Modifier</a>
 						</td>
 						<td>
 							<a onclick="return confirm('êtes vous sûr de suprimer')" href="{{ path('suprimerMatiere',{'id':matiere.id})}}">Suprimer</a>
