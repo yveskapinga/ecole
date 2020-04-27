@@ -22,7 +22,7 @@ class EcoleController extends AbstractController
     /**
     * @Route("/", name="home")
     */
-    public function home(Request $req)
+    public function home()
     {    
         return $this->render('pages/home.html.twig',['user'=>$this->get('session')->get('user')]);
     }
@@ -156,7 +156,7 @@ class EcoleController extends AbstractController
     /**
     * @Route("/abscences", name="abscences")
     */
-    public function abscenses(AbsenceRepository $repoAbscence,CourRepository $repoCour) 
+    public function abscenses(AbsenceRepository $repoAbscence) 
     {  
         if($this->get('session')->get('user') != null)
         {

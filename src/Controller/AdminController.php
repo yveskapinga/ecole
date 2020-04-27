@@ -6,16 +6,21 @@ use App\Entity\Admin;
 use App\Entity\Matiere;
 use App\Entity\Enseigne;
 use App\Entity\Enseignant;
+use App\Entity\Promotion;
 use App\Form\EnseignantType;
 use App\Repository\AdminRepository;
 use App\Repository\MatiereRepository;
 use App\Repository\EnseigneRepository;
 use App\Repository\EtudiantRepository;
+use App\Repository\PromotionRepository;
+use DateTime;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 /***controller administaration****/
 class AdminController extends AbstractController
 {
@@ -30,21 +35,37 @@ class AdminController extends AbstractController
             'etudiants' => $etudiants
         ]);
     }
-   
+
     /**
-    * @Route("/adminEtudiant{id}", name="FicheEtudiant")
-    */
-    public function ficheEtudiant(int $id, EtudiantRepository $repo)
+     * @Route("/adminEtudiant{id}", name="FicheEtudiant")
+     */
+    public function ficheEtudiant(int $id, EtudiantRepository $repo, Request $req,PromotionRepository $repoPromotion)
     {
         // je selection l'etudiant par son id
         $etudiant = $repo->find($id);
-        /*
-          ici je vais traiter les donner envoyer sur l'etudiant par l'admin
-         */
+        if ($req->isMethod('post')) {
+            $etudiant->setNom($req->request->get('nom'));
+            $etudiant->setPrenom($req->request->get('prenom'));
+            $etudiant->setEmail($req->request->get('email'));
+            $etudiant->setAdresses($req->request->get('adresses'));
+            $etudiant->setDateDeNaissance(new \DateTime($req->request->get('dateNaissance')));
+            $etudiant->setPromotion($repoPromotion->find($req->request->get('promotion')));
+        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($etudiant);
+        $entityManager->flush();
         return $this->render('admin/ficheEtudiant.html.twig', [
             'etudiant' => $etudiant
         ]);
     }
+    /**
+    * @Route("/ajoutAbscence",name="ajoutAbscence")
+    */
+    public function ajoutAbscence()
+    {
+        //todo
+    }
+   
     /*********************************************************fin administartion etudiant*****************************************/
 
     /**********************************************************administartion enseignant***************************************************/
@@ -59,8 +80,7 @@ class AdminController extends AbstractController
         $form = $this->createForm(EnseignantType::class, $enseignant);
         //je recupere les donnée saisie
         $form->handleRequest($req);
-        if ($form->isSubmitted() && $form->isValid()) 
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             //ici le formulaire a été envoyer et les donnée sont valide
             $enseignant->setPassword($req->request->get('password'));
             $enseignant->setPassword($passwordEncoder->encodePassword(
@@ -77,11 +97,11 @@ class AdminController extends AbstractController
         ]);
     }
     /*************fin administartion enseignant*************/
-   
+
     /********************************************administartion matiere*******************************************/
     /**
-    * @Route("/adminMatiere", name="adminMatiere")
-    */
+     * @Route("/adminMatiere", name="adminMatiere")
+     */
     public function adminMatiere(Request $req, PaginatorInterface $paginator, MatiereRepository $repo)
     {
         $donnees = $repo->findAll();
@@ -94,6 +114,12 @@ class AdminController extends AbstractController
             'matieres' => $matieres
         ]);
     }
+    /**
+    * @Route("/ajoutCour",name="ajoutCour")
+    */
+    public function ajoutCour()
+    {
+        //todo
+    }
     /*************fin administartion matiere*************/
-   
 }

@@ -40,8 +40,8 @@ class Etudiant{
     private $photo;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Adresse", mappedBy="personne")
-     */
+    * @ORM\Column(type="string", length=255, nullable=true)
+    */
     private $adresses;
 
      /**
@@ -88,7 +88,6 @@ class Etudiant{
     public function __construct()
     {
         $this->absences = new ArrayCollection();
-        $this->adresses = new ArrayCollection();
     }
 
     public function getPassword(): ?string
@@ -209,34 +208,16 @@ class Etudiant{
         return $this;
     }
 
-    /**
-     * @return Collection|Adresse[]
-     */
-    public function getAdresses(): Collection
+    public function getAdresses(): ?string
     {
         return $this->adresses;
     }
 
-    public function addAdress(Adresse $adress): self
+    public function setAdresses(?string $adresses): self
     {
-        if (!$this->adresses->contains($adress)) {
-            $this->adresses[] = $adress;
-            $adress->setPersonne($this);
-        }
+        $this->adresses = $adresses;
 
         return $this;
     }
 
-    public function removeAdress(Adresse $adress): self
-    {
-        if ($this->adresses->contains($adress)) {
-            $this->adresses->removeElement($adress);
-            // set the owning side to null (unless already changed)
-            if ($adress->getPersonne() === $this) {
-                $adress->setPersonne(null);
-            }
-        }
-
-        return $this;
-    } 
 }

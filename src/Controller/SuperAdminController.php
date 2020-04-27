@@ -16,8 +16,6 @@ use App\Repository\PromotionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-
 /**
 * @Route("/superAdmin", name="")
 */
@@ -39,8 +37,8 @@ class SuperAdminController extends AbstractController
     }
 
     /**
-     * @Route("/supressionEtudiant/{id}", name="supressionEtudiant")
-     */
+    * @Route("/supressionEtudiant/{id}", name="supressionEtudiant")
+    */
     public function supressionEtudiant(int $id, EtudiantRepository $repo)
     {
         // je selection l'etudiant par son id et je le suprime definitivement de la base
@@ -87,7 +85,7 @@ class SuperAdminController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-
+    
      /**
     * @Route("/suprimerEnseignant{id}", name="suprimerEnseignant")
     */

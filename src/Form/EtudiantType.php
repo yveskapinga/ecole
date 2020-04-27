@@ -21,6 +21,8 @@ class EtudiantType extends AbstractType
         ->add('prenom',TextType::class)
         ->add('email',EmailType::class)
         ->add('photo',TextType::class)
+        ->add('adresses',TextType::class)
+        ->add('dateDeNaissance',DateType::class)
         ->add('password',PasswordType::class)
         ->add('creer',SubmitType::class)
         ;
@@ -29,7 +31,7 @@ class EtudiantType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class'=>Etudiant::class,
+            'data_class' => Etudiant::class,
         ]);
     }
 }

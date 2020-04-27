@@ -19,18 +19,20 @@
 						<h3 class="card-title">{{etudiant.id}}
 						</h3>
 					</div>
-					<form action="" method="post">
+					<form action="{{ path('FicheEtudiant',{'id':etudiant.id}) }}" method="post">
 						<ul class="list-group list-group-flush">
 							<label>nom:</label>
-							<input type="text" class="list-group-item" value="{{etudiant.nom}}">
+							<input type="text" class="list-group-item" value="{{etudiant.nom}}" name="nom">
 							<label>prenom:</label>
-							<input type="text" class="list-group-item" value="{{etudiant.prenom}}">
+							<input type="text" class="list-group-item" value="{{etudiant.prenom}}" name="prenom">
 							<label>email:</label>
-							<input type="email" class="list-group-item" value="{{etudiant.email}}">
+							<input type="email" class="list-group-item" value="{{etudiant.email}}" name="email">
+							<label>adresses:</label>
+							<input type="text" class="list-group-item" value="{{etudiant.adresses}}" name="adresses">
 							<label>date de naissance:</label>
-							<input type="date" class="list-group-item" value="{{etudiant.dateDeNaissance | date('d/m/Y') }}">
+							<input type="date" class="list-group-item" value="{{etudiant.dateDeNaissance | date('d/m/Y') }}" name="dateNaissance">
 							<label>promotion:</label>
-							<input type="text" class="list-group-item" {% if etudiant.promotion != null %} value="{{etudiant.promotion.libelle}}" {% endif %}>
+							<input type="number" class="list-group-item" {% if etudiant.promotion != null %} value="{{etudiant.promotion.id}}" {% endif %} name="promotion">
 							<label>inscription:</label>
 							<li class="list-group-item">
 								<a href="{{ path('inscriptionEtudiant',{'id':etudiant.id}) }}">
@@ -58,7 +60,7 @@
 						<li class="list-group-item">{{etudiant.nom}}</li>
 					</ul>
 					<div class="card-body">
-						<form method="post">
+						<form action="" method="post">
 							<label>motif:</label>
 							<textarea type="text" rows="5" cols="33" ></textarea>
 							<label>id_cour:</label>
