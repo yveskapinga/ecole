@@ -173,5 +173,17 @@ class AdminController extends AbstractController
     } 
 
     /****************************************************************fin administration cour******************************/
+    /**************************************************************** administration absence******************************/
+    /**
+    * @Route("/adminAbsences/{id}", name="adminAbsences")
+    */
+    public function adminAbsence($id,AbsenceRepository $repoAbsence)
+    {   
+        $absences = $repoAbsence->findByEtudiant($id);
+        return $this->render('admin/adminAbsences.html.twig',[
+            'absences'=>$absences,
+        ]);
+    } 
+    /****************************************************************fin administration absence******************************/
 
 }
