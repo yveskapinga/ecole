@@ -52,6 +52,7 @@
 				<!--#ficheEtudiant-->
 				{% endif %}
 				<!--abscences-->
+				{% if etudiant.inscrit %}
 				<div class="col-md-4 col-lg-4 " style="width: 18rem;">
 					<div class="card-body">
 						<h5 class="card-title">abscences</h5>
@@ -60,15 +61,16 @@
 						<li class="list-group-item">{{etudiant.nom}}</li>
 					</ul>
 					<div class="card-body">
-						<form action="" method="post">
+						<form action="{{path('ajoutAbscence',{'id':etudiant.id})}}" method="post">
 							<label>motif:</label>
-							<textarea type="text" rows="5" cols="33" ></textarea>
+							<textarea type="text" name="motif" rows="5" cols="33" ></textarea>
 							<label>id_cour:</label>
-							<input type="number" class="list-group-item" >
+							<input type="number" name="id_cour" class="list-group-item" >
 							<input class="btn btn-warning" type="submit" value="Ajouter Abscence">
 						</form>
 					</div>
 				</div>
+				{% endif %}
 				<!--#abscences-->
 			</div>
 		</section>

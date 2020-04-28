@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Absence;
 use DateTime;
 use App\Entity\Cour;
 use App\Entity\Admin;
@@ -11,6 +12,7 @@ use App\Entity\Enseigne;
 use App\Entity\Promotion;
 use App\Entity\Enseignant;
 use App\Form\EnseignantType;
+use App\Repository\AbsenceRepository;
 use App\Repository\CourRepository;
 use App\Repository\AdminRepository;
 use App\Repository\MatiereRepository;
@@ -62,11 +64,23 @@ class AdminController extends AbstractController
         ]);
     }
     /**
-    * @Route("/adminAjoutAbscence",name="ajoutAbscence")
+    * @Route("/adminAjoutAbscence/{id}",name="ajoutAbscence")
     */
-    public function ajoutAbscence()
+    public function ajoutAbscence($id,Request $req,EtudiantRepository $repoEtudiant,CourRepository $repoCour)
     {
-        //todo
+        $etudiant=$repoEtudiant->find($id);
+        $absence = new Absence;
+        if($req->isMethod('post') && $req->request->get('id_cour')>0)
+        {
+            $absence->setEtudiant($etudiant);
+            $absence->setMotif($req->request->get('motif'));
+            $cour=$repoCour->find($req->request->get('id_cour'));
+            $absence->setCour($cour);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($absence);
+            $entityManager->flush();
+        }
+       return $this->redirectToRoute('adminEtudiant');
     }
    
     /*********************************************************fin administartion etudiant*****************************************/
