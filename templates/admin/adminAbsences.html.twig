@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{ parent () }}
+	Matiers
+{% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+{% block body %}
+	 {% include "nav/nav_admin.html.twig" %}
+	<section id="cour" class="padd-section text-center wow fadeInUp">
+
+		<div class="container">
+			<div class="section-title text-center">
+				<h2>ABSENCES</h2>	
+			</div>
+		</div>
+		<div class="container">
+		<div class ="row">
+			{% for absence in absences %}
+			<div class="card col-md-4" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">ID:{{ absence.getId() }} </h5>
+					<p class="card-text">Date:{{ absence.cour.date | date('d/m/Y H:i' ) }}</p>
+                    <p class="card-text">Motif:{{ absence.motif }}</p>
+                    <p class="card-text">Description:{{ absence.cour.id }}</p>
+					{# <a onclick="return confirm('êtes vous sûr de suprimer')" href="{{path('suprimerAbsence',{'id':absence.id})}}"><button type="button" class="btn btn-danger">Suprimer</button></a> #}
+				</div>
+			</div>
+			{% endfor %}
+			</div>
+		</div>
+	</section>
+	{% block javascripts %}
+		{{ parent() }}
+	{% endblock %}
+{% endblock body %}
