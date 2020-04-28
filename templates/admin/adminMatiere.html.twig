@@ -38,6 +38,9 @@
 						<td>
 							<a onclick="return confirm('êtes vous sûr de suprimer')" href="{{ path('suprimerMatiere',{'id':matiere.id})}}">Suprimer</a>
 						</td>
+						<td>
+							<a href="{{ path('adminCours',{'id':matiere.id})}}">Voir les cours</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>

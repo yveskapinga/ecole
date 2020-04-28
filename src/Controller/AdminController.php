@@ -11,6 +11,7 @@ use App\Entity\Enseigne;
 use App\Entity\Promotion;
 use App\Entity\Enseignant;
 use App\Form\EnseignantType;
+use App\Repository\CourRepository;
 use App\Repository\AdminRepository;
 use App\Repository\MatiereRepository;
 use App\Repository\EnseigneRepository;
@@ -99,12 +100,12 @@ class AdminController extends AbstractController
             'form' => $form->createView()
         ]);
     }
-    /*************fin administartion enseignant*************/
+    /********************************************fin administartion enseignant************************************/
 
     /********************************************administartion matiere*******************************************/
     /**
-     * @Route("/adminMatiere", name="adminMatiere")
-     */
+    * @Route("/adminMatiere", name="adminMatiere")
+    */
     public function adminMatiere(Request $req, PaginatorInterface $paginator, MatiereRepository $repo)
     {
         $donnees = $repo->findAll();
@@ -144,5 +145,19 @@ class AdminController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-    /*************fin administartion matiere*************/
+    /****************************************************************fin administartion matiere*****************************/
+    /****************************************************************administrationcour************************************/
+    /**
+    * @Route("/adminCours/{id}", name="adminCours")
+    */
+    public function adminCour($id,CourRepository $repoCour)
+    {   
+        $cours = $repoCour->findByMatiere($id);
+        return $this->render('admin/adminCours.html.twig',[
+            'cours'=>$cours,
+        ]);
+    } 
+
+    /****************************************************************fin administration cour******************************/
+
 }

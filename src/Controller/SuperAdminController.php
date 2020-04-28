@@ -8,6 +8,7 @@ use App\Entity\Promotion;
 use App\Form\EnseigneType;
 use App\Form\PromotionType;
 use App\Form\EnseignantType;
+use App\Repository\CourRepository;
 use App\Repository\AdminRepository;
 use App\Repository\MatiereRepository;
 use App\Repository\EnseigneRepository;
@@ -109,7 +110,7 @@ class SuperAdminController extends AbstractController
     public function ajoutMatiere($id=0,Request $req, EnseigneRepository $repoEnseigne,MatiereRepository $repoMatiere)
     {
         $messageErreur='';
-        $matiere = $id==0?new Matiere:$repoMatiere->find($id);
+        $matiere = $id==0?clone $repoMatiere->find(1):$repoMatiere->find($id);
         $entityManager = $this->getDoctrine()->getManager();
         if ($req->isMethod('post')) {
             $enseignes = $repoEnseigne->findAll();
@@ -141,8 +142,24 @@ class SuperAdminController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('adminMatiere');
+
     }
     /*************fin administartion matiere*****************/
+    /****************************************************************administrationcour************************************/
+
+    /**
+    * @Route("/suprimerCour/{id}", name="suprimerCour")
+    */
+    public function suprimeCour($id, CourRepository $repo)
+    {
+        $cour = $repo->findOneById($id);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($cour);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('adminCours');
+    } 
+    /****************************************************************fin administration cour******************************/
 
     /******************administration enseigne***************/
     /**

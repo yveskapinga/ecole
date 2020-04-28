@@ -25,12 +25,12 @@ class Matiere
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Enseigne")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $enseigne;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Cour", mappedBy="matiere")
+     * @ORM\OneToMany(targetEntity="App\Entity\Cour", mappedBy="matiere",cascade={"persist", "remove"})
      */
     private $cours;
 

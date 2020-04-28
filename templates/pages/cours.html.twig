@@ -7,33 +7,44 @@
 	{{ parent() }}
 {% endblock %}
 {% block body %}
- {% include "nav/nav_etudiant.html.twig" %}
+	{% include "nav/nav_etudiant.html.twig" %}
 	<section id="matiere" class="padd-section text-center wow fadeInUp">
 
 		<div class="container">
 			<div class="section-title text-center">
 				<h2>COURS</h2>
 				{% if matiere != null %}
-				<p class="separator">Les {{ cours|length }} Cours disponible pour la matiere {{ matiere.nom }}</p>
+					<p class="separator">Les
+						{{ cours|length }}
+						Cours disponible pour la matiere
+						{{ matiere.nom }}</p>
 				{% else %}
-				<p class="separator">il n'ya pas de cours encore pour cette matiere</p>
+					<p class="separator">il n'ya pas de cours encore pour cette matiere</p>
 				{% endif %}
-				
-			</div>
-		</div>
-		<div class ="row">
-			{% for cour in cours %}
-			<div class="card col-md-4" style="width: 18rem;">
-				<div class="card-body">
-					<h5 class="card-title">ID: {{ cour.id }} </h5>
-					<p class="card-text">date: {{ cour.date | date('d/m/Y') }} à {{ cour.date | date('H:i') }}</p>
-					<p class="card-text">duree en minute: {{ cour.durreEnMinte }}</p>
-					<p class="card-text">description: {{ cour.description | raw}}</p>
-				</div>
-			</div>
-			{% endfor %}
-		</div>
 
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				{% for cour in cours %}
+					<div class="card col-md-4" style="width: 18rem;">
+						<div class="card-body">
+							<h5 class="card-title">ID:
+								{{ cour.id }}
+							</h5>
+							<p class="card-text">date:
+								{{ cour.date | date('d/m/Y') }}
+								à
+								{{ cour.date | date('H:i') }}</p>
+							<p class="card-text">duree en minute:
+								{{ cour.durreEnMinte }}</p>
+							<p class="card-text">description:
+								{{ cour.description | raw}}</p>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
 	</section>
 	{% block javascripts %}
 		{{ parent() }}
