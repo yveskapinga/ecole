@@ -177,11 +177,26 @@ class AdminController extends AbstractController
     /**
     * @Route("/adminAbsences/{id}", name="adminAbsences")
     */
-    public function adminAbsence($id,AbsenceRepository $repoAbsence)
+    public function adminAbsence($id,AbsenceRepository $repoAbsence,EtudiantRepository $repoEtudiant)
     {   
         $absences = $repoAbsence->findByEtudiant($id);
         return $this->render('admin/adminAbsences.html.twig',[
             'absences'=>$absences,
+            'etudiant'=>$repoEtudiant->find($id)->getNom(),
+        ]);
+    } 
+    /**
+    * @Route("/suprimerAbsence/{id}", name="suprimerAbsence")
+    */
+    public function suprimerAbsence($id,AbsenceRepository $repoAbsence)
+    {   
+        $absence = $repoAbsence->findOneById($id);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($absence);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('adminAbsences',[
+            'id'=>$id,
         ]);
     } 
     /****************************************************************fin administration absence******************************/
