@@ -90,7 +90,7 @@ class SuperAdminController extends AbstractController
      /**
     * @Route("/suprimerEnseignant{id}", name="suprimerEnseignant")
     */
-    public function suprimerEnseignant($id,Request $req, AdminRepository $repoAdmin)
+    public function suprimerEnseignant($id, AdminRepository $repoAdmin)
     {
         //on instancie l'entitie Enseignant
         $enseignant = $repoAdmin->find($id);
@@ -145,7 +145,7 @@ class SuperAdminController extends AbstractController
 
     }
     /*************fin administartion matiere*****************/
-    /****************************************************************administrationcour************************************/
+    /****************************************************************administration cour************************************/
 
     /**
     * @Route("/suprimerCour/{id}", name="suprimerCour")
@@ -157,7 +157,7 @@ class SuperAdminController extends AbstractController
         $entityManager->remove($cour);
         $entityManager->flush();
 
-        return $this->redirectToRoute('adminCours');
+        return $this->redirectToRoute('adminCours',compact('id'));
     } 
     /****************************************************************fin administration cour******************************/
 
