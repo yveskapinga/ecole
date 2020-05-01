@@ -122,26 +122,35 @@ class EcoleController extends AbstractController
     public function etudiant(Request $req,EtudiantRepository $repo) 
     {
         $etudiants = $repo->findAll();
+        $messageEmail='';
+        // je verifie si l'etudiant est conecter ou pas
         $etudiant = $this->get('session')->get('user') == null ? new Etudiant() : $repo->find($this->get('session')->get('user')->getId());
         $form = $this->createForm(EtudiantType::class,$etudiant);
         $form->handleRequest($req);
-        $passewordConfirm = $req->request->get('confirmPassword')==$etudiant->getPassword();
-        if($form->isSubmitted() && $form->isValid() && $passewordConfirm)
+        if($form->isSubmitted() && $form->isValid() && $req->request->get('confirmPassword')==$etudiant->getPassword())
          {
-            if(count($etudiants)>0 && $this->get('session')->get('user') == null)foreach($etudiants as $etu)
+            //if(filter_var($etudiant->getEmail(), FILTER_VALIDATE_EMAIL))
+            if($this->get('session')->get('user') == null)
+            foreach($etudiants as $etu)
             {
                 //je verifier si l'email n'existe pas dans la base de donnee si user est null(nouvelle inscription)
                 if($etu->getEmail()==$etudiant->getEmail())
                     return $this->redirectToRoute('etudiant');
-             }
-            $entityManager = $this->getDoctrine()->getManager();
-            //hashage de mot de passe 
-            $etudiant->setPassword(password_hash($etudiant->getPassword(), PASSWORD_DEFAULT));
-            //si tout va bien je enrigitre dans la table etudiant 
-            $entityManager->persist($etudiant);
-            $entityManager->flush();
-            $this->get('session')->set('user', $etudiant);
-          
+            }
+            if(filter_var($etudiant->getEmail(), FILTER_VALIDATE_EMAIL))
+            {
+                $entityManager = $this->getDoctrine()->getManager();
+                //hashage de mot de passe 
+                $etudiant->setPassword(password_hash($etudiant->getPassword(), PASSWORD_DEFAULT));
+                //si tout va bien je enrigitre dans la table etudiant 
+                $entityManager->persist($etudiant);
+                $entityManager->flush();
+                $this->get('session')->set('user', $etudiant);
+            }
+            else
+            {
+                $messageEmail = 'email non valide';
+            }
             
         }
        
@@ -149,7 +158,8 @@ class EcoleController extends AbstractController
            'form'=>$form->createView(),
            'user'=>$this->get('session')->get('user'),
            'isSubmit'=>$form->isSubmitted(),
-           'passewordConfirm'=> $passewordConfirm
+           'passewordConfirm'=> $req->request->get('confirmPassword')==$etudiant->getPassword(),
+           'messageEmail'=>$messageEmail
         ]);
     }
     
