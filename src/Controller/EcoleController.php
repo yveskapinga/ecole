@@ -127,8 +127,8 @@ class EcoleController extends AbstractController
         $etudiant = $this->get('session')->get('user') == null ? new Etudiant() : $repo->find($this->get('session')->get('user')->getId());
         $form = $this->createForm(EtudiantType::class,$etudiant);
         $form->handleRequest($req);
-        if($form->isSubmitted() && $form->isValid() && $req->request->get('confirmPassword')==$etudiant->getPassword())
-         {
+        if($form->isSubmitted() && $form->isValid())
+        {
             //if(filter_var($etudiant->getEmail(), FILTER_VALIDATE_EMAIL))
             if($this->get('session')->get('user') == null)
             foreach($etudiants as $etu)
@@ -137,7 +137,13 @@ class EcoleController extends AbstractController
                 if($etu->getEmail()==$etudiant->getEmail())
                     return $this->redirectToRoute('etudiant');
             }
-            if(filter_var($etudiant->getEmail(), FILTER_VALIDATE_EMAIL))
+            else if($req->request->get('confirmPassword')!=$etudiant->getPassword())
+            {
+                return $this->redirectToRoute('etudiant');
+            }
+            //je verfie si l'email est valide avnt d'enrigistre
+            if(filter_var($etudiant->getEmail(), FILTER_VALIDATE_EMAIL) && 
+            $req->request->get('confirmPassword')==$etudiant->getPassword())
             {
                 $entityManager = $this->getDoctrine()->getManager();
                 //hashage de mot de passe 
@@ -151,14 +157,13 @@ class EcoleController extends AbstractController
             {
                 $messageEmail = 'email non valide';
             }
-            
         }
-       
+        dump($etudiant->getPassword()==null );
         return $this->render('pages/etudiant.html.twig',[
            'form'=>$form->createView(),
            'user'=>$this->get('session')->get('user'),
            'isSubmit'=>$form->isSubmitted(),
-           'passewordConfirm'=> $req->request->get('confirmPassword')==$etudiant->getPassword(),
+           'passewordConfirm'=>!$etudiant->getPassword() && $form->isSubmitted(),
            'messageEmail'=>$messageEmail
         ]);
     }

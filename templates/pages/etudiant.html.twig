@@ -83,7 +83,7 @@
             <div class="form-group">
                 <label for="confirmPassword">confirmer password</label>
                 <input type="password" name="confirmPassword"  id="password" class='form-control'/>
-                {% if not passewordConfirm %} <span>le mot passe doit etre le même</span> {% endif %}
+                {% if  passewordConfirm %} <span>le mot passe doit etre le même</span> {% endif %}
             </div>
             {{ form_end(form) }}
             <!--form-->

@@ -36,7 +36,7 @@
 								<label>inscription:</label>
 								<li class="list-group-item">
 									<a href="{{ path('inscriptionEtudiant',{'id':etudiant.id}) }}">
-										{% if etudiant.inscrit %}inscrit{% else %}non inscrit
+										{% if etudiant.inscrit %}Desactiver inscription{% else %}activer inscription
 										{% endif %}
 									</a>
 								</li>
