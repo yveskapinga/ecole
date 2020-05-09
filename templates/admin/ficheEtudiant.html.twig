@@ -67,8 +67,18 @@
 							<form action="{{path('ajoutAbscence',{'id':etudiant.id})}}" method="post">
 								<label>motif:</label>
 								<textarea type="text" name="motif" rows="5" cols="33"></textarea>
-								<label>id_cour:</label>
-								<input type="number" name="id_cour" class="list-group-item">
+								<label>cour:</label>
+								{# <input type="number" name="id_cour" class="list-group-item"> #}
+								<div>
+									<select name="id_cour">
+										{% for cour in cours %}
+											<option value="{{cour.id}}">
+											{{cour.matiere.nom}} du 
+											{{ cour.date | date('d/m/Y') }} à {{ cour.date | date('H:i') }}
+											</option>
+										{% endfor %}
+									</select>
+								</div>
 								<input class="btn btn-warning" type="submit" value="Ajouter Abscence">
 							</form>
 						</div>

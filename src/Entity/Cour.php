@@ -46,7 +46,7 @@ class Cour
     private $matiere;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Absence", mappedBy="cour")
+     * @ORM\OneToMany(targetEntity="App\Entity\Absence", mappedBy="cour",cascade={"persist", "remove"})
      */
     private $cours;
 

@@ -71,7 +71,7 @@ class EcoleController extends AbstractController
     {
         if($this->get('session')->get('user') != null)
         {
-        $donnees = $repo->findAllOrderById();
+        $donnees = $repo->findAllOrderByIdASC();
         $matieres = $paginator->paginate(
             $donnees,//on passe les donner
             $req->query->getInt('page',1),// numero de la page en cours ,par default 1

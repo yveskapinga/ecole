@@ -7,29 +7,35 @@
 	{{ parent() }}
 {% endblock %}
 {% block body %}
-	 {% include "nav/nav_admin.html.twig" %}
+	{% include "nav/nav_admin.html.twig" %}
 	<section id="cour" class="padd-section text-center wow fadeInUp">
 
 		<div class="container">
 			<div class="section-title text-center">
-				<h2>COURS</h2>	
+				<h2>COURS</h2>
+				<a href="{{ path('ajoutCours',{'id':matiere.id}) }}">
+					<button class="btn btn-primary">ajouter des cours</button>
+				</a>
 			</div>
 		</div>
 		<div class="container">
-		<div class ="row">
-			{% for cour in cours %}
-			<div class="card col-md-4" style="width: 18rem;">
-				<div class="card-body">
-					<h5 class="card-title">ID:{{ cour.getId() }} </h5>
-					<p class="card-text">Date:{{ cour.date | date('d/m/Y H:i' ) }}</p>
-                    <p class="card-text">Duree En Minutes:{{ cour.durreEnMinte }}</p>
-                    <p class="card-text">Description:{{ cour.description }}</p>
-                    <p class="card-text">ID promotion:{{ cour.promotion.id }}</p>
-					<a onclick="return confirm('êtes vous sûr de suprimer')" href="{{path('suprimerCour',{'id':cour.id})}}"><button type="button" class="btn btn-danger">Suprimer</button></a>
+			<div class="row">
+				{% for cour in cours %}
+					<div class="card col-md-4" style="width: 18rem;">
+						<div class="card-body">
+							<h5 class="card-title">ID:{{ cour.getId() }}
+							</h5>
+							<p class="card-text">Date:{{ cour.date | date('d/m/Y H:i' ) }}</p>
+							<p class="card-text">Duree En Minutes:{{ cour.durreEnMinte }}</p>
+							<p class="card-text">Description:{{ cour.description }}</p>
+							<p class="card-text">ID promotion:{{ cour.promotion.id }}</p>
+							<a onclick="return confirm('êtes vous sûr de suprimer')" href="{{path('suprimerCour',{'id':cour.id})}}">
+								<button type="button" class="btn btn-danger">Suprimer</button>
+							</a>
 
-				</div>
-			</div>
-			{% endfor %}
+						</div>
+					</div>
+				{% endfor %}
 			</div>
 		</div>
 	</section>

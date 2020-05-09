@@ -117,6 +117,7 @@ class SuperAdminController extends AbstractController
                     $matiere->setEnseigne($repoEnseigne->find($req->request->get('enseigne')));
                     $entityManager->persist($matiere);
                     $entityManager->flush();
+                return $this->redirectToRoute("adminMatiere");
                 }
         return $this->render('admin/superAdmin/ajoutMatiere.html.twig', [
             'enseignes'=>$enseignes,
@@ -137,21 +138,6 @@ class SuperAdminController extends AbstractController
 
     }
     /*************fin administartion matiere*****************/
-    /****************************************************************administration cour************************************/
-
-    /**
-    * @Route("/suprimerCour/{id}", name="suprimerCour")
-    */
-    public function suprimeCour($id, CourRepository $repo)
-    {
-        $cour = $repo->findOneById($id);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($cour);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('adminCours',compact('id'));
-    } 
-    /****************************************************************fin administration cour******************************/
 
     /******************administration enseigne***************/
     /**

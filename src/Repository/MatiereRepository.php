@@ -20,13 +20,22 @@ class MatiereRepository extends ServiceEntityRepository
     }
 
     // trouver toutes les matiere odrder by Id
-    public function findAllOrderById(): array
+    public function findAllOrderByIdASC(): array
     {
-    $qb = $this->createQueryBuilder('m')
-        ->orderBy('m.id','ASC');
-        
-    $query =$qb->getQuery();
-    return $query->execute();
+        $qb = $this->createQueryBuilder('m')
+            ->orderBy('m.id','ASC');
+            
+        $query =$qb->getQuery();
+        return $query->execute();
+    }
+    // trouver toutes les matiere odrder by Id
+    public function findAllOrderByIdDESC(): array
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->orderBy('m.id','DESC');
+            
+        $query =$qb->getQuery();
+        return $query->execute();
     }
 
     // /**

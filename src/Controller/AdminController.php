@@ -44,10 +44,12 @@ class AdminController extends AbstractController
     /**
      * @Route("/adminEtudiant{id}", name="FicheEtudiant")
      */
-    public function ficheEtudiant(int $id, EtudiantRepository $repo, Request $req,PromotionRepository $repoPromotion)
+    public function ficheEtudiant(int $id,Request $req,
+    EtudiantRepository $repoEtudiant,PromotionRepository $repoPromotion,CourRepository $repoCour)
     {
         // je selection l'etudiant par son id
-        $etudiant = $repo->find($id);
+        $etudiant = $repoEtudiant->find($id);
+        $cours=$repoCour->findAll();
         if ($req->isMethod('post')) {
             $etudiant->setNom($req->request->get('nom'));
             $etudiant->setPrenom($req->request->get('prenom'));
@@ -60,7 +62,8 @@ class AdminController extends AbstractController
         $entityManager->persist($etudiant);
         $entityManager->flush();
         return $this->render('admin/ficheEtudiant.html.twig', [
-            'etudiant' => $etudiant
+            'etudiant' => $etudiant,
+            'cours'=>$cours
         ]);
     }
     /**
@@ -120,9 +123,10 @@ class AdminController extends AbstractController
     /**
     * @Route("/adminMatiere", name="adminMatiere")
     */
-    public function adminMatiere(Request $req, PaginatorInterface $paginator, MatiereRepository $repo)
+    public function adminMatiere(Request $req, PaginatorInterface $paginator, MatiereRepository $repoMatiere)
     {
-        $donnees = $repo->findAll();
+        $donnees = $repoMatiere->findAllOrderByIdDESC
+        ();
         $matieres = $paginator->paginate(
             $donnees, //on passe les donner
             $req->query->getInt('page', 1), // numero de la page en cours ,par default 1
@@ -137,7 +141,6 @@ class AdminController extends AbstractController
     */
     public function ajoutCours($id,Request $req,MatiereRepository $repoMatiere,PromotionRepository $repoPromotion)
     {
-        $message='';
         $cour = new Cour();
         $matiere= $repoMatiere->find($id);
         // je cree l'objet formulaire
@@ -152,8 +155,7 @@ class AdminController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($cour);
             $entityManager->flush();
-            $message='nouveau cour';
-            return $this->render('admin/confirmation.html.twig', compact("message"));
+            return $this->redirectToRoute("adminCours",['id' => $matiere->getId()]);
         }
         return $this->render('admin/superAdmin/ajoutCour.html.twig', [
             'form' => $form->createView(),
@@ -164,14 +166,29 @@ class AdminController extends AbstractController
     /**
     * @Route("/adminCours/{id}", name="adminCours")
     */
-    public function adminCour($id,CourRepository $repoCour)
-    {   
+    public function adminCour($id,CourRepository $repoCour,MatiereRepository $repoMatiere)
+    {
+        $matiere= $repoMatiere->find($id);  
         $cours = $repoCour->findByMatiere($id);
         return $this->render('admin/adminCours.html.twig',[
+            'matiere'=>$matiere,
             'cours'=>$cours,
         ]);
     } 
 
+    /**
+    * @Route("/suprimerCour/{id}", name="suprimerCour")
+    */
+    public function suprimeCour($id, CourRepository $repo)
+    {
+        $cour = $repo->findOneById($id);
+        $id=$cour->getMatiere()->getId();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($cour);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('adminCours',compact('id'));
+    } 
     /****************************************************************fin administration cour******************************/
     /**************************************************************** administration absence******************************/
     /**
@@ -196,7 +213,7 @@ class AdminController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('adminAbsences',[
-            'id'=>$id,
+            'id'=>$absence-> getEtudiant()->getId(),
         ]);
     } 
     /****************************************************************fin administration absence******************************/
