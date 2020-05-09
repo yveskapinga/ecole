@@ -9,25 +9,24 @@
 {% block body %}
 	{% include "nav/nav_admin.html.twig" %}
 	<section id="contact" class="padd-section wow fadeInUp">
-
 		<div class="container">
+		{% if not matiere.id is null %}
 			<div class="section-title text-center">
 				<h2 style="text-align:center"></h2>
-				<a href="{{ path('ajoutCours',{'id':matiere.id}) }}"><button class="btn btn-primary">ajouter des cours</button></a>
-				<a href="{{ path('adminCours',{'id':matiere.id}) }}"><button class="btn btn-primary">voir les cours</button></a>
+				<a href="{{ path('ajoutCours',{'id':matiere.id}) }}">
+					<button class="btn btn-primary">ajouter des cours</button>
+				</a>
+				<a href="{{ path('adminCours',{'id':matiere.id}) }}">
+					<button class="btn btn-primary">voir les cours</button>
+				</a>
 			</div>
+		{% endif %}
 		</div>
-
 		<div class="container">
 			<div class="row justify-content-center">
-
 				<div class="col-lg-3 col-md-4">
-
-
-					<p>a fin de bien ajouter la matiere vous devez indiquer le numero de l'enseigne qui lui correspond</p>
-
+					<p>a fin de bien ajouter la matiere vous devez indiquer  l'enseigne qui lui correspond</p>
 				</div>
-
 				<div class="col-lg-5 col-md-8">
 					<div class="form">
 						<div id="sendmessage"></div>
@@ -35,14 +34,15 @@
 						<form method="post" role="form">
 							<div class="form-group">
 								<label for="nom">nom de la matiere</label>
-								<input type="text" class="form-control" value="{{matiere.nom}}" name="nom" id="nom" />
+								<input type="text" class="form-control" value="{{matiere.nom}}" name="nom" id="nom"/>
 							</div>
 							<div class="form-group">
-								<label for="enseigne">ID de l'enseigne</label>
-								<input type="number" name="enseigne" class="form-control" id="enseigne" value="{{matiere.enseigne.id}}" />
-									<div>
-										<span style="color: red;">{{messageErreur}}</span>
-									</div>
+								<label for="enseigne">l'enseigne</label>
+								<select name="enseigne" class="form-control">
+									{% for enseigne in enseignes%}
+										<option value="{{enseigne.id}}">{{enseigne.nom}}</option>
+									{% endfor %}
+								</select>
 							</div>
 							<div class="text-center">
 								<button type="submit">Ajouter</button>
@@ -52,9 +52,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="container">
-			
-		</div>
+		<div class="container"></div>
 	</section>
 	<!-- #contact -->
 	{% block javascripts %}

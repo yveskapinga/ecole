@@ -109,26 +109,18 @@ class SuperAdminController extends AbstractController
     */
     public function ajoutMatiere($id=0,Request $req, EnseigneRepository $repoEnseigne,MatiereRepository $repoMatiere)
     {
-        $messageErreur='';
-        $matiere = $id==0?clone $repoMatiere->find(1):$repoMatiere->find($id);
+        $matiere = $id==0?new Matiere:$repoMatiere->find($id);
         $entityManager = $this->getDoctrine()->getManager();
+        $enseignes = $repoEnseigne->findAll();
         if ($req->isMethod('post')) {
-            $enseignes = $repoEnseigne->findAll();
-            foreach ($enseignes as $el)
-                if ($req->request->get('enseigne') == $el->getId()) {
-                    //ici je verifie si l'enseigne saisie existe a fin de lui ajouter une matiere
                     $matiere->setNom($req->request->get('nom'));
-                    $matiere->setEnseigne($el);
+                    $matiere->setEnseigne($repoEnseigne->find($req->request->get('enseigne')));
                     $entityManager->persist($matiere);
                     $entityManager->flush();
-                    break;
-                }else{
-                    $messageErreur="id non valide";
                 }
-        }
         return $this->render('admin/superAdmin/ajoutMatiere.html.twig', [
+            'enseignes'=>$enseignes,
             'matiere' => $matiere,
-            'messageErreur' => $messageErreur,
         ]);
     }
     /**
