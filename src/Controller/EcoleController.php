@@ -141,7 +141,7 @@ class EcoleController extends AbstractController
             {
                 return $this->redirectToRoute('etudiant');
             }
-            //je verfie si l'email est valide avnt d'enrigistre
+            //je verfie si l'email est valide avant d'enrigistré
             if(filter_var($etudiant->getEmail(), FILTER_VALIDATE_EMAIL) && 
             $req->request->get('confirmPassword')==$etudiant->getPassword())
             {
@@ -158,7 +158,6 @@ class EcoleController extends AbstractController
                 $messageEmail = 'email non valide';
             }
         }
-        dump($etudiant->getPassword()==null );
         return $this->render('pages/etudiant.html.twig',[
            'form'=>$form->createView(),
            'user'=>$this->get('session')->get('user'),
