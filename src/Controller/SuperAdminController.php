@@ -218,7 +218,8 @@ class SuperAdminController extends AbstractController
         }
         return $this->render('admin/superAdmin/promotion.html.twig',[
             'form' => $form->createView(),
-            'enseignes'=>$enseignes
+            'enseignes'=>$enseignes,
+            'promotion'=>$promotion
         ]);
     }
     /**

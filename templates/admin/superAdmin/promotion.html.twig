@@ -20,7 +20,11 @@
 				<label>ID_ENSEIGNE</label>
 				<select name="enseigne">
 					{% for enseigne in enseignes %}
-						<option value="{{enseigne.id}}">{{enseigne.nom}}</option>
+						{% if promotion.enseigne.id == enseigne.id %}
+							<option value="{{enseigne.id}}" selected>{{enseigne.nom}}</option>
+						{% else %}
+							<option value="{{enseigne.id}}">{{enseigne.nom}}</option>
+						{% endif %}
 					{% endfor %}
 				</select>
 				{# <input type="number" name="enseigne"> #}
