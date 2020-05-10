@@ -191,6 +191,7 @@ class SuperAdminController extends AbstractController
     public function promotion($id=0,Request $req ,EnseigneRepository $repoEnseigne,PromotionRepository $repoPromotion)
     {
         $promotion = $id==0?new Promotion():$repoPromotion->find($id);
+        $enseignes= $repoEnseigne->findAll();
         $form = $this->createForm(PromotionType::class, $promotion);
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid())
@@ -203,7 +204,8 @@ class SuperAdminController extends AbstractController
             return $this->redirectToRoute('adminPromotion');
         }
         return $this->render('admin/superAdmin/promotion.html.twig',[
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'enseignes'=>$enseignes
         ]);
     }
     /**

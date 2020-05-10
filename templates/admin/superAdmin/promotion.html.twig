@@ -18,7 +18,12 @@
 			</div>
 			<div class="form-group">
 				<label>ID_ENSEIGNE</label>
-				<input type="number" name="enseigne">
+				<select name="enseigne">
+					{% for enseigne in enseignes %}
+						<option value="{{enseigne.id}}">{{enseigne.nom}}</option>
+					{% endfor %}
+				</select>
+				{# <input type="number" name="enseigne"> #}
 			</div>
 			{{ form_end(form) }}
 			<!--form-->
