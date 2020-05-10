@@ -31,8 +31,22 @@
 								<input type="text" class="list-group-item" value="{{etudiant.adresses}}" name="adresses">
 								<label>date de naissance:</label>
 								<input type="date" class="list-group-item" value="{{etudiant.dateDeNaissance | date('d/m/Y') }}" name="dateNaissance">
+								{% if etudiant.inscrit %}
 								<label>promotion:</label>
-								<input type="number" class="list-group-item" {% if etudiant.promotion != null %} value="{{etudiant.promotion.id}}" {% endif %} name="promotion">
+								<select name="promotion">
+								{% for promotion in promotions%}
+									{% if etudiant.promotion != null %}
+										{% if etudiant.promotion.id == promotion.id %}
+											<option value="{{etudiant.promotion.id}}" selected> {{etudiant.promotion.libelle}} </option>
+										{% else %}
+											<option value="{{promotion.id}}"> {{promotion.libelle}} </option>
+										{% endif %}
+									{% else %}
+										<option value="{{promotion.id}}"> {{promotion.libelle}} </option>
+									{% endif %}
+								{% endfor %}
+								</select>
+								{% endif %}
 								<label>inscription:</label>
 								<li class="list-group-item">
 									<a href="{{ path('inscriptionEtudiant',{'id':etudiant.id}) }}">

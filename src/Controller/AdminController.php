@@ -49,6 +49,7 @@ class AdminController extends AbstractController
     {
         // je selection l'etudiant par son id
         $etudiant = $repoEtudiant->find($id);
+        $promotions= $repoPromotion->findAll();
         $cours=$repoCour->findAll();
         if ($req->isMethod('post')) {
             $etudiant->setNom($req->request->get('nom'));
@@ -63,7 +64,8 @@ class AdminController extends AbstractController
         $entityManager->flush();
         return $this->render('admin/ficheEtudiant.html.twig', [
             'etudiant' => $etudiant,
-            'cours'=>$cours
+            'cours'=>$cours,
+            'promotions'=>$promotions
         ]);
     }
     /**
@@ -142,6 +144,7 @@ class AdminController extends AbstractController
     public function ajoutCours($id,Request $req,MatiereRepository $repoMatiere,PromotionRepository $repoPromotion)
     {
         $cour = new Cour();
+        $promotions = $repoPromotion->findAll();
         $matiere= $repoMatiere->find($id);
         // je cree l'objet formulaire
         $form = $this->createForm(CourType::class, $cour);
@@ -159,6 +162,7 @@ class AdminController extends AbstractController
         }
         return $this->render('admin/superAdmin/ajoutCour.html.twig', [
             'form' => $form->createView(),
+            'promotions'=>$promotions
         ]);
     }
     /****************************************************************fin administartion matiere*****************************/

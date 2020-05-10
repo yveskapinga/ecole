@@ -25,7 +25,12 @@
 		</div>
 		<div class="form-group">
 			<label for="promotion">promotion</label>
-			<input type="number" name="promotion" id="promotion" class='form-control'/>
+			<select  name="promotion">
+				{% for promotion in promotions%}
+					<option value="{{promotion.id}}">{{promotion.libelle}}</option>
+				{% endfor %}
+			</select>
+			{# <input type="number" name="promotion" id="promotion" class='form-control'/> #}
 		</div>
 		{{ form_end(form) }}
 		<!--form-->
