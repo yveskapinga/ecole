@@ -152,11 +152,12 @@ class SuperAdminController extends AbstractController
     }
 
     /**
+    * @Route("/modifierEnseigne/{id}", name="modifierEnseigne")
     * @Route("/enseigne", name="enseigne")
     */
-    public function enseigne(Request $req)
+    public function enseigne($id=0,Request $req,EnseigneRepository $repoEnseigne)
     {
-        $enseigne = new Enseigne();
+        $enseigne = $id==0? new Enseigne():$repoEnseigne->find($id);
         $form = $this->createForm(EnseigneType::class, $enseigne);
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid())
@@ -169,6 +170,18 @@ class SuperAdminController extends AbstractController
         return $this->render('admin/superAdmin/enseigne.html.twig',[
             'form' => $form->createView()
         ]);
+    }
+    /**
+    * @Route("/suprimerEnseigne/{id}", name="suprimerEnseigne")
+    */
+    public function suprimerEnseigne($id, EnseigneRepository $repo)
+    {
+        $enseigne = $repo->findOneById($id);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($enseigne);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('adminEnseigne');
     }
     /******************fin administration enseigne***************/
 

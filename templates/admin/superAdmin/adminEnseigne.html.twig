@@ -29,6 +29,12 @@
 						<td>{{enseigne.id}}</td>
 						<td>{{enseigne.nom}}</td>
 						<td>{{enseigne.libelle}}</td>
+						<td>
+							<a href="{{ path('modifierEnseigne',{'id':enseigne.id}) }}">Modifier</a>
+						</td>
+						<td>
+							<a onclick="return confirm('êtes vous sûr de suprimer')" href="{{ path('suprimerEnseigne',{'id':enseigne.id}) }}">Suprimer</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>
