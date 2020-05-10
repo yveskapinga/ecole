@@ -20,7 +20,7 @@
 				<label>ID_ENSEIGNE</label>
 				<select name="enseigne">
 					{% for enseigne in enseignes %}
-						{% if promotion.enseigne.id == enseigne.id %}
+						{% if promotion.id != null and promotion.enseigne.id == enseigne.id %}
 							<option value="{{enseigne.id}}" selected>{{enseigne.nom}}</option>
 						{% else %}
 							<option value="{{enseigne.id}}">{{enseigne.nom}}</option>
