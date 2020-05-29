@@ -82,7 +82,7 @@ class SuperAdminController extends AbstractController
             return $this->redirectToRoute('adminEnseignant');
         }
         return $this->render('admin/superAdmin/modifierEnseignant.html.twig', [
-            'role'=>$enseignant->getRoles()[0],
+            'role_actuel'=>$enseignant->getRoles()[0],
             'form' => $form->createView()
         ]);
     }

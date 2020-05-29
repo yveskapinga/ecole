@@ -7,6 +7,7 @@
 {% endblock %}
 {% block body %}
 	{% include "nav/nav_admin.html.twig" %}
+	{% set roles = ['ROLE_USER','ROLE_ADMIN','ROLE_SUPER_ADMIN']%}
 	<div class="container">
 		<div class="col-lg-12 col-md-12">
 			<div class="form">
@@ -28,7 +29,16 @@
 				</div>
 				<div class="form-group">
 					<label>role</label>
-					<input type="text" class="form-control" name="role" value={{role}}>
+					{# <input type="text" class="form-control" name="role" value={{role}}> #}
+					<select name="role" class="form-control">
+						{% for role in roles %}
+							{% if role == role_actuel %}
+								<option value="{{role}}" selected>{{role}}</option>
+							{% else %}
+								<option value="{{role}}">{{role}}</option>
+							{% endif %}
+						{% endfor %}
+					</select>
 				</div>
 				<div class="form-group">
 					<label for="photo">photo</label>
