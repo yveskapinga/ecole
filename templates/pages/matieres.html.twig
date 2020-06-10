@@ -7,31 +7,40 @@
 	{{ parent() }}
 {% endblock %}
 {% block body %}
-	 {% include "nav/nav_etudiant.html.twig" %}
+	{% include "nav/nav_etudiant.html.twig" %}
 	<section id="matiere" class="padd-section text-center wow fadeInUp">
 
 		<div class="container">
 			<div class="section-title text-center">
 				<h2>MATIERS</h2>
-				<p class="separator count">Les {{ matieres.getTotalItemCount }} Matiers que nous proposant.</p>
-				
+				<p class="separator count">Les
+					{{ matieres.getTotalItemCount }}
+					Matiers que nous proposant.</p>
+
 			</div>
 		</div>
 		<div class="container">
-		<div class ="row">
-			{% for matiere in matieres %}
-			<div class="card col-md-4" style="width: 18rem;">
-				<div class="card-body">
-					<h5 class="card-title">ID:{{ matiere.getId() }} </h5>
-					<p class="card-text">Nom:{{ matiere.getNom() }}</p>
-					<a href="{{ path('cour',{'id':matiere.id}) }}" class="btn btn-primary">voir les cours</a>
-				</div>
-			</div>
-			{% endfor %}
+			<form class="example" action="action_page.php">
+				<input type="text" placeholder="Search.." name="search">
+				<button type="submit">
+					<i class="fa fa-search"></i>
+				</button>
+			</form>
+			<div class="row">
+				{% for matiere in matieres %}
+					<div class="card col-md-4" style="width: 18rem;">
+						<div class="card-body">
+							<h5 class="card-title">ID:{{ matiere.getId() }}
+							</h5>
+							<p class="card-text">Nom:{{ matiere.getNom() }}</p>
+							<a href="{{ path('cour',{'id':matiere.id}) }}" class="btn btn-primary">voir les cours</a>
+						</div>
+					</div>
+				{% endfor %}
 			</div>
 		</div>
 		<div class="navigation">
-		{{ knp_pagination_render(matieres) }}
+			{{ knp_pagination_render(matieres) }}
 		</div>
 	</section>
 	{% block javascripts %}
