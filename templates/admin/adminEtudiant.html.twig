@@ -31,7 +31,7 @@
 					<td>{{etudiant.dateDeNaissance | date('d/m/Y') }}</td>
 					<td>{% if etudiant.promotion %}{{etudiant.promotion.libelle}}{% endif %}</td>
 					<td>{% if etudiant.inscrit %}inscrit{% else %}non inscrit{% endif %}</td>
-                    <td><a href="{{ path('FicheEtudiant' ,{'id':etudiant.id}) }}">Modifier</a></td>
+                    <td><button><a href="{{ path('FicheEtudiant' ,{'id':etudiant.id}) }}">Modifier</a></button></td>
 				</tr>
 				{% endfor %}
 			</tbody>
