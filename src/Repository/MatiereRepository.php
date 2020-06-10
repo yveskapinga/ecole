@@ -37,6 +37,23 @@ class MatiereRepository extends ServiceEntityRepository
         $query =$qb->getQuery();
         return $query->execute();
     }
+    /**
+     * @return Matiere[]
+     */
+    public function findByName($nom): array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT m
+            FROM App\Entity\Matiere m
+            WHERE m.nom like :nom
+            ORDER BY m.id ASC'
+        )->setParameter('nom', '%'.$nom.'%');
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
 
     // /**
     //  * @return Matiere[] Returns an array of Matiere objects
