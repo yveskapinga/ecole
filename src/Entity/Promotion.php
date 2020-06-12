@@ -29,12 +29,12 @@ class Promotion
     private $etudiants;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Cour", mappedBy="promotion")
+     * @ORM\OneToMany(targetEntity="App\Entity\Cour", mappedBy="promotion",cascade={"remove"})
      */
     private $cours;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Enseigne", inversedBy="promotions")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Enseigne", inversedBy="promotions" ,cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $enseigne;

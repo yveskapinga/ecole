@@ -24,7 +24,7 @@ class Matiere
     private $nom;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Enseigne")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Enseigne" ,cascade={"remove"} )
      * @ORM\JoinColumn(nullable=true)
      */
     private $enseigne;

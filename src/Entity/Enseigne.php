@@ -29,7 +29,7 @@ class Enseigne
     private $libelle;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Promotion", mappedBy="enseigne")
+     * @ORM\OneToMany(targetEntity="App\Entity\Promotion", mappedBy="enseigne" ,cascade={"remove"})
      */
     private $promotions;
 

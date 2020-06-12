@@ -174,14 +174,23 @@ class SuperAdminController extends AbstractController
     /**
     * @Route("/suprimerEnseigne/{id}", name="suprimerEnseigne")
     */
-    public function suprimerEnseigne($id, EnseigneRepository $repo)
+    public function suprimerEnseigne($id, EnseigneRepository $repoEnseigne,MatiereRepository $repoMatiere)
     {
-        $enseigne = $repo->findOneById($id);
+        $delete = true;
+        $enseigne = $repoEnseigne->findOneById($id);
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($enseigne);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('adminEnseigne');
+        $matieres = $repoMatiere->findAll();
+        foreach($matieres as $matiere){
+            if($matiere->getEnseigne() == $enseigne)
+                $delete=false;
+        }
+        if($delete){
+            $entityManager->remove($enseigne);
+            $entityManager->flush();
+            return $this->redirectToRoute('adminEnseigne');
+        }else{
+            return $this->render('admin/superAdmin/erreurEnseigne.html.twig');
+        }
     }
     /******************fin administration enseigne***************/
 

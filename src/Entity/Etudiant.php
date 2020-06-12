@@ -65,7 +65,7 @@ class Etudiant{
     private $absences;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Promotion", inversedBy="etudiants")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Promotion", inversedBy="etudiants" ,cascade={"remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $promotion;
